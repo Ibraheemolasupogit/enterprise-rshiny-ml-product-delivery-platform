@@ -36,14 +36,14 @@ jobs:
       - name: Build R-Shiny image
         run: docker build -f infrastructure/docker/Dockerfile.rshiny --build-arg IMAGE_REVISION=uncommitted -t enterprise-ml-product-rshiny:0.1.0-uncommitted .
       - name: Trivy API image scan
-        uses: aquasecurity/trivy-action@0.24.0 # Fixed release tag; high/critical findings block.
+        uses: aquasecurity/trivy-action@v0.36.0 # Fixed release tag; high/critical findings block.
         with:
           image-ref: enterprise-ml-product-api:0.1.0-uncommitted
           severity: HIGH,CRITICAL
           exit-code: "1"
           ignore-unfixed: true
       - name: Trivy R-Shiny image scan
-        uses: aquasecurity/trivy-action@0.24.0 # Fixed release tag; high/critical findings block.
+        uses: aquasecurity/trivy-action@v0.36.0 # Fixed release tag; high/critical findings block.
         with:
           image-ref: enterprise-ml-product-rshiny:0.1.0-uncommitted
           severity: HIGH,CRITICAL

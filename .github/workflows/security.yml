@@ -36,7 +36,7 @@ jobs:
       - name: Python dependency audit
         run: pip-audit --strict
       - name: Trivy filesystem scan
-        uses: aquasecurity/trivy-action@0.24.0 # Fixed release tag; high/critical findings block.
+        uses: aquasecurity/trivy-action@v0.36.0 # Fixed release tag; high/critical findings block.
         with:
           scan-type: fs
           scan-ref: .

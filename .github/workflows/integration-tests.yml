@@ -41,6 +41,8 @@ jobs:
         run: python -m ml_product.cli validate-registry --config config/model_registry.yaml
       - name: Serving readiness validation
         run: python -m ml_product.cli validate-serving --registry-config config/model_registry.yaml --serving-config config/serving.yaml
+      - name: Monitoring baseline build
+        run: python -m ml_product.cli build-monitoring-baseline --config config/monitoring.yaml --threshold-config config/drift_thresholds.yaml --replace
       - name: Monitoring run
         run: python -m ml_product.cli run-monitoring --config config/monitoring.yaml --threshold-config config/drift_thresholds.yaml --current-window tests/fixtures/monitoring/moderate_drift --replace
       - name: Retraining review validation
