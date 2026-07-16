@@ -1,0 +1,34 @@
+{
+  "state_fields": [
+    "registry_state",
+    "approval_status",
+    "activation_status"
+  ],
+  "review_flags": [
+    {
+      "code": "weak_test_specificity",
+      "detail": "Locked test specificity is 0.4.",
+      "type": "review_flag"
+    },
+    {
+      "code": "small_test_set",
+      "detail": "Locked test set has 23 synthetic rows.",
+      "type": "informational_limitation"
+    },
+    {
+      "code": "fairness_groups_suppressed",
+      "detail": "Some subgroup metrics are suppressed below minimum group size.",
+      "type": "review_flag"
+    },
+    {
+      "code": "synthetic_only",
+      "detail": "Evidence uses synthetic data only and is not clinical validation.",
+      "type": "informational_limitation"
+    }
+  ],
+  "read_only_enforcement": true,
+  "no_action_controls": true,
+  "approval_pending": true,
+  "activation_inactive": true,
+  "governance_recommendation": "defer"
+}

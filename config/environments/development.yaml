@@ -1,0 +1,8 @@
+version: "0.1.0"
+description: "Local development environment metadata for Milestone 1 validation."
+implementation_status: implemented
+enabled: true
+environment: development
+deployed: false
+synthetic_data_only: true
+override_behaviour: "Local environment variables may override committed placeholders."

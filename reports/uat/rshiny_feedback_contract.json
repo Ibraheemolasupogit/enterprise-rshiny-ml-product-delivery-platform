@@ -1,0 +1,15 @@
+{
+  "feedback_type": "synthetic product feedback",
+  "identifier_collection": false,
+  "clinical_outcome_collection": false,
+  "stored_fields": [
+    "feedback_id",
+    "timestamp",
+    "session_hash",
+    "ratings",
+    "comment_length",
+    "review_mode",
+    "model_registry_version"
+  ],
+  "ignored_output_path": "data/monitoring/shiny_feedback.jsonl"
+}

@@ -1,0 +1,16 @@
+{
+  "alerts": [],
+  "error_count": 0,
+  "error_rate": 0.0,
+  "event_count": 40,
+  "evidence_label": "local service operational evidence",
+  "malformed_event_count": 0,
+  "median_latency_ms": 150.0,
+  "p95_latency_ms": 180.0,
+  "p99_latency_ms": 180.0,
+  "review_mode_event_count": 40,
+  "section": "operational_monitoring",
+  "status": "pass",
+  "success_count": 40,
+  "unknown_version_events": 0
+}

@@ -1,0 +1,43 @@
+{
+  "conditions": [
+    "Review operational false-positive impact before approval."
+  ],
+  "hard_requirements": {
+    "explainability_available": true,
+    "fairness_report_available": true,
+    "feature_schema_match": true,
+    "leakage_violations": true,
+    "model_card_complete": true,
+    "reproducibility_passed": true,
+    "test_set_used_for_selection": true
+  },
+  "human_decision_required": true,
+  "informational_limitations": [
+    "Synthetic-data decision-support prototype.",
+    "Native XGBoost runtime depends on compatible OpenMP availability.",
+    "No production deployment or clinical use is approved."
+  ],
+  "recommended_decision": "defer",
+  "review_flags": [
+    {
+      "code": "weak_test_specificity",
+      "detail": "Locked test specificity is 0.4.",
+      "type": "review_flag"
+    },
+    {
+      "code": "small_test_set",
+      "detail": "Locked test set has 23 synthetic rows.",
+      "type": "informational_limitation"
+    },
+    {
+      "code": "fairness_groups_suppressed",
+      "detail": "Some subgroup metrics are suppressed below minimum group size.",
+      "type": "review_flag"
+    },
+    {
+      "code": "synthetic_only",
+      "detail": "Evidence uses synthetic data only and is not clinical validation.",
+      "type": "informational_limitation"
+    }
+  ]
+}

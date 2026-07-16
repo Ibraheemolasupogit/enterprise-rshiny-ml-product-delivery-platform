@@ -1,0 +1,89 @@
+{
+  "historical_test_set_used_for_selection": false,
+  "rows": [
+    {
+      "balanced_accuracy": 1.0,
+      "brier_score": 0.029052441545857403,
+      "calibration": "sigmoid_reviewed",
+      "candidate_identifier": "RETRAIN-CAND-0D684BC55EA8",
+      "confusion_matrix": {
+        "false_negatives": 0,
+        "false_positives": 0,
+        "true_negatives": 3,
+        "true_positives": 9
+      },
+      "f1": 1.0,
+      "feature_count": 71,
+      "historical_test_set_used_for_selection": false,
+      "log_loss": 0.14656635765179346,
+      "model_family": "logistic_regression",
+      "model_role": "challenger",
+      "pr_auc": 1.0000000000000002,
+      "precision": 1.0,
+      "recall": 1.0,
+      "reproducible": true,
+      "roc_auc": 1.0,
+      "runtime": "local_deterministic",
+      "schema_compatible": true,
+      "specificity": 1.0,
+      "threshold": 0.40000000000000013,
+      "weighted_cost": 0.0
+    },
+    {
+      "balanced_accuracy": 0.8333333333333333,
+      "brier_score": 0.11804824174142203,
+      "calibration": "sigmoid_reviewed",
+      "candidate_identifier": "RETRAIN-CAND-58BA5CA38006",
+      "confusion_matrix": {
+        "false_negatives": 0,
+        "false_positives": 1,
+        "true_negatives": 2,
+        "true_positives": 9
+      },
+      "f1": 0.9473684210526315,
+      "feature_count": 71,
+      "historical_test_set_used_for_selection": false,
+      "log_loss": 0.36879762718235937,
+      "model_family": "random_forest",
+      "model_role": "challenger",
+      "pr_auc": 1.0000000000000002,
+      "precision": 0.9,
+      "recall": 1.0,
+      "reproducible": true,
+      "roc_auc": 1.0,
+      "runtime": "local_deterministic",
+      "schema_compatible": true,
+      "specificity": 0.6666666666666666,
+      "threshold": 0.6500000000000001,
+      "weighted_cost": 1.0
+    },
+    {
+      "balanced_accuracy": 1.0,
+      "brier_score": 0.08362144231796265,
+      "calibration": "sigmoid_reviewed",
+      "candidate_identifier": "RETRAIN-CAND-B65A4A801E46",
+      "confusion_matrix": {
+        "false_negatives": 0,
+        "false_positives": 0,
+        "true_negatives": 3,
+        "true_positives": 9
+      },
+      "f1": 1.0,
+      "feature_count": 71,
+      "historical_test_set_used_for_selection": false,
+      "log_loss": 0.28295488558325604,
+      "model_family": "xgboost",
+      "model_role": "challenger",
+      "pr_auc": 1.0000000000000002,
+      "precision": 1.0,
+      "recall": 1.0,
+      "reproducible": true,
+      "roc_auc": 1.0,
+      "runtime": "local_deterministic",
+      "schema_compatible": true,
+      "specificity": 1.0,
+      "threshold": 0.6000000000000002,
+      "weighted_cost": 0.0
+    }
+  ]
+}

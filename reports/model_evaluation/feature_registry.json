@@ -1,0 +1,577 @@
+{
+  "coverage_valid": true,
+  "features": [
+    {
+      "feature_group": "derived",
+      "feature_name": "age__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "age",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "predictor",
+      "feature_name": "age",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "age",
+      "transformation": "median_impute_standard_scale"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "deprivation_decile__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "deprivation_decile",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "predictor",
+      "feature_name": "deprivation_decile",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "deprivation_decile",
+      "transformation": "median_impute_standard_scale"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "comorbidity_count__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "comorbidity_count",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "predictor",
+      "feature_name": "comorbidity_count",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "comorbidity_count",
+      "transformation": "median_impute_standard_scale"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "previous_admissions_12m__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "previous_admissions_12m",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "predictor",
+      "feature_name": "previous_admissions_12m",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "previous_admissions_12m",
+      "transformation": "median_impute_standard_scale"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "initial_news2_score__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "initial_news2_score",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "predictor",
+      "feature_name": "initial_news2_score",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "initial_news2_score",
+      "transformation": "median_impute_standard_scale"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "diagnosis_count__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "diagnosis_count",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "predictor",
+      "feature_name": "diagnosis_count",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "diagnosis_count",
+      "transformation": "median_impute_standard_scale"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "secondary_diagnosis_count__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "secondary_diagnosis_count",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "predictor",
+      "feature_name": "secondary_diagnosis_count",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "secondary_diagnosis_count",
+      "transformation": "median_impute_standard_scale"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "occupancy_rate__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "occupancy_rate",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "predictor",
+      "feature_name": "occupancy_rate",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "occupancy_rate",
+      "transformation": "median_impute_standard_scale"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "staff_to_bed_ratio__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "staff_to_bed_ratio",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "predictor",
+      "feature_name": "staff_to_bed_ratio",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "staff_to_bed_ratio",
+      "transformation": "median_impute_standard_scale"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "admission_hour__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_hour",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "predictor",
+      "feature_name": "admission_hour",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_hour",
+      "transformation": "median_impute_standard_scale"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "admission_month__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_month",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "predictor",
+      "feature_name": "admission_month",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_month",
+      "transformation": "median_impute_standard_scale"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "weekend_admission__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "weekend_admission",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "predictor",
+      "feature_name": "weekend_admission",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "weekend_admission",
+      "transformation": "mode_impute_boolean_to_integer"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "sex__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "sex",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "sex__female",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "sex",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "sex__male",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "sex",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "sex__not_specified",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "sex",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "postcode_region__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "postcode_region",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "postcode_region__sr_central",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "postcode_region",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "postcode_region__sr_east",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "postcode_region",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "postcode_region__sr_north",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "postcode_region",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "postcode_region__sr_south",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "postcode_region",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "postcode_region__sr_west",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "postcode_region",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "admission_type__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_type",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "admission_type__emergency",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_type",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "admission_type__planned",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_type",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "admission_type__urgent",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_type",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "source_of_admission__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "source_of_admission",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "source_of_admission__care_facility",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "source_of_admission",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "source_of_admission__clinic",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "source_of_admission",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "source_of_admission__home",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "source_of_admission",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "source_of_admission__transfer",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "source_of_admission",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "mobility_status__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "mobility_status",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "mobility_status____missing__",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "mobility_status",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "mobility_status__assisted",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "mobility_status",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "mobility_status__bedbound",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "mobility_status",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "mobility_status__independent",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "mobility_status",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "mobility_status__limited",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "mobility_status",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "primary_diagnosis_group__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "primary_diagnosis_group",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "primary_diagnosis_group__cardiovascular_synthetic",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "primary_diagnosis_group",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "primary_diagnosis_group__frailty_synthetic",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "primary_diagnosis_group",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "primary_diagnosis_group__infection_synthetic",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "primary_diagnosis_group",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "primary_diagnosis_group__other_synthetic",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "primary_diagnosis_group",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "primary_diagnosis_group__respiratory_synthetic",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "primary_diagnosis_group",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "primary_diagnosis_group__surgical_synthetic",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "primary_diagnosis_group",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "primary_diagnosis_complexity__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "primary_diagnosis_complexity",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "primary_diagnosis_complexity__high",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "primary_diagnosis_complexity",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "primary_diagnosis_complexity__low",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "primary_diagnosis_complexity",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "primary_diagnosis_complexity__moderate",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "primary_diagnosis_complexity",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "admission_day_of_week__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_day_of_week",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "admission_day_of_week__friday",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_day_of_week",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "admission_day_of_week__monday",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_day_of_week",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "admission_day_of_week__saturday",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_day_of_week",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "admission_day_of_week__sunday",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_day_of_week",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "admission_day_of_week__thursday",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_day_of_week",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "admission_day_of_week__tuesday",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_day_of_week",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "admission_day_of_week__wednesday",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_day_of_week",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "derived",
+      "feature_name": "admission_season__missing",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_season",
+      "transformation": "missing_indicator"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "admission_season__spring",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_season",
+      "transformation": "explicit_missing_one_hot"
+    },
+    {
+      "feature_group": "categorical",
+      "feature_name": "admission_season__winter",
+      "leakage_status": "permitted",
+      "prediction_time_available": true,
+      "source_column": "admission_season",
+      "transformation": "explicit_missing_one_hot"
+    }
+  ],
+  "output_feature_count": 71,
+  "registry_entry_count": 71,
+  "stable_ordering_valid": true,
+  "version": "0.5.0"
+}

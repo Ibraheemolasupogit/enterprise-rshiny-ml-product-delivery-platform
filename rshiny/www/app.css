@@ -1,0 +1,111 @@
+body {
+  background: #f7f8fa;
+  color: #1d252d;
+}
+
+.skip-link {
+  background: #ffffff;
+  border: 2px solid #1f6f8b;
+  color: #17324d;
+  left: 0.75rem;
+  padding: 0.65rem 0.9rem;
+  position: absolute;
+  top: -4rem;
+  z-index: 2000;
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+}
+
+:focus-visible {
+  outline: 3px solid #174a7c;
+  outline-offset: 3px;
+}
+
+.btn,
+button,
+input,
+select,
+textarea {
+  min-height: 44px;
+}
+
+main {
+  max-width: 1180px;
+}
+
+.navbar {
+  border-bottom: 1px solid #d8dee6;
+}
+
+.status-banner {
+  padding: 1rem 1.25rem;
+  border-bottom: 2px solid;
+}
+
+.status-banner p {
+  margin: 0.25rem 0;
+}
+
+.status-banner ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.status-banner-review {
+  background: #fff4d6;
+  border-color: #946200;
+}
+
+.status-banner-unavailable,
+.result-error {
+  background: #fde8e7;
+  border-color: #b42318;
+}
+
+.warning-text {
+  color: #6f4700;
+  font-weight: 600;
+}
+
+.prediction-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.75rem 1rem;
+}
+
+.prediction-result,
+.result-error {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #c4ccd6;
+  background: #ffffff;
+}
+
+.probability {
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid #005fcc;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

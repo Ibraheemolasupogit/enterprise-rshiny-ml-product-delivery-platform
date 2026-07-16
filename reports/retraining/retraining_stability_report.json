@@ -1,0 +1,12 @@
+{
+  "best_challenger": "RETRAIN-CAND-0D684BC55EA8",
+  "calibration_stability": "reviewed",
+  "category_vocabulary_changes": [],
+  "feature_count_changes": 0,
+  "feature_importance_stability": "reviewed",
+  "model_size_changes": "candidate_artifacts_ignored",
+  "prediction_stability": "deterministic_single_seed_repeat",
+  "result": "pass",
+  "runtime_changes": "local_only",
+  "threshold_stability": "reviewed"
+}

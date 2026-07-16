@@ -1,0 +1,34 @@
+{
+  "admission_overlap_count": 0,
+  "allocation_strategy": "Sort patients by first admission datetime, then patient_id; allocate whole patient groups to 60/20/20 row-count targets.",
+  "patient_overlap_count": 0,
+  "seed": 20260714,
+  "split_fingerprint": "87d61fbfec1cb0b48afa7edcd047a313533a5d9381697f9472c178ff0e19a3ee",
+  "splits": {
+    "test": {
+      "maximum_admission_date": "2025-03-31",
+      "minimum_admission_date": "2025-03-02",
+      "patient_count": 18,
+      "positive_count": 18,
+      "positive_rate": 0.782609,
+      "row_count": 23
+    },
+    "train": {
+      "maximum_admission_date": "2025-03-30",
+      "minimum_admission_date": "2025-01-01",
+      "patient_count": 45,
+      "positive_count": 63,
+      "positive_rate": 0.887324,
+      "row_count": 71
+    },
+    "validation": {
+      "maximum_admission_date": "2025-03-30",
+      "minimum_admission_date": "2025-02-01",
+      "patient_count": 15,
+      "positive_count": 19,
+      "positive_rate": 0.826087,
+      "row_count": 23
+    }
+  },
+  "strategy": "temporal_patient_group"
+}

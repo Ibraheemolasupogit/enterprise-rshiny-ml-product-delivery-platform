@@ -1,0 +1,7 @@
+{
+  "api_image": "enterprise-ml-product-api:0.1.0-uncommitted",
+  "build_context_validated": true,
+  "image_revision": "uncommitted",
+  "publish_images": false,
+  "rshiny_image": "enterprise-ml-product-rshiny:0.1.0-uncommitted"
+}

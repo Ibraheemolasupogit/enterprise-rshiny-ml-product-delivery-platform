@@ -1,0 +1,27 @@
+{
+  "champion_threshold_preserved": 0.75,
+  "minimum_recall_rule": 0.7,
+  "rows": [
+    {
+      "candidate_identifier": "RETRAIN-CAND-0D684BC55EA8",
+      "model_family": "logistic_regression",
+      "selected_threshold": 0.40000000000000013,
+      "validation_recall": 1.0,
+      "weighted_cost": 0.0
+    },
+    {
+      "candidate_identifier": "RETRAIN-CAND-58BA5CA38006",
+      "model_family": "random_forest",
+      "selected_threshold": 0.6500000000000001,
+      "validation_recall": 1.0,
+      "weighted_cost": 1.0
+    },
+    {
+      "candidate_identifier": "RETRAIN-CAND-B65A4A801E46",
+      "model_family": "xgboost",
+      "selected_threshold": 0.6000000000000002,
+      "validation_recall": 1.0,
+      "weighted_cost": 0.0
+    }
+  ]
+}

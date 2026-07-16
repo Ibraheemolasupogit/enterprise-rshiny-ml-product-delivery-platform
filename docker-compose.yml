@@ -1,0 +1,83 @@
+name: enterprise-rshiny-ml-local
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile.api
+      args:
+        IMAGE_VERSION: "0.1.0"
+        IMAGE_REVISION: "uncommitted"
+    image: enterprise-ml-product-api:0.1.0-uncommitted
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      MODEL_API_KEY: "${MODEL_API_KEY:-placeholder}"
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: bind
+        source: ./data/monitoring
+        target: /app/data/monitoring
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/live').read()"
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    restart: "no"
+    networks:
+      - product-local
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+  rshiny:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile.rshiny
+      args:
+        IMAGE_VERSION: "0.1.0"
+        IMAGE_REVISION: "uncommitted"
+    image: enterprise-ml-product-rshiny:0.1.0-uncommitted
+    ports:
+      - "127.0.0.1:3838:3838"
+    environment:
+      MODEL_API_BASE_URL: "http://api:8000"
+      MODEL_API_KEY: "${MODEL_API_KEY:-placeholder}"
+    depends_on:
+      api:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: bind
+        source: ./data/monitoring
+        target: /srv/shiny-server/enterprise-ml-product/data/monitoring
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - --fail
+        - http://127.0.0.1:3838/
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    restart: "no"
+    networks:
+      - product-local
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+networks:
+  product-local:
+    internal: false
+    driver: bridge

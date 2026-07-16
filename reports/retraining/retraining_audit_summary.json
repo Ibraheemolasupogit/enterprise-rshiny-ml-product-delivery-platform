@@ -1,0 +1,44 @@
+{
+  "absolute_paths_logged": false,
+  "api_keys_logged": false,
+  "events": [
+    {
+      "contains_raw_rows": false,
+      "event_type": "retraining_review_started"
+    },
+    {
+      "contains_raw_rows": false,
+      "event_type": "eligibility_assessed"
+    },
+    {
+      "contains_raw_rows": false,
+      "event_type": "dataset_prepared"
+    },
+    {
+      "contains_raw_rows": false,
+      "event_type": "challenger_training_started"
+    },
+    {
+      "contains_raw_rows": false,
+      "event_type": "challenger_training_completed"
+    },
+    {
+      "contains_raw_rows": false,
+      "event_type": "champion_scored"
+    },
+    {
+      "contains_raw_rows": false,
+      "event_type": "comparison_completed"
+    },
+    {
+      "contains_raw_rows": false,
+      "event_type": "promotion_gates_evaluated"
+    },
+    {
+      "contains_raw_rows": false,
+      "event_type": "recommendation_created"
+    }
+  ],
+  "patient_identifiers_logged": false,
+  "raw_rows_logged": false
+}

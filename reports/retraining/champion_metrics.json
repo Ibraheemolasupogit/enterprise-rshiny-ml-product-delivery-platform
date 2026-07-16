@@ -1,0 +1,37 @@
+{
+  "activation_state": "inactive",
+  "approval_state": "pending",
+  "artefact_checksum_validated": true,
+  "calibration": "sigmoid",
+  "candidate_identifier": "CAND-85EA9202CAD6FE7F",
+  "feature_contract_validated": true,
+  "metrics": {
+    "balanced_accuracy": 0.6111111111111112,
+    "brier_score": 0.2054166666666667,
+    "confusion_matrix": {
+      "false_negatives": 7,
+      "false_positives": 0,
+      "true_negatives": 3,
+      "true_positives": 2
+    },
+    "f1": 0.36363636363636365,
+    "log_loss": 0.5963081685654087,
+    "pr_auc": 0.9328843995510663,
+    "precision": 1.0,
+    "recall": 0.2222222222222222,
+    "reference_locked_test_pr_auc": 0.8660389165549125,
+    "roc_auc": 0.7777777777777778,
+    "specificity": 1.0,
+    "weighted_cost": 35.0
+  },
+  "model_family": "xgboost",
+  "model_name": "long_stay_admission_risk",
+  "model_role": "champion",
+  "preprocessor_checksum_validated": true,
+  "refit_performed": false,
+  "registry_identifier": "MODEL-REG-000001",
+  "registry_state": "registered",
+  "registry_version": 1,
+  "same_row_evaluation": true,
+  "threshold": 0.75
+}

@@ -1,0 +1,217 @@
+{
+  "configuration_fingerprint": "6e5bd61f48c601d102f3297e474b9f850f9369f1fa6ccc6e70415d1fb7a933ab",
+  "dataset_version": "0.2.0",
+  "datasets": {
+    "admissions": {
+      "column_names": [
+        "admission_id",
+        "patient_id",
+        "admission_datetime",
+        "admission_type",
+        "source_of_admission",
+        "ward_id",
+        "initial_news2_score",
+        "mobility_status"
+      ],
+      "columns": 8,
+      "rows": 121
+    },
+    "diagnoses": {
+      "column_names": [
+        "diagnosis_id",
+        "admission_id",
+        "diagnosis_group",
+        "diagnosis_complexity",
+        "primary_diagnosis_flag"
+      ],
+      "columns": 5,
+      "rows": 291
+    },
+    "outcomes": {
+      "column_names": [
+        "admission_id",
+        "discharge_datetime",
+        "length_of_stay_days",
+        "long_stay_flag",
+        "readmission_30d",
+        "discharge_destination"
+      ],
+      "columns": 6,
+      "rows": 120
+    },
+    "patients": {
+      "column_names": [
+        "patient_id",
+        "age",
+        "sex",
+        "postcode_region",
+        "deprivation_decile",
+        "comorbidity_count",
+        "previous_admissions_12m"
+      ],
+      "columns": 7,
+      "rows": 81
+    },
+    "ward_capacity": {
+      "column_names": [
+        "ward_id",
+        "record_date",
+        "staffed_beds",
+        "occupied_beds",
+        "closed_beds",
+        "isolation_capacity"
+      ],
+      "columns": 6,
+      "rows": 360
+    },
+    "workforce": {
+      "column_names": [
+        "workforce_record_id",
+        "ward_id",
+        "record_date",
+        "registered_nurses",
+        "support_workers",
+        "medical_staff",
+        "agency_hours",
+        "vacancy_rate"
+      ],
+      "columns": 8,
+      "rows": 360
+    }
+  },
+  "date_range": {
+    "maximum": "2025-04-13",
+    "minimum": "2025-01-01"
+  },
+  "date_ranges": {
+    "admission_date_range": {
+      "maximum": "2025-03-31",
+      "minimum": "2025-01-01"
+    },
+    "configured_generation_range": {
+      "maximum": "2025-03-31",
+      "minimum": "2025-01-01"
+    },
+    "discharge_date_range": {
+      "maximum": "2025-04-13",
+      "minimum": "2025-01-10"
+    },
+    "overall_observed_date_range": {
+      "maximum": "2025-04-13",
+      "minimum": "2025-01-01"
+    },
+    "ward_capacity_date_range": {
+      "maximum": "2025-03-31",
+      "minimum": "2025-01-01"
+    },
+    "workforce_date_range": {
+      "maximum": "2025-03-31",
+      "minimum": "2025-01-01"
+    }
+  },
+  "determinism_note": "Compare semantic table content and stable metadata; generated_at_utc is intentionally volatile.",
+  "files": {
+    "admissions": {
+      "csv": {
+        "bytes": 9123,
+        "checksum_sha256": "6b7fbd8452796f32ad277d4d407af545ebd34a79eb6c108b420129a460ed7c98",
+        "path": "data/sample/admissions.csv"
+      },
+      "parquet": {
+        "bytes": 8037,
+        "checksum_sha256": "9ad27170a096261edcd19df4c9c9f93acae8ecfdd02d4c878fdd546b9bf54c0f",
+        "path": "data/sample/admissions.parquet"
+      }
+    },
+    "data_quality_issues.json": {
+      "json": {
+        "bytes": 3085,
+        "checksum_sha256": "4544b7a554d8f89e96696d46d0796a981ee2eb28599224117fe06e57c9d0c552",
+        "path": "data/sample/data_quality_issues.json"
+      }
+    },
+    "dataset_summary.json": {
+      "json": {
+        "bytes": 2126,
+        "checksum_sha256": "dc32e435eafe5274e15078f017e88f9a8b577c196318155893af88efc2ee3817",
+        "path": "data/sample/dataset_summary.json"
+      }
+    },
+    "diagnoses": {
+      "csv": {
+        "bytes": 15777,
+        "checksum_sha256": "1f2c736a0b5962290e46bc7efa1b5dc683246a227fa3ba849872176c76f15c49",
+        "path": "data/sample/diagnoses.csv"
+      },
+      "parquet": {
+        "bytes": 6657,
+        "checksum_sha256": "cf58f6e4e00cb559f205aadc0e0d29566307cc692e958a0be011f5087d9786ce",
+        "path": "data/sample/diagnoses.parquet"
+      }
+    },
+    "outcomes": {
+      "csv": {
+        "bytes": 6274,
+        "checksum_sha256": "7b58d80996a0194529ca2bf4d6b87950cd4ec8d1b3455f8976e8f6018db8de7d",
+        "path": "data/sample/outcomes.csv"
+      },
+      "parquet": {
+        "bytes": 6213,
+        "checksum_sha256": "95ef2c1b14c6d37d87cb08d1c17c7ab0427b78963275718ee7877b2c060b9ff6",
+        "path": "data/sample/outcomes.parquet"
+      }
+    },
+    "patients": {
+      "csv": {
+        "bytes": 3077,
+        "checksum_sha256": "975dd106fb6be73e9b562b089cd90c31e4f4bbec2f3c78a0964cb7fa559c7a78",
+        "path": "data/sample/patients.csv"
+      },
+      "parquet": {
+        "bytes": 5873,
+        "checksum_sha256": "d7d2d4f04cd1684d6494d27c1cc53feccd76439bae22e179fe44d18a91f43f9f",
+        "path": "data/sample/patients.parquet"
+      }
+    },
+    "ward_capacity": {
+      "csv": {
+        "bytes": 10518,
+        "checksum_sha256": "1e839ab63e1dcf3186e004c17d0df25cae1ec1189c68c7d9fceba9517f0e24dc",
+        "path": "data/sample/ward_capacity.csv"
+      },
+      "parquet": {
+        "bytes": 5804,
+        "checksum_sha256": "54f1c199dc690f5f12fba7d78caf7365080389db8e692a861ce2f5361ff07ffb",
+        "path": "data/sample/ward_capacity.parquet"
+      }
+    },
+    "workforce": {
+      "csv": {
+        "bytes": 17090,
+        "checksum_sha256": "a27247abf984348e55828f8b32147929ad0aaf301b8b5b457e6101c205c3064a",
+        "path": "data/sample/workforce.csv"
+      },
+      "parquet": {
+        "bytes": 11666,
+        "checksum_sha256": "5cb695949056906a85b3a2e7bb3412c27b445af0c56080d4323a1de6c17a7f5b",
+        "path": "data/sample/workforce.parquet"
+      }
+    }
+  },
+  "generated_at_utc": "2026-07-14T03:18:02+00:00",
+  "generator_package_version": "0.1.0",
+  "issue_counts_by_type": {
+    "duplicate_admission": 1,
+    "duplicate_patient": 1,
+    "inconsistent_long_stay_flag": 1,
+    "missing_deprivation_decile": 1,
+    "missing_mobility_status": 2,
+    "occupied_beds_over_capacity": 1,
+    "orphan_diagnosis": 1,
+    "vacancy_rate_out_of_range": 1
+  },
+  "mode": "sample",
+  "seed": 20260714,
+  "synthetic_data_declaration": "Generated synthetic operational source data only; not extracted from real systems and not for clinical or operational use.",
+  "total_issue_count": 9
+}

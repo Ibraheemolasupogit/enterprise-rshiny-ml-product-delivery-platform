@@ -1,0 +1,32 @@
+{
+  "publication_status": "not_published",
+  "sboms": [
+    {
+      "artefact_name": "repository-filesystem",
+      "component_count": 819,
+      "format": "CycloneDX JSON",
+      "generator": "syft in CI, local inventory fallback",
+      "image_digest": null,
+      "statement": "Synthetic local deployment artefact only.",
+      "validation_status": "configured"
+    },
+    {
+      "artefact_name": "api-image",
+      "component_count": 0,
+      "format": "SPDX JSON",
+      "generator": "syft in CI after image build",
+      "image_digest": "local-build-digest-pending",
+      "statement": "Image is not published.",
+      "validation_status": "configured"
+    },
+    {
+      "artefact_name": "rshiny-image",
+      "component_count": 0,
+      "format": "SPDX JSON",
+      "generator": "syft in CI after image build",
+      "image_digest": "local-build-digest-pending",
+      "statement": "Image is not published.",
+      "validation_status": "configured"
+    }
+  ]
+}

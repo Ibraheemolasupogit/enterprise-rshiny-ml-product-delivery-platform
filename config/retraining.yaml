@@ -1,0 +1,53 @@
+version: 1
+description: "Milestone 12 controlled retraining workflow configuration."
+implementation_status: implemented
+enabled: true
+
+workflow:
+  automatic_execution: false
+  require_monitoring_review: true
+  require_human_initiation: true
+  require_labels: true
+
+eligibility:
+  allowed_monitoring_dispositions:
+    - review_recommended
+    - review_required
+  minimum_labelled_rows: 30
+  minimum_positive_rows: 5
+  minimum_negative_rows: 5
+  require_valid_schema: true
+  require_feature_contract_match: true
+  fail_on_unexpected_quality_issues: true
+
+dataset:
+  source: governed_labelled_monitoring_window
+  prediction_point: admission
+  target_column: long_stay_flag_governed
+  preserve_patient_grouping: true
+  temporal_split: true
+  train_fraction: 0.70
+  validation_fraction: 0.30
+  random_seed: 20260714
+
+models:
+  enabled:
+    - logistic_regression
+    - random_forest
+    - xgboost
+
+preprocessing:
+  fit_on_retraining_train_only: true
+  reuse_feature_definition_contract: true
+  reuse_fitted_preprocessor: false
+
+outputs:
+  candidate_directory: models/candidate/retraining
+  report_directory: reports/retraining
+  generated_data_directory: data/processed/retraining
+
+controls:
+  automatic_registration: false
+  automatic_approval: false
+  automatic_activation: false
+  automatic_deployment: false

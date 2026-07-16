@@ -1,0 +1,33 @@
+{
+  "alerts": [
+    {
+      "automatic_action": "human_review_required",
+      "baseline_value": null,
+      "category": "prediction_drift",
+      "feature": null,
+      "metric": "probability_psi",
+      "observed_value": null,
+      "reason": "Prediction drift result.",
+      "requires_review": true,
+      "severity": "critical",
+      "status": "critical",
+      "threshold": null
+    }
+  ],
+  "baseline_mean_probability": 0.530281690140845,
+  "boundary_statement": "Prediction drift is not performance drift without outcome labels.",
+  "labels_available": false,
+  "mean_probability": 0.6143750000000001,
+  "mean_probability_change": 0.08409330985915509,
+  "performance_conclusion_available": false,
+  "positive_rate_change": 0.1137323943661972,
+  "predicted_positive_rate": 0.325,
+  "probability_psi": 2.863254029969443,
+  "risk_band_distribution": {
+    "high": 13,
+    "low": 9,
+    "medium": 18
+  },
+  "section": "prediction_drift",
+  "status": "critical"
+}

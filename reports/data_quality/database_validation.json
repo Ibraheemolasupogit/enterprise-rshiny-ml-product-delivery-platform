@@ -1,0 +1,20 @@
+{
+  "counts": {
+    "curated.admission_diagnosis_summary": 120,
+    "curated.admission_operational_context": 117,
+    "curated.daily_ward_operational_context": 360,
+    "curated.model_source_view": 117,
+    "curated.outcome_context_view": 120,
+    "curated.patient_admission_view": 117,
+    "quality.data_quality_issues": 9,
+    "quality.rejected_records": 4,
+    "raw.admissions": 121,
+    "raw.diagnoses": 291,
+    "raw.outcomes": 120,
+    "raw.patients": 81,
+    "raw.ward_capacity": 360,
+    "raw.workforce": 360
+  },
+  "errors": [],
+  "valid": true
+}

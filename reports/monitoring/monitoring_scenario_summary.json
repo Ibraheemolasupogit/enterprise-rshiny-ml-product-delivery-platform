@@ -1,0 +1,85 @@
+{
+  "alert_identifier_stability": true,
+  "automatic_action_disabled": true,
+  "baseline_reproducible": true,
+  "candidate_checksum_after": "0f272cedfb2c0a95f8f0683ff6740b81f1ab6678bfeed7f86fe11d8d617eaf04",
+  "candidate_checksum_before": "0f272cedfb2c0a95f8f0683ff6740b81f1ab6678bfeed7f86fe11d8d617eaf04",
+  "drift_metric_tolerance": 1e-08,
+  "monitoring_runs_reproducible": true,
+  "registry_checksum_after": "7d59876afec0a0a342c3d33aadbebaef5886c8eec191a7da3747e54c81128f40",
+  "registry_checksum_before": "7d59876afec0a0a342c3d33aadbebaef5886c8eec191a7da3747e54c81128f40",
+  "representative_scenario": "moderate_drift",
+  "review_disposition_stability": true,
+  "scenarios": [
+    {
+      "automatic_action": "none",
+      "critical_count": 4,
+      "overall_disposition": "review_required",
+      "scenario": "no_drift",
+      "warning_count": 1
+    },
+    {
+      "automatic_action": "none",
+      "critical_count": 4,
+      "overall_disposition": "review_required",
+      "scenario": "moderate_drift",
+      "warning_count": 1
+    },
+    {
+      "automatic_action": "none",
+      "critical_count": 2,
+      "overall_disposition": "review_required",
+      "scenario": "severe_drift",
+      "warning_count": 3
+    },
+    {
+      "automatic_action": "none",
+      "critical_count": 1,
+      "overall_disposition": "invalid_window",
+      "scenario": "schema_failure",
+      "warning_count": 0
+    },
+    {
+      "automatic_action": "none",
+      "critical_count": 6,
+      "overall_disposition": "review_required",
+      "scenario": "missingness_drift",
+      "warning_count": 1
+    },
+    {
+      "automatic_action": "none",
+      "critical_count": 5,
+      "overall_disposition": "review_required",
+      "scenario": "categorical_drift",
+      "warning_count": 0
+    },
+    {
+      "automatic_action": "none",
+      "critical_count": 2,
+      "overall_disposition": "review_required",
+      "scenario": "prediction_drift",
+      "warning_count": 1
+    },
+    {
+      "automatic_action": "none",
+      "critical_count": 4,
+      "overall_disposition": "review_required",
+      "scenario": "performance_degradation",
+      "warning_count": 1
+    },
+    {
+      "automatic_action": "none",
+      "critical_count": 2,
+      "overall_disposition": "review_required",
+      "scenario": "insufficient_labels",
+      "warning_count": 1
+    },
+    {
+      "automatic_action": "none",
+      "critical_count": 3,
+      "overall_disposition": "review_required",
+      "scenario": "operational_degradation",
+      "warning_count": 1
+    }
+  ]
+}

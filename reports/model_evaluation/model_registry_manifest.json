@@ -1,0 +1,32 @@
+{
+  "activation_state": "inactive",
+  "approval_state": "pending",
+  "artefact_checksum": "2a531a5906a014cc2afb8d8892218bece995678c49bd8def44cf364fd11c261f",
+  "calibration": "sigmoid",
+  "candidate_identifier": "CAND-85EA9202CAD6FE7F",
+  "feature_build_identifier": "FBUILD-ADB1D374A8E41F8E",
+  "feature_count": 71,
+  "model_name": "long_stay_admission_risk",
+  "preprocessor_checksum": "87ceced17e1c90b02fd9b8c707663e0db7ef66a2a99cc8dbb457ef262a21cd30",
+  "registration_event": "candidate_registered",
+  "registry_id": "MODEL-REG-000001",
+  "registry_state": "registered",
+  "registry_version": 1,
+  "risk_bands": {
+    "high": [
+      0.75,
+      1.0
+    ],
+    "low": [
+      0.0,
+      0.4
+    ],
+    "medium": [
+      0.4,
+      0.75
+    ]
+  },
+  "synthetic_data_declaration": "All modelling data are synthetic.",
+  "threshold": 0.75,
+  "training_configuration_fingerprint": "5d14f2022ca22e140f958b43a37d9a4b9b98e0a26c931277a2f21ea3c27a98cb"
+}

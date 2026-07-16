@@ -1,0 +1,255 @@
+{
+  "external_side_effects": false,
+  "workflows": [
+    {
+      "advisory_checks": [],
+      "artefacts": [],
+      "blocking_checks": [
+        "Check out repository",
+        "Set up Python",
+        "Install validation dependencies",
+        "Validate container metadata",
+        "Compose config validation",
+        "Build API image",
+        "Build R-Shiny image",
+        "Trivy API image scan",
+        "Trivy R-Shiny image scan",
+        "Local deployment smoke test"
+      ],
+      "external_side_effects": false,
+      "jobs": [
+        "container"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "required_tools": [
+        "trivy"
+      ],
+      "triggers": {
+        "pull_request": null,
+        "push": {
+          "branches": [
+            "main"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "workflow": "container.yml"
+    },
+    {
+      "advisory_checks": [],
+      "artefacts": [],
+      "blocking_checks": [
+        "Check out repository",
+        "Set up Python",
+        "Install development dependencies",
+        "Synthetic generation",
+        "DuckDB build",
+        "Feature build",
+        "Model training validation",
+        "Registry validation",
+        "Serving readiness validation",
+        "Monitoring run",
+        "Retraining review validation",
+        "Registry non-mutation tests",
+        "Clean generated validation caches"
+      ],
+      "external_side_effects": false,
+      "jobs": [
+        "integration"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "required_tools": [],
+      "triggers": {
+        "pull_request": null,
+        "push": {
+          "branches": [
+            "main"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "workflow": "integration-tests.yml"
+    },
+    {
+      "advisory_checks": [],
+      "artefacts": [],
+      "blocking_checks": [
+        "Check out repository",
+        "Set up Python",
+        "Install development dependencies",
+        "Pytest with coverage",
+        "Verify synthetic data",
+        "Verify database build",
+        "Verify feature build",
+        "Verify model build",
+        "Verify monitoring",
+        "Verify retraining",
+        "Clean generated validation caches"
+      ],
+      "external_side_effects": false,
+      "jobs": [
+        "python-tests"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "required_tools": [
+        "pytest"
+      ],
+      "triggers": {
+        "pull_request": null,
+        "push": {
+          "branches": [
+            "main"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "workflow": "python-tests.yml"
+    },
+    {
+      "advisory_checks": [],
+      "artefacts": [],
+      "blocking_checks": [
+        "Check out repository",
+        "Set up Python",
+        "Install development dependencies",
+        "Ruff lint",
+        "Ruff format check",
+        "Mypy",
+        "Repository validator",
+        "Release configuration"
+      ],
+      "external_side_effects": false,
+      "jobs": [
+        "static-validation"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "required_tools": [
+        "mypy",
+        "ruff"
+      ],
+      "triggers": {
+        "pull_request": null,
+        "push": {
+          "branches": [
+            "main"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "workflow": "quality.yml"
+    },
+    {
+      "advisory_checks": [],
+      "artefacts": [],
+      "blocking_checks": [
+        "Check out repository",
+        "Set up R",
+        "Restore renv",
+        "Set up Python for API smoke tests",
+        "Install Python dependencies",
+        "Install Chrome",
+        "Validate R lockfile restore",
+        "R lint",
+        "R testthat",
+        "Browser-backed Shiny tests",
+        "R and FastAPI smoke tests",
+        "Validate R-Shiny evidence"
+      ],
+      "external_side_effects": false,
+      "jobs": [
+        "r-tests"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "required_tools": [
+        "renv"
+      ],
+      "triggers": {
+        "pull_request": null,
+        "push": {
+          "branches": [
+            "main"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "workflow": "r-tests.yml"
+    },
+    {
+      "advisory_checks": [],
+      "artefacts": [
+        "release-assurance-local-evidence"
+      ],
+      "blocking_checks": [
+        "Check out repository",
+        "Set up Python",
+        "Install dependencies",
+        "Build release manifest",
+        "Assess release readiness",
+        "Show release gates",
+        "Generate SBOM",
+        "Upload release assurance artefacts"
+      ],
+      "external_side_effects": false,
+      "jobs": [
+        "release-assurance"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "required_tools": [],
+      "triggers": {
+        "push": {
+          "branches": [
+            "main"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "workflow": "release-assurance.yml"
+    },
+    {
+      "advisory_checks": [],
+      "artefacts": [],
+      "blocking_checks": [
+        "Check out repository",
+        "Set up Python",
+        "Install security dependencies",
+        "Secret scan",
+        "Python static analysis",
+        "Python dependency audit",
+        "Trivy filesystem scan",
+        "Generate security summary"
+      ],
+      "external_side_effects": false,
+      "jobs": [
+        "security"
+      ],
+      "permissions": {
+        "contents": "read"
+      },
+      "required_tools": [
+        "trivy"
+      ],
+      "triggers": {
+        "pull_request": null,
+        "push": {
+          "branches": [
+            "main"
+          ]
+        },
+        "workflow_dispatch": null
+      },
+      "workflow": "security.yml"
+    }
+  ]
+}

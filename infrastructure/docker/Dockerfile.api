@@ -1,0 +1,43 @@
+FROM python:3.12.8-slim-bookworm AS runtime
+
+ARG IMAGE_VERSION=0.1.0
+ARG IMAGE_REVISION=uncommitted
+ARG IMAGE_SOURCE=https://github.com/Ibraheemolasupogit/enterprise-rshiny-ml-product-delivery-platform
+
+LABEL org.opencontainers.image.title="Enterprise ML Product FastAPI"
+LABEL org.opencontainers.image.description="Local governed FastAPI scoring service for synthetic review workflows."
+LABEL org.opencontainers.image.version="${IMAGE_VERSION}"
+LABEL org.opencontainers.image.revision="${IMAGE_REVISION}"
+LABEL org.opencontainers.image.source="${IMAGE_SOURCE}"
+LABEL org.opencontainers.image.licenses="MIT"
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PIP_NO_CACHE_DIR=1
+
+WORKDIR /app
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends --yes libgomp1 curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --create-home --shell /usr/sbin/nologin appuser \
+    && mkdir -p /app/data/monitoring \
+    && chown -R appuser:appuser /app/data
+
+COPY pyproject.toml README.md /app/
+COPY src /app/src
+COPY config /app/config
+COPY models/registry.json /app/models/registry.json
+COPY models/registered /app/models/registered
+COPY reports/model_evaluation /app/reports/model_evaluation
+
+RUN python -m pip install --no-cache-dir .
+
+USER appuser
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/live').read()"
+
+CMD ["uvicorn", "ml_product.serving.app:app_from_config", "--factory", "--host", "0.0.0.0", "--port", "8000"]

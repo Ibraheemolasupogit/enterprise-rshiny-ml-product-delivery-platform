@@ -1,0 +1,33 @@
+{
+  "authoritative_python_invocation": "python3 -m pytest",
+  "generated_at_utc": "2026-07-16T23:28:49.734932+00:00",
+  "python_tests": {
+    "count": 202,
+    "coverage_percent": 81,
+    "result": "passed"
+  },
+  "r_shinytest2": {
+    "count": 1,
+    "reason": "local Chrome/chromote not runnable in current environment",
+    "result": "skipped_locally"
+  },
+  "r_testthat": {
+    "count": 111,
+    "result": "passed"
+  },
+  "release_validation": "ready_for_local_review",
+  "reproducibility": {
+    "database": "passed",
+    "features": "passed",
+    "model": "passed",
+    "monitoring": "passed",
+    "retraining": "passed",
+    "synthetic": "passed"
+  },
+  "result": "passed",
+  "smoke_tests": {
+    "batch_api": "passed in quality target",
+    "local_deployment": "passed",
+    "single_api": "passed in quality target"
+  }
+}

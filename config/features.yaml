@@ -1,0 +1,111 @@
+version: "0.5.0"
+description: "Milestone 5 admission-time feature-engineering configuration."
+implementation_status: implemented
+enabled: true
+
+source:
+  provider: denodo_compatible_local
+  view: curated.model_source_view
+  database_config: config/database.yaml
+
+prediction_contract:
+  prediction_point: shortly_after_admission
+  unit_of_analysis: admission
+  target_column: long_stay_flag_governed
+  positive_class: true
+  target_definition: "length_of_stay_days >= 7"
+
+identifiers:
+  - admission_id
+  - patient_id
+
+eligibility:
+  flag_column: eligibility_flag
+  exclusion_reason_column: exclusion_reason
+  require_operational_context: false
+
+features:
+  numeric:
+    - age
+    - deprivation_decile
+    - comorbidity_count
+    - previous_admissions_12m
+    - initial_news2_score
+    - diagnosis_count
+    - secondary_diagnosis_count
+    - occupancy_rate
+    - staff_to_bed_ratio
+    - admission_hour
+    - admission_month
+  categorical:
+    - sex
+    - postcode_region
+    - admission_type
+    - source_of_admission
+    - mobility_status
+    - primary_diagnosis_group
+    - primary_diagnosis_complexity
+    - admission_day_of_week
+    - admission_season
+  boolean:
+    - weekend_admission
+  temporal_derivations:
+    - admission_hour
+    - admission_day_of_week
+    - weekend_admission
+    - admission_month
+    - admission_season
+
+excluded_predictors:
+  - admission_id
+  - patient_id
+  - ward_id
+  - admission_datetime
+  - admission_date
+  - discharge_datetime
+  - length_of_stay_days_source
+  - length_of_stay_days_governed
+  - long_stay_flag_source
+  - long_stay_flag_governed
+  - readmission_30d
+  - discharge_destination
+  - outcome_quality_status
+  - eligibility_flag
+  - exclusion_reason
+  - dataset_version
+  - build_identifier
+  - patient_quality_status
+  - admission_quality_status
+  - diagnosis_quality_status
+  - capacity_quality_status
+  - workforce_quality_status
+  - operational_context_available
+  - context_match_type
+
+missingness:
+  numeric: median
+  categorical: explicit_missing_category
+  boolean: mode
+  add_missing_indicators: true
+
+encoding:
+  categorical: one_hot
+  handle_unknown: ignore
+
+scaling:
+  numeric: standard
+
+splitting:
+  strategy: temporal
+  train_fraction: 0.6
+  validation_fraction: 0.2
+  test_fraction: 0.2
+  group_by_patient: true
+  seed: 20260714
+
+outputs:
+  directory: data/processed/features
+  evidence_directory: reports/model_evaluation
+  formats:
+    - parquet
+    - csv

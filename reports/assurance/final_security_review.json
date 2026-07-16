@@ -1,0 +1,50 @@
+{
+  "exceptions": [
+    "Specialist tools that are unavailable locally are configured in CI and documented as not_applicable locally."
+  ],
+  "findings": [],
+  "generated_at_utc": "2026-07-16T23:28:49.734731+00:00",
+  "result": "passed",
+  "tools": {
+    "actionlint": {
+      "classification": "not_applicable",
+      "status": "not_installed_locally"
+    },
+    "bandit": {
+      "classification": "not_applicable",
+      "status": "not_installed_locally"
+    },
+    "checkov": {
+      "classification": "not_applicable",
+      "status": "not_installed_locally"
+    },
+    "gitleaks": {
+      "classification": "not_applicable",
+      "status": "not_installed_locally"
+    },
+    "hadolint": {
+      "classification": "not_applicable",
+      "status": "not_installed_locally"
+    },
+    "local_secret_pattern_scan": {
+      "classification": "fixed",
+      "status": "passed"
+    },
+    "pip_audit": {
+      "classification": "not_applicable",
+      "status": "not_installed_locally"
+    },
+    "shellcheck": {
+      "classification": "not_applicable",
+      "status": "not_installed_locally"
+    },
+    "trivy_filesystem": {
+      "classification": "not_applicable",
+      "status": "not_installed_locally"
+    },
+    "trivy_images": {
+      "classification": "not_applicable",
+      "status": "not_installed_locally"
+    }
+  }
+}

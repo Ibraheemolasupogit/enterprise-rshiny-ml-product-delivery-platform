@@ -1,0 +1,95 @@
+{
+  "candidate_identifiers": {
+    "logistic_regression": "CAND-52A549C43FF82D08",
+    "random_forest": "CAND-22810BAD2859A9DB",
+    "xgboost": "CAND-85EA9202CAD6FE7F"
+  },
+  "candidate_training_status": {
+    "logistic_regression": {
+      "artifact_location": "models/candidate/logistic_regression.joblib",
+      "failure_reason": null,
+      "fit_status": "converged",
+      "training_status": "fitted"
+    },
+    "random_forest": {
+      "artifact_location": "models/candidate/random_forest.joblib",
+      "failure_reason": null,
+      "fit_status": "fitted",
+      "training_status": "fitted"
+    },
+    "xgboost": {
+      "artifact_location": "models/candidate/xgboost.json",
+      "failure_reason": null,
+      "fit_status": "fitted",
+      "training_status": "fitted"
+    }
+  },
+  "database_build_identifier": "DBUILD-4297e140973e369c",
+  "experiment_name": "long_stay_admission_risk",
+  "feature_build_identifier": "FBUILD-ADB1D374A8E41F8E",
+  "feature_configuration_fingerprint": "ad40ca5c3958431bcabcd81ec17cfde599e8c87e3acf62705e94a8d9950180ea",
+  "feature_count": 71,
+  "generated_at_utc": "2026-07-16T23:26:41+00:00",
+  "library_versions": {
+    "joblib": "1.5.3",
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "python": "3.12.8",
+    "scikit_learn": "1.8.0",
+    "xgboost": "3.3.0"
+  },
+  "model_families": [
+    "logistic_regression",
+    "random_forest",
+    "xgboost"
+  ],
+  "random_seed": 20260714,
+  "source_fingerprint": "a420857558b5de7ae92167c6ce58a2afe609810ae7c8d38f0605be6394f05509",
+  "split_counts": {
+    "test": 23,
+    "train": 71,
+    "validation": 23
+  },
+  "synthetic_data_declaration": "All modelling data are synthetic.",
+  "test_set_evaluated_after_selection": true,
+  "test_set_used_for_selection": false,
+  "threshold_config": {
+    "description": "Milestone 6 validation-only threshold-selection configuration.",
+    "enabled": true,
+    "implementation_status": "implemented",
+    "operational_costs": {
+      "false_negative_cost": 5.0,
+      "false_positive_cost": 1.0
+    },
+    "risk_bands": {
+      "high": {
+        "maximum": 1.0,
+        "minimum": 0.7
+      },
+      "low": {
+        "maximum": 0.4,
+        "minimum": 0.0
+      },
+      "medium": {
+        "maximum": 0.7,
+        "minimum": 0.4
+      }
+    },
+    "selection": {
+      "final_tie_break": "lowest_threshold",
+      "minimum_recall": 0.8,
+      "primary_rule": "minimum_recall",
+      "secondary_metric": "precision",
+      "tertiary_metric": "total_weighted_cost"
+    },
+    "thresholds": {
+      "candidate_values": {
+        "start": 0.1,
+        "step": 0.05,
+        "stop": 0.9
+      }
+    },
+    "version": 1
+  },
+  "training_configuration_fingerprint": "5d14f2022ca22e140f958b43a37d9a4b9b98e0a26c931277a2f21ea3c27a98cb"
+}

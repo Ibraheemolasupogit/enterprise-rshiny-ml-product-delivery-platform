@@ -1,0 +1,4 @@
+{
+  "scenario": "insufficient_labels",
+  "window_type": "current_labelled_window"
+}

@@ -1,0 +1,48 @@
+version: "0.1.0"
+description: "Milestone 2 deterministic synthetic source-system generation configuration."
+implementation_status: implemented
+enabled: true
+
+dataset:
+  version: "0.2.0"
+  mode: sample
+  seed: 20260714
+  start_date: "2025-01-01"
+  end_date: "2025-03-31"
+
+counts:
+  patients: 80
+  wards: 4
+
+admissions:
+  minimum_per_patient: 0
+  maximum_per_patient: 4
+  target_total: 120
+
+diagnoses:
+  minimum_per_admission: 1
+  maximum_per_admission: 4
+
+outputs:
+  directory: data/sample
+  formats:
+    - csv
+    - parquet
+  overwrite: true
+
+quality_issues:
+  enabled: true
+  rates:
+    missing_deprivation_decile: 0.0125
+    missing_mobility_status: 0.0167
+    duplicate_patient: 0.0125
+    duplicate_admission: 0.0084
+    orphan_diagnosis: 0.0084
+    inconsistent_long_stay_flag: 0.0084
+    occupied_beds_over_capacity: 0.0028
+    vacancy_rate_out_of_range: 0.0028
+
+documentation:
+  synthetic_data_only: true
+  source_system_boundary: "Separate synthetic operational source tables; no joined modelling table."
+  unsafe_full_generation_target: "data/sample"

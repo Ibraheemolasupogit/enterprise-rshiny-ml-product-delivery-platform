@@ -1,0 +1,8 @@
+{
+  "model_approved": false,
+  "model_active": false,
+  "review_mode_required": true,
+  "operational_serving_available": false,
+  "not_for_operational_use": true,
+  "default_api_readiness": "not_ready_no_active_approved_model"
+}

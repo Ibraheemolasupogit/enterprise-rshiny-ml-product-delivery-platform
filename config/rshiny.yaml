@@ -1,0 +1,54 @@
+version: 1
+description: "Milestone 10 advanced modular R-Shiny product configuration."
+implementation_status: implemented
+enabled: true
+
+application:
+  title: Enterprise R-Shiny ML Product
+  environment: local
+  host: 127.0.0.1
+  port: 3838
+
+api:
+  base_url_environment_variable: MODEL_API_BASE_URL
+  api_key_environment_variable: MODEL_API_KEY
+  timeout_seconds: 10
+
+features:
+  overview: true
+  single_prediction: true
+  cohort_scoring: true
+  performance_dashboard: true
+  model_governance: true
+  feedback: true
+
+  monitoring: true
+  drift_detection: false
+  retraining: false
+  governance_admin: false
+  deployment_controls: false
+
+cohort_scoring:
+  maximum_rows: 100
+  accepted_formats:
+    - csv
+  maximum_file_size_mb: 2
+  export_enabled: true
+  retain_uploads: false
+
+performance:
+  source: committed_model_evidence
+  allow_live_metric_recalculation: false
+
+governance:
+  source: registry_and_governance_evidence
+  allow_state_changes: false
+
+review_mode:
+  display_warning_banner: true
+  allow_ui_toggle: false
+
+feedback:
+  enabled: true
+  output_path: data/monitoring/shiny_feedback.jsonl
+  collect_identifiers: false

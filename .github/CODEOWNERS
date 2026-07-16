@@ -1,0 +1,7 @@
+# Placeholder ownership model. Replace these team aliases before enabling branch protection.
+* @organisation/product-owners @organisation/platform-engineering
+/src/ml_product/ @organisation/python-developers
+/rshiny/ @organisation/rshiny-developers
+/docs/ @organisation/product-owners
+/config/ @organisation/data-engineering @organisation/information-governance
+/.github/ @organisation/platform-engineering

@@ -1,0 +1,20 @@
+{
+  "cleanup": "containers_networks_and_volumes_removed",
+  "default_governed_mode": {
+    "api_liveness": "passed",
+    "api_readiness": "failed_closed_as_expected",
+    "prediction": "unavailable_as_expected",
+    "shiny_status": "scoring_unavailable_visible"
+  },
+  "explicit_review_mode": {
+    "api_liveness": "passed",
+    "api_readiness": "passed_for_local_review",
+    "batch_prediction": "passed",
+    "review_labels": "present",
+    "shiny_status": "loaded",
+    "single_prediction": "passed"
+  },
+  "external_deployment_performed": false,
+  "image_publication_performed": false,
+  "status": "passed"
+}

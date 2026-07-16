@@ -1,0 +1,22 @@
+{
+  "hard_gates": {
+    "container_files_valid": true,
+    "external_deployment_disabled": true,
+    "image_publication_disabled": true,
+    "manual_approval_required": true,
+    "monitoring_boundary_valid": true,
+    "registry_valid": true,
+    "release_config_valid": true,
+    "retraining_boundary_valid": true,
+    "security_scans_within_policy": true
+  },
+  "local_review_readiness": "ready_for_local_review",
+  "operational_gates": {
+    "active_model_exists": false,
+    "approved_active_model_exists": false,
+    "approved_model_exists": false,
+    "deployment_approval_granted": false,
+    "deployment_target_configured": false
+  },
+  "operational_release_readiness": "blocked_for_operational_release"
+}

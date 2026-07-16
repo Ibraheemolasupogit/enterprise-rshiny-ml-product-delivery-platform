@@ -1,0 +1,51 @@
+name: Integration Tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    env:
+      MODEL_API_KEY: placeholder
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4 # v4 release tag; pin to commit SHA after first remote CI baseline.
+      - name: Set up Python
+        uses: actions/setup-python@v5 # v5 release tag; pin to commit SHA after first remote CI baseline.
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install development dependencies
+        run: python -m pip install -e ".[dev]"
+      - name: Synthetic generation
+        run: python -m ml_product.cli validate-synthetic-data --config config/synthetic_data.yaml
+      - name: DuckDB build
+        run: python -m ml_product.cli build-database --config config/database.yaml --replace
+      - name: Feature build
+        run: python -m ml_product.cli build-features --config config/features.yaml --database-config config/database.yaml --replace
+      - name: Model training validation
+        run: python -m ml_product.cli validate-models --config config/model_training.yaml --threshold-config config/model_thresholds.yaml
+      - name: Registry validation
+        run: python -m ml_product.cli validate-registry --config config/model_registry.yaml
+      - name: Serving readiness validation
+        run: python -m ml_product.cli validate-serving --registry-config config/model_registry.yaml --serving-config config/serving.yaml
+      - name: Monitoring run
+        run: python -m ml_product.cli run-monitoring --config config/monitoring.yaml --threshold-config config/drift_thresholds.yaml --current-window tests/fixtures/monitoring/moderate_drift --replace
+      - name: Retraining review validation
+        run: python -m ml_product.cli validate-retraining --config config/retraining.yaml
+      - name: Registry non-mutation tests
+        run: python -m pytest tests/integration/test_retraining_registry_non_mutation.py tests/integration/test_registry_workflow.py
+      - name: Clean generated validation caches
+        run: make clean

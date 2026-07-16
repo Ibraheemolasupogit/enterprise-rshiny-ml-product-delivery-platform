@@ -1,0 +1,12 @@
+{
+  "baseline_fingerprint": "e85d72330c8d8cc7bac76572233c46ff1f54d68265d963a19265b00e3891bd14",
+  "baseline_identifier": "aeb31ad3b65f4949",
+  "candidate_identifier": "CAND-85EA9202CAD6FE7F",
+  "categorical_feature_count": 60,
+  "created_from_split": "train",
+  "feature_build_identifier": "FBUILD-ADB1D374A8E41F8E",
+  "feature_count": 71,
+  "model_registry_version": 1,
+  "numeric_feature_count": 11,
+  "synthetic_data_declaration": "All monitoring data are deterministic synthetic fixtures."
+}

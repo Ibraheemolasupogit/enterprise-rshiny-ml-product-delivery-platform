@@ -1,0 +1,34 @@
+name: Feature request
+description: Propose a scoped product or platform feature
+title: "[Feature]: "
+labels: ["feature"]
+body:
+  - type: input
+    id: milestone
+    attributes:
+      label: Target milestone
+      description: Identify the milestone this belongs to.
+    validations:
+      required: true
+  - type: textarea
+    id: user_story
+    attributes:
+      label: User story
+      description: Describe the user, need, and value.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+    validations:
+      required: true
+  - type: checkboxes
+    id: governance
+    attributes:
+      label: Governance checks
+      options:
+        - label: This does not require real sensitive data.
+          required: true
+        - label: This does not implement a later milestone early.
+          required: true

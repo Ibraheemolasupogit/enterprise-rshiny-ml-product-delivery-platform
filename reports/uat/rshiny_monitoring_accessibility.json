@@ -1,0 +1,13 @@
+{
+  "implemented_checks": [
+    "semantic_monitoring_sections",
+    "table_outputs_have_context",
+    "review_status_is_visible",
+    "critical_alerts_are_textual_not_colour_only",
+    "no_hidden_action_controls"
+  ],
+  "formal_wcag_certification": false,
+  "remaining_manual_review": [
+    "assistive technology walkthrough"
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "alerts": [
+    {
+      "alert_id": "ALERT-cac9e9082831",
+      "automatic_action": "human_review_required",
+      "baseline_value": null,
+      "category": "numeric_drift",
+      "feature": null,
+      "metric": "psi",
+      "monitoring_run_id": "d0a1b64599791e42",
+      "observed_value": null,
+      "reason": "Numeric drift result.",
+      "requires_review": true,
+      "severity": "critical",
+      "status": "critical",
+      "threshold": null
+    },
+    {
+      "alert_id": "ALERT-fa12eb270c7b",
+      "automatic_action": "human_review_required",
+      "baseline_value": null,
+      "category": "categorical_drift",
+      "feature": null,
+      "metric": "jensen_shannon",
+      "monitoring_run_id": "d0a1b64599791e42",
+      "observed_value": null,
+      "reason": "Categorical drift result.",
+      "requires_review": true,
+      "severity": "warning",
+      "status": "warning",
+      "threshold": null
+    },
+    {
+      "alert_id": "ALERT-09f98895dd81",
+      "automatic_action": "human_review_required",
+      "baseline_value": null,
+      "category": "prediction_drift",
+      "feature": null,
+      "metric": "probability_psi",
+      "monitoring_run_id": "d0a1b64599791e42",
+      "observed_value": null,
+      "reason": "Prediction drift result.",
+      "requires_review": true,
+      "severity": "critical",
+      "status": "critical",
+      "threshold": null
+    },
+    {
+      "alert_id": "ALERT-af0858aca5dd",
+      "automatic_action": "human_review_required",
+      "baseline_value": null,
+      "category": "performance",
+      "feature": null,
+      "metric": "performance_change",
+      "monitoring_run_id": "d0a1b64599791e42",
+      "observed_value": null,
+      "reason": "Performance monitoring result.",
+      "requires_review": true,
+      "severity": "critical",
+      "status": "critical",
+      "threshold": null
+    },
+    {
+      "alert_id": "ALERT-09b025448ce8",
+      "automatic_action": "human_review_required",
+      "baseline_value": null,
+      "category": "calibration",
+      "feature": null,
+      "metric": "calibration_error",
+      "monitoring_run_id": "d0a1b64599791e42",
+      "observed_value": null,
+      "reason": "Calibration monitoring result.",
+      "requires_review": true,
+      "severity": "critical",
+      "status": "critical",
+      "threshold": null
+    }
+  ],
+  "automatic_action_values": [
+    "human_review_required"
+  ],
+  "critical_count": 4,
+  "informational_count": 0,
+  "requires_review_count": 5,
+  "warning_count": 1
+}

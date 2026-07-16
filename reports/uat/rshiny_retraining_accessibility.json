@@ -1,0 +1,13 @@
+{
+  "implemented_checks": [
+    "semantic_retraining_sections",
+    "visible_lifecycle_boundary_warnings",
+    "table_outputs_have_context",
+    "recommendation_status_is_textual",
+    "no_hidden_action_controls"
+  ],
+  "formal_wcag_certification": false,
+  "remaining_manual_review": [
+    "assistive technology walkthrough"
+  ]
+}

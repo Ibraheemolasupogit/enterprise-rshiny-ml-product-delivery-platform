@@ -1,0 +1,4 @@
+{
+  "scenario": "prediction_drift",
+  "window_type": "current_unlabelled_window"
+}

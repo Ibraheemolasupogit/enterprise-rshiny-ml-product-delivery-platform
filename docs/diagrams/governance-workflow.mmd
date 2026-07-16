@@ -1,0 +1,5 @@
+flowchart TD
+  Candidate --> Register[Register evidence]
+  Register --> Pending[Approval pending]
+  Pending -->|not granted| Inactive[Activation inactive]
+  Inactive --> Block[Operational release blocked]

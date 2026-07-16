@@ -1,0 +1,31 @@
+{
+  "approval_not_implied": true,
+  "governance_flags": [
+    "fairness_groups_suppressed",
+    "small_validation_sample",
+    "synthetic_only",
+    "approval_not_implied"
+  ],
+  "hard_gates": {
+    "calibration_evidence_valid": true,
+    "challenger_artifact_valid": true,
+    "fairness_report_exists": true,
+    "feature_contract_matches": true,
+    "historical_test_not_used": true,
+    "monitoring_provenance_valid": true,
+    "no_admission_overlap": true,
+    "no_patient_overlap": true,
+    "reproducibility_passed": true,
+    "valid_labelled_dataset": true,
+    "zero_leakage_violations": true
+  },
+  "overall_result": "conditional",
+  "performance_gates": {
+    "balanced_accuracy_acceptable": true,
+    "brier_not_worse": true,
+    "pr_auc_improvement": true,
+    "recall_drop_within_policy": true,
+    "specificity_drop_within_policy": true,
+    "weighted_cost_acceptable": true
+  }
+}

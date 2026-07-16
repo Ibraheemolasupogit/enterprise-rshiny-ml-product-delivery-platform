@@ -1,0 +1,158 @@
+{
+  "alerts": [
+    {
+      "automatic_action": "human_review_required",
+      "baseline_value": null,
+      "category": "numeric_drift",
+      "feature": null,
+      "metric": "psi",
+      "observed_value": null,
+      "reason": "Numeric drift result.",
+      "requires_review": true,
+      "severity": "critical",
+      "status": "critical",
+      "threshold": null
+    }
+  ],
+  "critical_features": [
+    "admission_hour",
+    "admission_month",
+    "age",
+    "comorbidity_count",
+    "deprivation_decile",
+    "diagnosis_count",
+    "initial_news2_score",
+    "occupancy_rate",
+    "previous_admissions_12m",
+    "secondary_diagnosis_count",
+    "staff_to_bed_ratio"
+  ],
+  "features_evaluated": 11,
+  "insufficient_evidence_features": [],
+  "metrics": [
+    {
+      "feature": "admission_hour",
+      "ks_p_value": 0.725,
+      "ks_statistic": 0.275,
+      "mean_change": -0.16539540265236813,
+      "median_change": -0.2564689836378517,
+      "normalised_wasserstein": 0.12714551297721102,
+      "psi": 3.285897026607843,
+      "sample_size": 40,
+      "status": "critical"
+    },
+    {
+      "feature": "admission_month",
+      "ks_p_value": 0.19999999999999996,
+      "ks_statistic": 0.8,
+      "mean_change": 0.8185470313982194,
+      "median_change": 1.2458057712598838,
+      "normalised_wasserstein": 0.40684611939701465,
+      "psi": 14.639469593135367,
+      "sample_size": 40,
+      "status": "critical"
+    },
+    {
+      "feature": "age",
+      "ks_p_value": 0.0,
+      "ks_statistic": 1.0,
+      "mean_change": 4.020042181628827,
+      "median_change": 3.2359758949547732,
+      "normalised_wasserstein": 2.012360441848921,
+      "psi": 21.171027206869912,
+      "sample_size": 40,
+      "status": "critical"
+    },
+    {
+      "feature": "comorbidity_count",
+      "ks_p_value": 0.65,
+      "ks_statistic": 0.35,
+      "mean_change": 0.43047688476753027,
+      "median_change": 0.5051877490660273,
+      "normalised_wasserstein": 0.4687230618625332,
+      "psi": 0.4057079286799986,
+      "sample_size": 40,
+      "status": "critical"
+    },
+    {
+      "feature": "deprivation_decile",
+      "ks_p_value": 0.6499999999999999,
+      "ks_statistic": 0.35000000000000003,
+      "mean_change": 0.530837938895773,
+      "median_change": 0.7253210230762546,
+      "normalised_wasserstein": 0.2789475816015195,
+      "psi": 14.689545715225648,
+      "sample_size": 40,
+      "status": "critical"
+    },
+    {
+      "feature": "diagnosis_count",
+      "ks_p_value": 0.7,
+      "ks_statistic": 0.30000000000000004,
+      "mean_change": 0.07728867125640962,
+      "median_change": 0.9977264834918331,
+      "normalised_wasserstein": 0.18705305161726504,
+      "psi": 0.4040446102005915,
+      "sample_size": 40,
+      "status": "critical"
+    },
+    {
+      "feature": "initial_news2_score",
+      "ks_p_value": 0.65,
+      "ks_statistic": 0.35,
+      "mean_change": 0.15259258336406006,
+      "median_change": 0.0,
+      "normalised_wasserstein": 0.17800748256154708,
+      "psi": 2.7338332196147226,
+      "sample_size": 40,
+      "status": "critical"
+    },
+    {
+      "feature": "occupancy_rate",
+      "ks_p_value": 0.65,
+      "ks_statistic": 0.35,
+      "mean_change": -0.34530938222816154,
+      "median_change": -0.5903259197669656,
+      "normalised_wasserstein": 0.31741990319487495,
+      "psi": 10.911851621960277,
+      "sample_size": 40,
+      "status": "critical"
+    },
+    {
+      "feature": "previous_admissions_12m",
+      "ks_p_value": 0.375,
+      "ks_statistic": 0.625,
+      "mean_change": -0.30529197561771754,
+      "median_change": 0.0,
+      "normalised_wasserstein": 0.25791374724788746,
+      "psi": 0.014384103622589049,
+      "sample_size": 40,
+      "status": "critical"
+    },
+    {
+      "feature": "secondary_diagnosis_count",
+      "ks_p_value": 0.7,
+      "ks_statistic": 0.30000000000000004,
+      "mean_change": 0.07728867125640963,
+      "median_change": 0.9977264834918335,
+      "normalised_wasserstein": 0.18705305161726504,
+      "psi": 0.4040446102005915,
+      "sample_size": 40,
+      "status": "critical"
+    },
+    {
+      "feature": "staff_to_bed_ratio",
+      "ks_p_value": 0.8,
+      "ks_statistic": 0.2,
+      "mean_change": -0.2017807285693329,
+      "median_change": -0.045150127906879084,
+      "normalised_wasserstein": 0.13830940694758548,
+      "psi": 3.865194774533751,
+      "sample_size": 40,
+      "status": "critical"
+    }
+  ],
+  "section": "numeric_drift",
+  "status": "critical",
+  "warning_features": []
+}

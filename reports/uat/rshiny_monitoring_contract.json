@@ -1,0 +1,13 @@
+{
+  "page": "Monitoring",
+  "read_only": true,
+  "candidate_identifier": "CAND-85EA9202CAD6FE7F",
+  "monitoring_run_identifier": "394f44a7b3c7f0bd",
+  "disposition": "review_required",
+  "automatic_retraining": false,
+  "registry_mutation": "none",
+  "model_replacement": "none",
+  "prediction_drift_warning": "Prediction drift is not performance drift.",
+  "performance_requires_labels": true,
+  "synthetic_monitoring_only": true
+}

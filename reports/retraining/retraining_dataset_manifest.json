@@ -1,0 +1,16 @@
+{
+  "duplicate_admission_count": 0,
+  "eligible_rows": 40,
+  "excluded_rows": 0,
+  "exclusion_reasons": {},
+  "feature_definition_version": "FBUILD-ADB1D374A8E41F8E",
+  "historical_test_rows_used": 0,
+  "identifier_columns_excluded_from_predictors": true,
+  "monitoring_run_identifier": "d0a1b64599791e42",
+  "outcome_fields_excluded_from_predictors": true,
+  "patient_count": 20,
+  "prediction_point": "admission",
+  "source_window_fingerprint": "8d3c4fb4660b2582df2737684d37cae46dc19cdc34b6a4614ea3f5cf48901634",
+  "synthetic_data_declaration": "Synthetic governed retraining fixture only.",
+  "target": "long_stay_flag_governed"
+}

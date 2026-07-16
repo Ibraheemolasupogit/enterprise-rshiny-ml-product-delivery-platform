@@ -1,0 +1,15 @@
+{
+  "event_count": 1,
+  "events": [
+    {
+      "actor": "LOCAL-REGISTRY",
+      "details": {
+        "candidate_identifier": "CAND-85EA9202CAD6FE7F"
+      },
+      "event_type": "candidate_registered",
+      "model_name": "long_stay_admission_risk",
+      "registry_version": 1,
+      "timestamp_utc": "2026-07-15T00:41:38+00:00"
+    }
+  ]
+}

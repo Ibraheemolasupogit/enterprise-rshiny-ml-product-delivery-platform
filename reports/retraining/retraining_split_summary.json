@@ -1,0 +1,14 @@
+{
+  "admission_overlap_count": 0,
+  "historical_test_set_touched": false,
+  "patient_overlap_count": 0,
+  "temporal_split": true,
+  "train_negative_count": 4,
+  "train_patient_count": 14,
+  "train_positive_count": 24,
+  "train_rows": 28,
+  "validation_negative_count": 3,
+  "validation_patient_count": 6,
+  "validation_positive_count": 9,
+  "validation_rows": 12
+}

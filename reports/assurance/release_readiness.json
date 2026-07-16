@@ -1,0 +1,107 @@
+{
+  "blocking_gates": [
+    "approved_model_exists",
+    "active_model_exists",
+    "approved_active_model_exists",
+    "deployment_target_configured",
+    "deployment_approval_granted"
+  ],
+  "containers": {
+    "api_dockerfile_sha256": "f69e184fcbc408346d7e3e77324528e7b154a21aa0442dfaad98aeb5c036c857",
+    "checks": {
+      "api_base_pinned": true,
+      "api_healthcheck": true,
+      "api_non_root_user": true,
+      "no_docker_socket": true,
+      "no_privileged_mode": true,
+      "review_mode_disabled_by_default": true,
+      "review_override_labelled": true,
+      "rshiny_base_pinned": true,
+      "rshiny_healthcheck": true,
+      "rshiny_non_root_user": true
+    },
+    "compose_services": [
+      "api",
+      "rshiny"
+    ],
+    "review_services": [
+      "api",
+      "rshiny"
+    ],
+    "rshiny_dockerfile_sha256": "43bcb3e8b3bfc61416bacb318d2418d44d632d1dcdcf9acb0c968706396902d3",
+    "status": "passed"
+  },
+  "external_deployment_state": "not_performed",
+  "governance": {
+    "activation_status": "inactive",
+    "active_model": null,
+    "approval_status": "pending",
+    "approved_active_model_exists": false,
+    "latest_model_status": "registered",
+    "registry_unchanged_for_milestone_13": true,
+    "registry_version": 1,
+    "retraining_automatic_action": "none",
+    "retraining_recommendation": "retain_champion"
+  },
+  "hard_gates": {
+    "container_files_valid": true,
+    "external_deployment_disabled": true,
+    "image_publication_disabled": true,
+    "manual_approval_required": true,
+    "monitoring_boundary_valid": true,
+    "registry_valid": true,
+    "release_config_valid": true,
+    "retraining_boundary_valid": true,
+    "security_scans_within_policy": true
+  },
+  "local_review_readiness": "ready_for_local_review",
+  "manual_approval_required": true,
+  "model_activation_state": "inactive",
+  "model_approval_state": "pending",
+  "operational_gates": {
+    "active_model_exists": false,
+    "approved_active_model_exists": false,
+    "approved_model_exists": false,
+    "deployment_approval_granted": false,
+    "deployment_target_configured": false
+  },
+  "operational_release_readiness": "blocked_for_operational_release",
+  "security": {
+    "container_vulnerability_scan": {
+      "blocking_policy": "critical_or_high_blocks",
+      "local_status": "not_installed_locally",
+      "tool": "trivy"
+    },
+    "dockerfile_lint": {
+      "blocking_policy": "error_or_critical_blocks",
+      "local_status": "not_installed_locally",
+      "tool": "hadolint"
+    },
+    "iac_scan": {
+      "blocking_policy": "critical_blocks",
+      "local_status": "not_installed_locally",
+      "tool": "checkov"
+    },
+    "limitations": [
+      "Specialist security tools run in CI workflows when dependencies are installed.",
+      "Local summary records missing tools instead of fabricating scan results."
+    ],
+    "overall_status": "passed",
+    "python_dependency_audit": {
+      "blocking_policy": "high_or_critical_blocks_or_document_exception",
+      "local_status": "not_installed_locally",
+      "tool": "pip-audit"
+    },
+    "python_static_analysis": {
+      "blocking_policy": "high_or_critical_blocks",
+      "local_status": "not_installed_locally",
+      "tool": "bandit"
+    },
+    "secrets": {
+      "blocking": true,
+      "findings": [],
+      "status": "passed",
+      "tool": "local_secret_pattern_scan"
+    }
+  }
+}

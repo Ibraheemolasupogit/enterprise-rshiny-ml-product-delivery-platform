@@ -1,0 +1,186 @@
+{
+  "active_model": null,
+  "active_version": null,
+  "audit_events": [
+    {
+      "actor": "LOCAL-REGISTRY",
+      "details": {
+        "candidate_identifier": "CAND-85EA9202CAD6FE7F"
+      },
+      "event_type": "candidate_registered",
+      "model_name": "long_stay_admission_risk",
+      "registry_version": 1,
+      "timestamp_utc": "2026-07-15T00:41:38+00:00"
+    }
+  ],
+  "models": [
+    {
+      "model_name": "long_stay_admission_risk",
+      "versions": [
+        {
+          "activation_event": null,
+          "approval_decision": null,
+          "artefacts": {
+            "calibrator_path": "models/registered/v000001/calibrator.joblib",
+            "calibrator_sha256": "e3dea308292fabddf88c382b0c1328c0e29b73572d7ef81f717b4be6d1969283",
+            "model_path": "models/registered/v000001/xgboost.json",
+            "model_sha256": "2a531a5906a014cc2afb8d8892218bece995678c49bd8def44cf364fd11c261f"
+          },
+          "calibration": "sigmoid",
+          "candidate_identifier": "CAND-85EA9202CAD6FE7F",
+          "created_at_utc": "2026-07-15T00:41:38+00:00",
+          "evaluation_summary": {
+            "test_balanced_accuracy": 0.5611111111111111,
+            "test_brier_score": 0.14661000739109128,
+            "test_pr_auc": 0.8660389165549125,
+            "test_recall": 0.7222222222222222,
+            "test_roc_auc": 0.6444444444444444,
+            "test_set_used_for_selection": false,
+            "test_specificity": 0.4,
+            "validation_brier_score": 0.10211204842317363,
+            "validation_pr_auc": 0.9833278849297151,
+            "validation_precision": 1.0,
+            "validation_recall": 0.8421052631578947
+          },
+          "evidence_fingerprint": "4dfd09c5192cce17e86144a6367909350b2a574d43652ca4253947f9d41d9525",
+          "feature_contract": {
+            "feature_build_identifier": "FBUILD-ADB1D374A8E41F8E",
+            "feature_count": 71,
+            "feature_names": [
+              "age__missing",
+              "age",
+              "deprivation_decile__missing",
+              "deprivation_decile",
+              "comorbidity_count__missing",
+              "comorbidity_count",
+              "previous_admissions_12m__missing",
+              "previous_admissions_12m",
+              "initial_news2_score__missing",
+              "initial_news2_score",
+              "diagnosis_count__missing",
+              "diagnosis_count",
+              "secondary_diagnosis_count__missing",
+              "secondary_diagnosis_count",
+              "occupancy_rate__missing",
+              "occupancy_rate",
+              "staff_to_bed_ratio__missing",
+              "staff_to_bed_ratio",
+              "admission_hour__missing",
+              "admission_hour",
+              "admission_month__missing",
+              "admission_month",
+              "weekend_admission__missing",
+              "weekend_admission",
+              "sex__missing",
+              "sex__female",
+              "sex__male",
+              "sex__not_specified",
+              "postcode_region__missing",
+              "postcode_region__sr_central",
+              "postcode_region__sr_east",
+              "postcode_region__sr_north",
+              "postcode_region__sr_south",
+              "postcode_region__sr_west",
+              "admission_type__missing",
+              "admission_type__emergency",
+              "admission_type__planned",
+              "admission_type__urgent",
+              "source_of_admission__missing",
+              "source_of_admission__care_facility",
+              "source_of_admission__clinic",
+              "source_of_admission__home",
+              "source_of_admission__transfer",
+              "mobility_status__missing",
+              "mobility_status____missing__",
+              "mobility_status__assisted",
+              "mobility_status__bedbound",
+              "mobility_status__independent",
+              "mobility_status__limited",
+              "primary_diagnosis_group__missing",
+              "primary_diagnosis_group__cardiovascular_synthetic",
+              "primary_diagnosis_group__frailty_synthetic",
+              "primary_diagnosis_group__infection_synthetic",
+              "primary_diagnosis_group__other_synthetic",
+              "primary_diagnosis_group__respiratory_synthetic",
+              "primary_diagnosis_group__surgical_synthetic",
+              "primary_diagnosis_complexity__missing",
+              "primary_diagnosis_complexity__high",
+              "primary_diagnosis_complexity__low",
+              "primary_diagnosis_complexity__moderate",
+              "admission_day_of_week__missing",
+              "admission_day_of_week__friday",
+              "admission_day_of_week__monday",
+              "admission_day_of_week__saturday",
+              "admission_day_of_week__sunday",
+              "admission_day_of_week__thursday",
+              "admission_day_of_week__tuesday",
+              "admission_day_of_week__wednesday",
+              "admission_season__missing",
+              "admission_season__spring",
+              "admission_season__winter"
+            ],
+            "feature_schema_fingerprint": "c362f5d2acedd1354e69e1032645959582ae8c1899b64355d14476c69dcc7e1e"
+          },
+          "governance": {
+            "conditions": [
+              "Review operational false-positive impact before approval."
+            ],
+            "hard_requirements": {
+              "explainability_available": true,
+              "fairness_report_available": true,
+              "feature_schema_match": true,
+              "leakage_violations": true,
+              "model_card_complete": true,
+              "reproducibility_passed": true,
+              "test_set_used_for_selection": true
+            },
+            "human_decision_required": true,
+            "informational_limitations": [
+              "Synthetic-data decision-support prototype.",
+              "Native XGBoost runtime depends on compatible OpenMP availability.",
+              "No production deployment or clinical use is approved."
+            ],
+            "recommended_decision": "defer",
+            "review_flags": [
+              {
+                "code": "weak_test_specificity",
+                "detail": "Locked test specificity is 0.4.",
+                "type": "review_flag"
+              },
+              {
+                "code": "small_test_set",
+                "detail": "Locked test set has 23 synthetic rows.",
+                "type": "informational_limitation"
+              },
+              {
+                "code": "fairness_groups_suppressed",
+                "detail": "Some subgroup metrics are suppressed below minimum group size.",
+                "type": "review_flag"
+              },
+              {
+                "code": "synthetic_only",
+                "detail": "Evidence uses synthetic data only and is not clinical validation.",
+                "type": "informational_limitation"
+              }
+            ]
+          },
+          "model_family": "xgboost",
+          "model_name": "long_stay_admission_risk",
+          "preprocessor_contract": {
+            "preprocessor_checksum": "87ceced17e1c90b02fd9b8c707663e0db7ef66a2a99cc8dbb457ef262a21cd30",
+            "preprocessor_fingerprint": "b946cd2bba8a0e79752e7b6c25053b035c66898fc4d94fd85153ef58b97601e6",
+            "source_path": "reports/model_evaluation/preprocessor_metadata.json"
+          },
+          "registry_id": "MODEL-REG-000001",
+          "registry_version": 1,
+          "status": "registered",
+          "synthetic_data_declaration": "All modelling data are synthetic.",
+          "threshold": 0.75,
+          "training_configuration_fingerprint": "5d14f2022ca22e140f958b43a37d9a4b9b98e0a26c931277a2f21ea3c27a98cb"
+        }
+      ]
+    }
+  ],
+  "registry_type": "local_filesystem",
+  "version": 1
+}

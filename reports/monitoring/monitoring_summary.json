@@ -1,0 +1,10 @@
+{
+  "automatic_action": "none",
+  "critical_count": 4,
+  "monitoring_run_identifier": "d0a1b64599791e42",
+  "overall_disposition": "review_required",
+  "performance_requires_labels": true,
+  "prediction_drift_is_not_performance_drift": true,
+  "scenario": "moderate_drift",
+  "warning_count": 1
+}

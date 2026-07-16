@@ -1,0 +1,8 @@
+{
+  "activation_requires_approval": true,
+  "activation_state": "inactive",
+  "active_model": null,
+  "active_version": null,
+  "actual_activation_performed": false,
+  "rollback_supported": true
+}

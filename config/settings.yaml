@@ -1,0 +1,29 @@
+version: "0.1.0"
+description: "Milestone 1 application settings metadata for local foundation validation."
+implementation_status: implemented
+enabled: true
+current_environment: development
+synthetic_data_only: true
+decision_support_only: true
+integration_modes:
+  denodo: denodo_compatible_local
+  sas_viya: local_model_lifecycle
+future_settings:
+  synthetic_data:
+    implementation_status: implemented
+    enabled: true
+    config_path: config/synthetic_data.yaml
+  database:
+    implementation_status: implemented
+    enabled: true
+    config_path: config/database.yaml
+  api:
+    implementation_status: planned
+    enabled: false
+  rshiny:
+    implementation_status: planned
+    enabled: false
+  monitoring:
+    implementation_status: planned
+    enabled: false
+override_behaviour: "Environment variables override local defaults; committed files must not contain secrets."

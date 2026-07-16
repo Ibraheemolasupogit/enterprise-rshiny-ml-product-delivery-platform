@@ -1,0 +1,4 @@
+flowchart TD
+  Source[Synthetic source systems] --> DuckDB[DuckDB raw/staged/quality/metadata/curated]
+  DuckDB --> Logical[Provider-neutral logical layer]
+  Denodo[Denodo future adapter - externally blocked] -.-> Logical

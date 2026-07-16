@@ -1,0 +1,35 @@
+{
+  "mandatory_models_trained": true,
+  "package_versions": {
+    "python": "3.12",
+    "scikit_learn": "local",
+    "xgboost": "optional"
+  },
+  "rows": [
+    {
+      "artifact_path": "models/candidate/retraining/logistic_regression.joblib",
+      "artifact_sha256": "ff982c846912747aa757775f16a78ccbde1130633560e2f9b68b3613685dfecb",
+      "candidate_identifier": "RETRAIN-CAND-0D684BC55EA8",
+      "fit_status": "fitted",
+      "historical_test_set_used_for_selection": false,
+      "model_family": "logistic_regression"
+    },
+    {
+      "artifact_path": "models/candidate/retraining/random_forest.joblib",
+      "artifact_sha256": "5a73dbc54f6d2d17731afb5664046a4733d3d827b168131b2b8e44b784dfa8be",
+      "candidate_identifier": "RETRAIN-CAND-58BA5CA38006",
+      "fit_status": "fitted",
+      "historical_test_set_used_for_selection": false,
+      "model_family": "random_forest"
+    },
+    {
+      "artifact_path": "models/candidate/retraining/xgboost.joblib",
+      "artifact_sha256": "83d6168e3d0af0e99d5694a47f7781ea37f0127d1bd5900a8a2920d3da658a55",
+      "candidate_identifier": "RETRAIN-CAND-B65A4A801E46",
+      "fit_status": "fitted",
+      "historical_test_set_used_for_selection": false,
+      "model_family": "xgboost"
+    }
+  ],
+  "training_status": "completed"
+}

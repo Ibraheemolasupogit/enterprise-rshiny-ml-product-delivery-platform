@@ -1,0 +1,20 @@
+{
+  "commercial_integration_status": {
+    "denodo": "externally blocked and not implemented",
+    "sas_viya": "externally blocked and not implemented"
+  },
+  "container_validation_complete": true,
+  "external_deployment_status": "not_performed",
+  "generated_at_utc": "2026-07-16T23:28:49.735450+00:00",
+  "local_review_ready": true,
+  "model_activation_status": "inactive",
+  "model_approval_status": "pending",
+  "operational_release_ready": false,
+  "portfolio_documentation_complete": true,
+  "portfolio_repository_readiness": "ready",
+  "remote_ci_executed": false,
+  "remote_ci_passed": false,
+  "repository_committed": false,
+  "repository_pushed": false,
+  "security_assurance_complete": true
+}

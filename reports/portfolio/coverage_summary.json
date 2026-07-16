@@ -1,0 +1,11 @@
+{
+  "configured_addopts": "--cov=ml_product --cov-report=term-missing",
+  "configured_threshold": null,
+  "full_suite_coverage_percent": 81,
+  "generated_at_utc": "2026-07-16T23:28:49.735183+00:00",
+  "notes": [
+    "No explicit fail-under threshold is configured in pyproject.toml.",
+    "The full-suite run is authoritative because focused contract runs report artificially low coverage."
+  ],
+  "policy_result": "passed"
+}

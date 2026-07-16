@@ -1,0 +1,24 @@
+name: Model governance issue
+description: Track model evidence, approval, fairness, or monitoring concerns
+title: "[Model governance]: "
+labels: ["model-governance"]
+body:
+  - type: input
+    id: milestone
+    attributes:
+      label: Target milestone
+    validations:
+      required: true
+  - type: textarea
+    id: concern
+    attributes:
+      label: Governance concern
+    validations:
+      required: true
+  - type: checkboxes
+    id: approval
+    attributes:
+      label: Approval boundary
+      options:
+        - label: This does not request automatic model promotion without human approval.
+          required: true

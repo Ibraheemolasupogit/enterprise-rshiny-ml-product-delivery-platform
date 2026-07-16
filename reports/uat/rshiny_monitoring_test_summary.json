@@ -1,0 +1,7 @@
+{
+  "r_unit_test_count": 6,
+  "browser_navigation_includes_monitoring": true,
+  "no_mutation_controls": true,
+  "evidence_validation_result": "passed",
+  "failures": 0
+}

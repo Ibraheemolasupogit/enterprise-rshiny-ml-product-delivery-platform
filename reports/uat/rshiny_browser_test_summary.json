@@ -1,0 +1,9 @@
+{
+  "tests_run": 6,
+  "tests_passed": 6,
+  "tests_failed": 0,
+  "tests_skipped": 0,
+  "browser_name_version": "Google Chrome 150.0.7871.124",
+  "environment": "macOS-15.6.1-arm64-arm-64bit",
+  "screenshots_committed": false
+}

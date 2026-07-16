@@ -1,0 +1,32 @@
+{
+  "rows": [
+    {
+      "candidate_identifier": "RETRAIN-CAND-0D684BC55EA8",
+      "historical_test_set_used": false,
+      "isotonic_eligible": false,
+      "model_family": "logistic_regression",
+      "selected_method": "sigmoid_reviewed",
+      "sigmoid_brier_score": 0.029052441545857403,
+      "uncalibrated_brier_score": 0.0310524415458574
+    },
+    {
+      "candidate_identifier": "RETRAIN-CAND-58BA5CA38006",
+      "historical_test_set_used": false,
+      "isotonic_eligible": false,
+      "model_family": "random_forest",
+      "selected_method": "sigmoid_reviewed",
+      "sigmoid_brier_score": 0.11804824174142203,
+      "uncalibrated_brier_score": 0.12004824174142203
+    },
+    {
+      "candidate_identifier": "RETRAIN-CAND-B65A4A801E46",
+      "historical_test_set_used": false,
+      "isotonic_eligible": false,
+      "model_family": "xgboost",
+      "selected_method": "sigmoid_reviewed",
+      "sigmoid_brier_score": 0.08362144231796265,
+      "uncalibrated_brier_score": 0.08562144231796265
+    }
+  ],
+  "section": "challenger_calibration"
+}

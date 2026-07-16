@@ -1,0 +1,215 @@
+{
+  "baseline_references": {
+    "baseline_majority_class": {
+      "accuracy": 0.782608695652174,
+      "balanced_accuracy": 0.5,
+      "brier_score": 0.2173908695662174,
+      "calibration_error": 0.2173903043478258,
+      "calibration_intercept": -0.21739030434782602,
+      "calibration_slope": -0.08695652173913043,
+      "confusion_matrix": {
+        "false_negatives": 0,
+        "false_positives": 5,
+        "true_negatives": 0,
+        "true_positives": 18
+      },
+      "f1": 0.8780487804878049,
+      "log_loss": 3.0033726430298517,
+      "negative_predictive_value": 0.0,
+      "pr_auc": 0.782608695652174,
+      "pr_auc_lift_over_prevalence": 0.0,
+      "precision": 0.782608695652174,
+      "predicted_positive_rate": 1.0,
+      "recall": 1.0,
+      "reliability_bins": [
+        {
+          "count": 0,
+          "lower": 0.0,
+          "mean_probability": 0.0,
+          "observed_rate": 0.0,
+          "upper": 0.2
+        },
+        {
+          "count": 0,
+          "lower": 0.2,
+          "mean_probability": 0.0,
+          "observed_rate": 0.0,
+          "upper": 0.4
+        },
+        {
+          "count": 0,
+          "lower": 0.4,
+          "mean_probability": 0.0,
+          "observed_rate": 0.0,
+          "upper": 0.6000000000000001
+        },
+        {
+          "count": 0,
+          "lower": 0.6000000000000001,
+          "mean_probability": 0.0,
+          "observed_rate": 0.0,
+          "upper": 0.8
+        },
+        {
+          "count": 23,
+          "lower": 0.8,
+          "mean_probability": 0.9999989999999997,
+          "observed_rate": 0.782608695652174,
+          "upper": 1.0
+        }
+      ],
+      "roc_auc": 0.5,
+      "sensitivity": 1.0,
+      "specificity": 0.0
+    },
+    "baseline_prevalence": {
+      "accuracy": 0.782608695652174,
+      "balanced_accuracy": 0.5,
+      "brier_score": 0.18109760830753038,
+      "calibration_error": 0.10471524800979791,
+      "calibration_intercept": -0.10471524800979799,
+      "calibration_slope": null,
+      "confusion_matrix": {
+        "false_negatives": 0,
+        "false_positives": 5,
+        "true_negatives": 0,
+        "true_positives": 18
+      },
+      "f1": 0.8780487804878049,
+      "log_loss": 0.5681741038479778,
+      "negative_predictive_value": 0.0,
+      "pr_auc": 0.782608695652174,
+      "pr_auc_lift_over_prevalence": 0.0,
+      "precision": 0.782608695652174,
+      "predicted_positive_rate": 1.0,
+      "recall": 1.0,
+      "reliability_bins": [
+        {
+          "count": 0,
+          "lower": 0.0,
+          "mean_probability": 0.0,
+          "observed_rate": 0.0,
+          "upper": 0.2
+        },
+        {
+          "count": 0,
+          "lower": 0.2,
+          "mean_probability": 0.0,
+          "observed_rate": 0.0,
+          "upper": 0.4
+        },
+        {
+          "count": 0,
+          "lower": 0.4,
+          "mean_probability": 0.0,
+          "observed_rate": 0.0,
+          "upper": 0.6000000000000001
+        },
+        {
+          "count": 0,
+          "lower": 0.6000000000000001,
+          "mean_probability": 0.0,
+          "observed_rate": 0.0,
+          "upper": 0.8
+        },
+        {
+          "count": 23,
+          "lower": 0.8,
+          "mean_probability": 0.8873239436619719,
+          "observed_rate": 0.782608695652174,
+          "upper": 1.0
+        }
+      ],
+      "roc_auc": 0.5,
+      "sensitivity": 1.0,
+      "specificity": 0.0
+    }
+  },
+  "metrics": {
+    "accuracy": 0.6521739130434783,
+    "balanced_accuracy": 0.5611111111111111,
+    "bootstrap_confidence_intervals": {
+      "brier_score": {
+        "lower": 0.08200435861832678,
+        "upper": 0.22797260363930089
+      },
+      "pr_auc": {
+        "lower": 0.7021815564573884,
+        "upper": 0.9819736893404736
+      },
+      "precision": {
+        "lower": 0.6706140350877193,
+        "upper": 0.9375
+      },
+      "recall": {
+        "lower": 0.5,
+        "upper": 0.9419444444444444
+      },
+      "roc_auc": {
+        "lower": 0.2857356459330143,
+        "upper": 0.950955882352941
+      }
+    },
+    "brier_score": 0.14661000739109128,
+    "calibration_error": 0.05143670068771637,
+    "calibration_intercept": -0.01737250715143914,
+    "calibration_slope": 1.047547078944512,
+    "confusion_matrix": {
+      "false_negatives": 5,
+      "false_positives": 3,
+      "true_negatives": 2,
+      "true_positives": 13
+    },
+    "f1": 0.7647058823529411,
+    "log_loss": 0.4762602665724515,
+    "negative_predictive_value": 0.2857142857142857,
+    "pr_auc": 0.8660389165549125,
+    "pr_auc_lift_over_prevalence": 0.08343022090273855,
+    "precision": 0.8125,
+    "predicted_positive_rate": 0.6956521739130435,
+    "recall": 0.7222222222222222,
+    "reliability_bins": [
+      {
+        "count": 0,
+        "lower": 0.0,
+        "mean_probability": 0.0,
+        "observed_rate": 0.0,
+        "upper": 0.2
+      },
+      {
+        "count": 0,
+        "lower": 0.2,
+        "mean_probability": 0.0,
+        "observed_rate": 0.0,
+        "upper": 0.4
+      },
+      {
+        "count": 3,
+        "lower": 0.4,
+        "mean_probability": 0.47965612934997853,
+        "observed_rate": 0.3333333333333333,
+        "upper": 0.6000000000000001
+      },
+      {
+        "count": 5,
+        "lower": 0.6000000000000001,
+        "mean_probability": 0.7216523548665625,
+        "observed_rate": 0.8,
+        "upper": 0.8
+      },
+      {
+        "count": 15,
+        "lower": 0.8,
+        "mean_probability": 0.8901558334733569,
+        "observed_rate": 0.8666666666666667,
+        "upper": 1.0
+      }
+    ],
+    "roc_auc": 0.6444444444444444,
+    "sensitivity": 0.7222222222222222,
+    "specificity": 0.4
+  },
+  "selected_model": "xgboost",
+  "test_set_evaluated_after_selection": true,
+  "test_set_used_for_selection": false
+}

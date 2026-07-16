@@ -1,0 +1,3 @@
+age,sex,postcode_region,deprivation_decile,comorbidity_count,previous_admissions_12m,admission_type,source_of_admission,initial_news2_score,mobility_status,primary_diagnosis_group,primary_diagnosis_complexity,diagnosis_count,secondary_diagnosis_count,staffed_beds,occupied_beds,closed_beds,isolation_capacity,registered_nurses,support_workers,medical_staff,agency_hours,vacancy_rate,occupancy_rate,staff_to_bed_ratio,admission_datetime,request_id
+78,female,SR-CENTRAL,4,3,2,emergency,home,7,limited,respiratory_synthetic,moderate,4,2,36,32,2,4,9,11,5,12,0.08,0.89,0.69,2026-07-15T09:30:00Z,SHINY-SYNTHETIC-0001
+64,male,SR-WEST,6,1,0,planned,clinic,3,independent,surgical_synthetic,low,2,0,34,25,1,3,8,10,4,4,0.05,0.74,0.65,2026-07-15T11:15:00Z,SHINY-SYNTHETIC-0002

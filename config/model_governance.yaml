@@ -1,0 +1,35 @@
+version: 1
+description: "Milestone 7 local governance approval policy."
+implementation_status: implemented
+enabled: true
+
+approval:
+  automatic: false
+
+minimum_requirements:
+  reproducibility_passed: true
+  test_set_used_for_selection: false
+  leakage_violations: 0
+  feature_schema_match: true
+  model_card_complete: true
+  explainability_available: true
+  fairness_report_available: true
+
+review_flags:
+  minimum_test_specificity: 0.50
+  maximum_validation_test_pr_auc_drop: 0.15
+  minimum_test_balanced_accuracy: 0.55
+  minimum_test_recall: 0.70
+
+decision_policy:
+  hard_failures:
+    - reproducibility_failed
+    - feature_schema_mismatch
+    - test_set_used_for_selection
+    - leakage_violation
+  conditional_flags:
+    - small_test_set
+    - fairness_groups_suppressed
+    - weak_test_specificity
+    - validation_test_degradation
+    - synthetic_only

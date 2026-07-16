@@ -1,0 +1,22 @@
+{
+  "implemented_checks": [
+    "skip_to_main_content",
+    "landmark_regions",
+    "navigation_labels",
+    "table_captions_documented",
+    "accessible_upload_instructions",
+    "validation_summary_status",
+    "screen_reader_status_updates",
+    "descriptive_download_labels",
+    "reduced_motion_support",
+    "minimum_target_sizes",
+    "required_field_labels",
+    "sanitised_error_summary"
+  ],
+  "formal_wcag_certification": false,
+  "remaining_manual_review": [
+    "assistive technology walkthrough",
+    "full colour contrast audit",
+    "manual keyboard journey confirmation"
+  ]
+}

@@ -1,0 +1,29 @@
+version: 1
+description: "Milestone 13 local release assurance configuration."
+implementation_status: implemented
+enabled: true
+
+release:
+  project_version_source: pyproject
+  require_clean_validation: true
+  require_model_governance_consistency: true
+  require_registry_validation: true
+  require_reproducibility: true
+  require_security_checks: true
+  require_container_checks: true
+
+artefacts:
+  api_image_name: enterprise-ml-product-api
+  rshiny_image_name: enterprise-ml-product-rshiny
+  tag_strategy: semantic_version_and_commit
+  publish_images: false
+
+deployment:
+  external_enabled: false
+  cloud_enabled: false
+  require_manual_approval: true
+
+model:
+  require_approved_active_for_operational_release: true
+  permit_review_release: true
+  review_release_label: local-review-only

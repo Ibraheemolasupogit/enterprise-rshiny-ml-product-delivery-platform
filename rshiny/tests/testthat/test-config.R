@@ -1,0 +1,20 @@
+test_that("R-Shiny config enables Milestone 11 monitoring and disables future mutation features", {
+  cfg <- load_app_config()
+  expect_equal(cfg$implementation_status, "implemented")
+  expect_false(cfg$review_mode$allow_ui_toggle)
+  expect_true(cfg$features$cohort_scoring)
+  expect_true(cfg$features$performance_dashboard)
+  expect_true(cfg$features$model_governance)
+  expect_true(cfg$features$monitoring)
+  expect_false(cfg$features$drift_detection)
+  expect_false(cfg$features$retraining)
+  expect_false(cfg$features$governance_admin)
+  expect_false(cfg$features$deployment_controls)
+  expect_false(cfg$cohort_scoring$retain_uploads)
+  expect_true(validate_relative_output_path(cfg$feedback$output_path))
+})
+
+test_that("API base URL validation rejects non HTTP URLs", {
+  expect_error(validate_api_base_url("file:///tmp/model"), "HTTP")
+  expect_true(validate_api_base_url("http://127.0.0.1:8000"))
+})

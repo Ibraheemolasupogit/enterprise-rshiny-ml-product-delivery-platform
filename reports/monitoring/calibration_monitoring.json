@@ -1,0 +1,26 @@
+{
+  "alerts": [
+    {
+      "automatic_action": "human_review_required",
+      "baseline_value": null,
+      "category": "calibration",
+      "feature": null,
+      "metric": "calibration_error",
+      "observed_value": null,
+      "reason": "Calibration monitoring result.",
+      "requires_review": true,
+      "severity": "critical",
+      "status": "critical",
+      "threshold": null
+    }
+  ],
+  "brier_change": 0.04256733635890872,
+  "brier_score": 0.18917734375,
+  "calibration_error_change": 0.15918829931228345,
+  "expected_calibration_error": 0.21062499999999984,
+  "mean_predicted_probability": 0.6143750000000001,
+  "observed_prevalence": 0.825,
+  "recommendation": "review_calibration",
+  "section": "calibration_monitoring",
+  "status": "critical"
+}

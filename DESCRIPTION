@@ -1,0 +1,22 @@
+Package: mlProductRShinyFoundation
+Title: R-Shiny MVP for Synthetic ML Product Delivery
+Version: 0.1.0
+Authors@R: c(person("Platform", "Team", role = c("aut", "cre"), email = "placeholder@example.invalid"))
+Description: Modular R-Shiny MVP that consumes the governed local FastAPI scoring service for synthetic review-mode demonstrations. It does not load model artefacts or query local databases for scoring.
+License: MIT
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.0
+Imports:
+    bslib,
+    httr2,
+    htmltools,
+    jsonlite,
+    lintr,
+    mockery,
+    shiny,
+    shinytest2,
+    testthat (>= 3.0.0),
+    withr,
+    yaml
+Config/testthat/edition: 3

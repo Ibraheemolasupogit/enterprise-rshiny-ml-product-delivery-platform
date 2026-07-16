@@ -1,0 +1,11 @@
+{
+  "page": "Retraining Review",
+  "read_only": true,
+  "recommendation": "retain_champion",
+  "automatic_action": "none",
+  "approval_status": "not_granted",
+  "activation_status": "inactive",
+  "deployment_status": "not_performed",
+  "no_execution_buttons": true,
+  "no_registry_mutation_controls": true
+}

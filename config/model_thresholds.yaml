@@ -1,0 +1,32 @@
+version: 1
+description: "Milestone 6 validation-only threshold-selection configuration."
+implementation_status: implemented
+enabled: true
+
+thresholds:
+  candidate_values:
+    start: 0.10
+    stop: 0.90
+    step: 0.05
+
+selection:
+  primary_rule: minimum_recall
+  minimum_recall: 0.80
+  secondary_metric: precision
+  tertiary_metric: total_weighted_cost
+  final_tie_break: lowest_threshold
+
+operational_costs:
+  false_negative_cost: 5.0
+  false_positive_cost: 1.0
+
+risk_bands:
+  low:
+    minimum: 0.00
+    maximum: 0.40
+  medium:
+    minimum: 0.40
+    maximum: 0.70
+  high:
+    minimum: 0.70
+    maximum: 1.00

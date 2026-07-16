@@ -1,0 +1,16 @@
+{
+  "implemented_baseline_checks": [
+    "semantic headings",
+    "labelled inputs",
+    "keyboard-accessible controls",
+    "visible focus states",
+    "aria-live status region",
+    "plain-language limitations",
+    "responsive layout"
+  ],
+  "formal_wcag_certification": false,
+  "remaining_manual_review": [
+    "assistive technology walkthrough",
+    "full colour contrast audit"
+  ]
+}

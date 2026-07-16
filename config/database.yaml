@@ -1,0 +1,39 @@
+version: "0.3.0"
+description: "Milestone 3 local DuckDB database and governed logical layer configuration."
+implementation_status: implemented
+enabled: true
+
+engine:
+  type: duckdb
+  database_path: data/processed/ml_product.duckdb
+  read_only: false
+
+sources:
+  directory: data/sample
+  preferred_format: parquet
+  fallback_format: csv
+
+schemas:
+  raw: raw
+  staged: staged
+  curated: curated
+  quality: quality
+  metadata: metadata
+
+loading:
+  replace_existing: true
+  validate_checksums: true
+  validate_manifest: true
+  preserve_source_rows: true
+
+quality:
+  reconcile_intentional_issues: true
+  fail_on_unexpected_issues: true
+  quarantine_invalid_records: true
+
+logical_layer:
+  provider: denodo_compatible_local
+  adapter: duckdb
+  default_limit: 100
+  max_limit: 1000
+  allow_arbitrary_sql: false

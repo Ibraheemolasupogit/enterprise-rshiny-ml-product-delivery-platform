@@ -1,0 +1,55 @@
+name: Container
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4 # v4 release tag; pin to commit SHA after first remote CI baseline.
+      - name: Set up Python
+        uses: actions/setup-python@v5 # v5 release tag; pin to commit SHA after first remote CI baseline.
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install validation dependencies
+        run: python -m pip install -e ".[dev]"
+      - name: Validate container metadata
+        run: python -m ml_product.cli validate-containers --config config/release.yaml
+      - name: Compose config validation
+        run: docker compose config
+      - name: Build API image
+        run: docker build -f infrastructure/docker/Dockerfile.api --build-arg IMAGE_REVISION=uncommitted -t enterprise-ml-product-api:0.1.0-uncommitted .
+      - name: Build R-Shiny image
+        run: docker build -f infrastructure/docker/Dockerfile.rshiny --build-arg IMAGE_REVISION=uncommitted -t enterprise-ml-product-rshiny:0.1.0-uncommitted .
+      - name: Trivy API image scan
+        uses: aquasecurity/trivy-action@0.24.0 # Fixed release tag; high/critical findings block.
+        with:
+          image-ref: enterprise-ml-product-api:0.1.0-uncommitted
+          severity: HIGH,CRITICAL
+          exit-code: "1"
+          ignore-unfixed: true
+      - name: Trivy R-Shiny image scan
+        uses: aquasecurity/trivy-action@0.24.0 # Fixed release tag; high/critical findings block.
+        with:
+          image-ref: enterprise-ml-product-rshiny:0.1.0-uncommitted
+          severity: HIGH,CRITICAL
+          exit-code: "1"
+          ignore-unfixed: true
+      - name: Local deployment smoke test
+        env:
+          MODEL_API_KEY: placeholder
+        run: bash scripts/smoke_test_local_deployment.sh

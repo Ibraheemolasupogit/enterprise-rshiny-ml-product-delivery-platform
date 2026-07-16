@@ -1,0 +1,98 @@
+{
+  "disparities": {
+    "age_band": {
+      "available": false,
+      "reason": "fewer than two unsuppressed groups"
+    },
+    "deprivation_group": {
+      "available": false,
+      "reason": "fewer than two unsuppressed groups"
+    },
+    "sex": {
+      "available": false,
+      "reason": "fewer than two unsuppressed groups"
+    }
+  },
+  "groups": {
+    "age_band": [
+      {
+        "brier_score": 0.15491341180649082,
+        "false_negative_rate": 0.5555555555555556,
+        "false_positive_rate": 0.33333333333333337,
+        "group": "40_to_64",
+        "mean_predicted_probability": 0.7251820234495999,
+        "positive_rate": 0.75,
+        "precision": 0.8,
+        "predicted_positive_rate": 0.4166666666666667,
+        "recall": 0.4444444444444444,
+        "row_count": 12,
+        "specificity": 0.6666666666666666,
+        "suppressed": false
+      },
+      {
+        "group": "65_to_79",
+        "row_count": 8,
+        "suppressed": true,
+        "suppression_reason": "below minimum group size"
+      },
+      {
+        "group": "80_plus",
+        "row_count": 3,
+        "suppressed": true,
+        "suppression_reason": "below minimum group size"
+      }
+    ],
+    "deprivation_group": [
+      {
+        "brier_score": 0.11507942732290363,
+        "false_negative_rate": 0.33333333333333337,
+        "false_positive_rate": 1.0,
+        "group": "deciles_1_to_3",
+        "mean_predicted_probability": 0.8520090435223061,
+        "positive_rate": 0.9,
+        "precision": 0.8571428571428571,
+        "predicted_positive_rate": 0.7,
+        "recall": 0.6666666666666666,
+        "row_count": 10,
+        "specificity": 0.0,
+        "suppressed": false
+      },
+      {
+        "group": "deciles_4_to_7",
+        "row_count": 4,
+        "suppressed": true,
+        "suppression_reason": "below minimum group size"
+      },
+      {
+        "group": "deciles_8_to_10",
+        "row_count": 9,
+        "suppressed": true,
+        "suppression_reason": "below minimum group size"
+      }
+    ],
+    "sex": [
+      {
+        "group": "female",
+        "row_count": 5,
+        "suppressed": true,
+        "suppression_reason": "below minimum group size"
+      },
+      {
+        "brier_score": 0.14217395094000965,
+        "false_negative_rate": 0.33333333333333337,
+        "false_positive_rate": 0.6666666666666667,
+        "group": "male",
+        "mean_predicted_probability": 0.8094180317780292,
+        "positive_rate": 0.8333333333333334,
+        "precision": 0.8333333333333334,
+        "predicted_positive_rate": 0.6666666666666666,
+        "recall": 0.6666666666666666,
+        "row_count": 18,
+        "specificity": 0.3333333333333333,
+        "suppressed": false
+      }
+    ]
+  },
+  "limitations": "Exploratory synthetic subgroup evidence only; small groups are suppressed and this is not legal, clinical, or fairness certification.",
+  "minimum_group_size": 10
+}

@@ -1,0 +1,20 @@
+{
+  "valid_template_rows": 2,
+  "maximum_rows": 100,
+  "csv_validation_cases": [
+    "missing_column",
+    "extra_column",
+    "prohibited_column",
+    "invalid_category",
+    "numeric_range",
+    "timestamp",
+    "row_limit"
+  ],
+  "api_parser_cases": [
+    "response_count",
+    "response_order",
+    "review_mode_labels",
+    "model_version_consistency"
+  ],
+  "result": "passed"
+}

@@ -1,0 +1,18 @@
+{
+  "r_unit_test_count": 32,
+  "r_integration_test_count": 1,
+  "shiny_test_count": 0,
+  "python_contract_test_count": 4,
+  "failures": 0,
+  "skips": [
+    {
+      "suite": "shinytest2",
+      "count": 1,
+      "reason": "Chrome/chromote browser runtime is not runnable locally."
+    }
+  ],
+  "environment": {
+    "r_version": "R version 4.6.1 (2026-06-24)",
+    "architecture": "arm64"
+  }
+}

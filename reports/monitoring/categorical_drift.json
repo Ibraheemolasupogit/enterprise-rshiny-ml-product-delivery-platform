@@ -1,0 +1,447 @@
+{
+  "alerts": [
+    {
+      "automatic_action": "human_review_required",
+      "baseline_value": null,
+      "category": "categorical_drift",
+      "feature": null,
+      "metric": "jensen_shannon",
+      "observed_value": null,
+      "reason": "Categorical drift result.",
+      "requires_review": true,
+      "severity": "warning",
+      "status": "warning",
+      "threshold": null
+    }
+  ],
+  "critical_features": [],
+  "features_evaluated": 60,
+  "metrics": [
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_day_of_week__friday",
+      "jensen_shannon": 0.0006925441845449902,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_day_of_week__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_day_of_week__monday",
+      "jensen_shannon": 0.00030508541020147443,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_day_of_week__saturday",
+      "jensen_shannon": 0.001584584516937113,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_day_of_week__sunday",
+      "jensen_shannon": 0.005727077427618174,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_day_of_week__thursday",
+      "jensen_shannon": 0.0034591066512931565,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_day_of_week__tuesday",
+      "jensen_shannon": 0.08216232920560891,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_day_of_week__wednesday",
+      "jensen_shannon": 0.017418054581124477,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_hour__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_month__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_season__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_season__spring",
+      "jensen_shannon": 0.002805795253243964,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_season__winter",
+      "jensen_shannon": 0.002805795253243964,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_type__emergency",
+      "jensen_shannon": 0.006412997113706308,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_type__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_type__planned",
+      "jensen_shannon": 0.0005174525437886286,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "admission_type__urgent",
+      "jensen_shannon": 0.005202048254499783,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "age__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "comorbidity_count__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "deprivation_decile__missing",
+      "jensen_shannon": 0.014229542983704239,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "diagnosis_count__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "initial_news2_score__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "mobility_status____missing__",
+      "jensen_shannon": 0.007078177226797248,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "mobility_status__assisted",
+      "jensen_shannon": 0.05681705245814195,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "mobility_status__bedbound",
+      "jensen_shannon": 0.009710200397941227,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "mobility_status__independent",
+      "jensen_shannon": 0.0020609227082884485,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "mobility_status__limited",
+      "jensen_shannon": 0.022452400210572036,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "mobility_status__missing",
+      "jensen_shannon": 0.007078177226797248,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "occupancy_rate__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "postcode_region__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "postcode_region__sr_central",
+      "jensen_shannon": 0.005781225792924401,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "postcode_region__sr_east",
+      "jensen_shannon": 0.0015240034382496583,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "postcode_region__sr_north",
+      "jensen_shannon": 0.043843952201673426,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "postcode_region__sr_south",
+      "jensen_shannon": 0.10533254509981316,
+      "new_categories": [],
+      "status": "warning"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "postcode_region__sr_west",
+      "jensen_shannon": 0.03986637278566269,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "previous_admissions_12m__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "primary_diagnosis_complexity__high",
+      "jensen_shannon": 0.011735529218594533,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "primary_diagnosis_complexity__low",
+      "jensen_shannon": 1.539409911897405e-05,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "primary_diagnosis_complexity__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "primary_diagnosis_complexity__moderate",
+      "jensen_shannon": 0.0076078862661314445,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "primary_diagnosis_group__cardiovascular_synthetic",
+      "jensen_shannon": 0.01026349636068051,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "primary_diagnosis_group__frailty_synthetic",
+      "jensen_shannon": 0.010379697323464568,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "primary_diagnosis_group__infection_synthetic",
+      "jensen_shannon": 0.007127928455715343,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "primary_diagnosis_group__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "primary_diagnosis_group__other_synthetic",
+      "jensen_shannon": 5.079984190412717e-06,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "primary_diagnosis_group__respiratory_synthetic",
+      "jensen_shannon": 0.0027950226839158713,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "primary_diagnosis_group__surgical_synthetic",
+      "jensen_shannon": 0.002805795253243964,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "secondary_diagnosis_count__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "sex__female",
+      "jensen_shannon": 0.029844715670370864,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "sex__male",
+      "jensen_shannon": 0.022156461049715963,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "sex__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "sex__not_specified",
+      "jensen_shannon": 0.014229542983704239,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "source_of_admission__care_facility",
+      "jensen_shannon": 0.004830023672897697,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "source_of_admission__clinic",
+      "jensen_shannon": 0.002861859894168081,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "source_of_admission__home",
+      "jensen_shannon": 7.548990782222384e-05,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "source_of_admission__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "source_of_admission__transfer",
+      "jensen_shannon": 0.00033274514570654206,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "staff_to_bed_ratio__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "weekend_admission",
+      "jensen_shannon": 0.007992621847030375,
+      "new_categories": [],
+      "status": "pass"
+    },
+    {
+      "chi_square_eligible": true,
+      "feature": "weekend_admission__missing",
+      "jensen_shannon": 0.0,
+      "new_categories": [],
+      "status": "pass"
+    }
+  ],
+  "new_categories": {},
+  "section": "categorical_drift",
+  "status": "warning",
+  "warning_features": [
+    "postcode_region__sr_south"
+  ]
+}

@@ -1,0 +1,29 @@
+name: Bug report
+description: Report a defect in implemented milestone work
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: input
+    id: milestone
+    attributes:
+      label: Affected milestone
+    validations:
+      required: true
+  - type: textarea
+    id: behaviour
+    attributes:
+      label: Observed behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation or reproduction steps
+    validations:
+      required: true

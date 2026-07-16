@@ -1,0 +1,44 @@
+{
+  "cross_file_checks": {
+    "activation_inactive": true,
+    "approval_pending": true,
+    "feature_count_matches_registry": true,
+    "monitoring_review_only": true,
+    "operational_release_blocked": true,
+    "recommended_candidate_registered": true,
+    "retain_champion": true,
+    "split_counts_match": true,
+    "test_set_not_used_for_selection": true,
+    "threshold_matches": true
+  },
+  "errors": [],
+  "files_checked": [
+    "reports/model_evaluation/split_summary.json",
+    "reports/model_evaluation/model_training_manifest.json",
+    "reports/model_evaluation/candidate_recommendation.json",
+    "reports/model_evaluation/test_metrics.json",
+    "models/registry.json",
+    "reports/monitoring/monitoring_summary.json",
+    "reports/retraining/retraining_recommendation.json",
+    "reports/assurance/release_readiness.json"
+  ],
+  "fingerprint_consistency": {
+    "models/registry.json": "c0b3c8cfca7aabb1e9f350ae028a18f601b9a8e7ae47a20e99796c88abc87f2b",
+    "reports/assurance/release_readiness.json": "50dc5ee6c5e468d7f6d5027405e954ca772ae0d9665b1a93707232e8b7adb621",
+    "reports/model_evaluation/candidate_recommendation.json": "c35bada031bd439ef95b27f267f6ab291c42a0ab52b3a2901519a37b4d2a7e9e",
+    "reports/model_evaluation/model_training_manifest.json": "a13107e340756723a32e773fe2797bb1f5077e65e424e66f954e89953bea7b17",
+    "reports/model_evaluation/split_summary.json": "6b6c594ece59c3a5955562306a4640766302f8a319859e310c4f7bb15386f4d5",
+    "reports/model_evaluation/test_metrics.json": "5b1ca1b49fa1c83939a71d058b7f4779c17bc5ee76caf3bee370c4c5bd3ff750",
+    "reports/monitoring/monitoring_summary.json": "bf87e578e9adef87438c6783bc73d634336fe60c387a18886cac009e11e0c3ff",
+    "reports/retraining/retraining_recommendation.json": "b90f7bcdff3a135ddc3d0afdd535e5ae02affd29526ad4a602afdb3d2bc10ce7"
+  },
+  "generated_at_utc": "2026-07-16T23:28:48.389407+00:00",
+  "identifier_consistency": true,
+  "metric_consistency": true,
+  "result": "passed",
+  "status_consistency": true,
+  "warnings": [
+    "Locked test performance is intentionally visible and weaker than validation evidence.",
+    "Fairness evidence is exploratory because synthetic subgroup counts are small."
+  ]
+}

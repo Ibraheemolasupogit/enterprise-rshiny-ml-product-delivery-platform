@@ -1,0 +1,8 @@
+{
+  "authentication_required": true,
+  "database_queries_for_prediction": false,
+  "input_contract": "raw_admission_time_predictors",
+  "outcome_fields_rejected": true,
+  "training_during_prediction": false,
+  "transformed_feature_count": 71
+}

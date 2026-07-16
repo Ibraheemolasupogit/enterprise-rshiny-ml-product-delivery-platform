@@ -1,0 +1,5 @@
+flowchart TD
+  User[Product user] --> Shiny[R-Shiny product]
+  Shiny --> API[FastAPI]
+  API --> Registry[Local registry]
+  Registry --> Evidence[Governance evidence]

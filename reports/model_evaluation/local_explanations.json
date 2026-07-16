@@ -1,0 +1,81 @@
+{
+  "examples": [
+    {
+      "actual_label": true,
+      "admission_id": "ADM-000081",
+      "patient_id": "PAT-000059",
+      "predicted_label": true,
+      "predicted_probability": 0.9593359544604706,
+      "selection_reason": "highest_predicted_risk",
+      "top_feature_values": {
+        "age": 2.2070611823207886,
+        "deprivation_decile": -1.1645999525449724,
+        "initial_news2_score": 0.5645768757560289,
+        "source_of_admission__home": 1.0,
+        "staff_to_bed_ratio": 0.130854057558173
+      }
+    },
+    {
+      "actual_label": false,
+      "admission_id": "ADM-000069",
+      "patient_id": "PAT-000066",
+      "predicted_label": false,
+      "predicted_probability": 0.4023342033519028,
+      "selection_reason": "lowest_predicted_risk",
+      "top_feature_values": {
+        "age": -0.925437648364641,
+        "deprivation_decile": 1.374023628221919,
+        "initial_news2_score": -0.7715883968665728,
+        "source_of_admission__home": 1.0,
+        "staff_to_bed_ratio": -1.449400419182617
+      }
+    },
+    {
+      "actual_label": true,
+      "admission_id": "ADM-000005",
+      "patient_id": "PAT-000005",
+      "predicted_label": false,
+      "predicted_probability": 0.7370881115982463,
+      "selection_reason": "near_selected_threshold",
+      "top_feature_values": {
+        "age": -0.23781595382393703,
+        "deprivation_decile": -0.43927892946871766,
+        "initial_news2_score": -0.3261999726590389,
+        "source_of_admission__home": 0.0,
+        "staff_to_bed_ratio": -0.23034696569686516
+      }
+    },
+    {
+      "actual_label": false,
+      "admission_id": "ADM-000045",
+      "patient_id": "PAT-000073",
+      "predicted_label": true,
+      "predicted_probability": 0.9200844300559298,
+      "selection_reason": "false_positive",
+      "top_feature_values": {
+        "age": -0.925437648364641,
+        "deprivation_decile": -1.1645999525449724,
+        "initial_news2_score": 1.9007421483786306,
+        "source_of_admission__home": 0.0,
+        "staff_to_bed_ratio": 1.0338566156957671
+      }
+    },
+    {
+      "actual_label": true,
+      "admission_id": "ADM-000119",
+      "patient_id": "PAT-000053",
+      "predicted_label": false,
+      "predicted_probability": 0.6986127698115928,
+      "selection_reason": "false_negative",
+      "top_feature_values": {
+        "age": -0.925437648364641,
+        "deprivation_decile": -0.801939441006845,
+        "initial_news2_score": -1.6623652452816404,
+        "source_of_admission__home": 1.0,
+        "staff_to_bed_ratio": -2.1664906859389417
+      }
+    }
+  ],
+  "method": "deterministic model-agnostic local examples with top global features",
+  "non_causal_warning": "Local evidence uses synthetic identifiers only and is not causal."
+}

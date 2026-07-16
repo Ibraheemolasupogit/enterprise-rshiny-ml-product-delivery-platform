@@ -1,0 +1,803 @@
+{
+  "candidate_global_importance": {
+    "logistic_regression": {
+      "logistic_coefficients": [
+        {
+          "coefficient": 0.0,
+          "direction": "zero",
+          "feature_name": "age__missing",
+          "odds_ratio": 1.0
+        },
+        {
+          "coefficient": 0.1034207654477134,
+          "direction": "positive",
+          "feature_name": "age",
+          "odds_ratio": 1.1089579220994314
+        },
+        {
+          "coefficient": 0.044559446223258435,
+          "direction": "positive",
+          "feature_name": "deprivation_decile__missing",
+          "odds_ratio": 1.0455671298800862
+        },
+        {
+          "coefficient": -0.04224560000928842,
+          "direction": "negative",
+          "feature_name": "deprivation_decile",
+          "odds_ratio": 0.9586343110623101
+        },
+        {
+          "coefficient": 0.0,
+          "direction": "zero",
+          "feature_name": "comorbidity_count__missing",
+          "odds_ratio": 1.0
+        },
+        {
+          "coefficient": 0.6672303585661379,
+          "direction": "positive",
+          "feature_name": "comorbidity_count",
+          "odds_ratio": 1.9488322724589358
+        },
+        {
+          "coefficient": 0.0,
+          "direction": "zero",
+          "feature_name": "previous_admissions_12m__missing",
+          "odds_ratio": 1.0
+        },
+        {
+          "coefficient": 0.21640193699278215,
+          "direction": "positive",
+          "feature_name": "previous_admissions_12m",
+          "odds_ratio": 1.2416013242241761
+        },
+        {
+          "coefficient": 0.0,
+          "direction": "zero",
+          "feature_name": "initial_news2_score__missing",
+          "odds_ratio": 1.0
+        },
+        {
+          "coefficient": 0.9877994135732168,
+          "direction": "positive",
+          "feature_name": "initial_news2_score",
+          "odds_ratio": 2.6853186897808357
+        },
+        {
+          "coefficient": 0.0,
+          "direction": "zero",
+          "feature_name": "diagnosis_count__missing",
+          "odds_ratio": 1.0
+        },
+        {
+          "coefficient": 0.28604151429164315,
+          "direction": "positive",
+          "feature_name": "diagnosis_count",
+          "odds_ratio": 1.3311477157597256
+        },
+        {
+          "coefficient": 0.0,
+          "direction": "zero",
+          "feature_name": "secondary_diagnosis_count__missing",
+          "odds_ratio": 1.0
+        },
+        {
+          "coefficient": 0.2860415142916433,
+          "direction": "positive",
+          "feature_name": "secondary_diagnosis_count",
+          "odds_ratio": 1.3311477157597258
+        },
+        {
+          "coefficient": 0.0,
+          "direction": "zero",
+          "feature_name": "occupancy_rate__missing",
+          "odds_ratio": 1.0
+        },
+        {
+          "coefficient": 0.13221280275065195,
+          "direction": "positive",
+          "feature_name": "occupancy_rate",
+          "odds_ratio": 1.141351176095751
+        },
+        {
+          "coefficient": 0.0,
+          "direction": "zero",
+          "feature_name": "staff_to_bed_ratio__missing",
+          "odds_ratio": 1.0
+        },
+        {
+          "coefficient": 0.27902753464709923,
+          "direction": "positive",
+          "feature_name": "staff_to_bed_ratio",
+          "odds_ratio": 1.321843739869359
+        },
+        {
+          "coefficient": 0.0,
+          "direction": "zero",
+          "feature_name": "admission_hour__missing",
+          "odds_ratio": 1.0
+        },
+        {
+          "coefficient": 0.0583964047357102,
+          "direction": "positive",
+          "feature_name": "admission_hour",
+          "odds_ratio": 1.0601351550241593
+        }
+      ],
+      "model_family": "logistic_regression",
+      "native_importance": [],
+      "non_causal_warning": "Feature importance and coefficients describe associations in synthetic data; they are not causal effects.",
+      "permutation_importance": [
+        {
+          "feature_name": "comorbidity_count",
+          "importance_mean": 0.05385105130552805,
+          "importance_std": 0.03248602821023343
+        },
+        {
+          "feature_name": "initial_news2_score",
+          "importance_mean": 0.00787438685288322,
+          "importance_std": 0.022701339065908505
+        },
+        {
+          "feature_name": "primary_diagnosis_group__cardiovascular_synthetic",
+          "importance_mean": 0.006912310162579383,
+          "importance_std": 0.004724481071758028
+        },
+        {
+          "feature_name": "postcode_region__sr_east",
+          "importance_mean": 0.005809032214924658,
+          "importance_std": 0.002559445681397092
+        },
+        {
+          "feature_name": "occupancy_rate",
+          "importance_mean": 0.00526040091509874,
+          "importance_std": 0.0021781384912077616
+        },
+        {
+          "feature_name": "sex__male",
+          "importance_mean": 0.005188793376722433,
+          "importance_std": 0.003489869779320451
+        },
+        {
+          "feature_name": "admission_month",
+          "importance_mean": 0.0049612668033720995,
+          "importance_std": 0.0022927763338855306
+        },
+        {
+          "feature_name": "age",
+          "importance_mean": 0.0044071240936566225,
+          "importance_std": 0.0015596286032608317
+        },
+        {
+          "feature_name": "admission_hour",
+          "importance_mean": 0.0042905391821800535,
+          "importance_std": 0.0019217580642292207
+        },
+        {
+          "feature_name": "staff_to_bed_ratio",
+          "importance_mean": 0.004239051291733309,
+          "importance_std": 0.005253151497367649
+        },
+        {
+          "feature_name": "previous_admissions_12m",
+          "importance_mean": 0.003483054444994116,
+          "importance_std": 0.00385413092296211
+        },
+        {
+          "feature_name": "primary_diagnosis_group__surgical_synthetic",
+          "importance_mean": 0.003158505861258576,
+          "importance_std": 0.0018211889997643608
+        },
+        {
+          "feature_name": "source_of_admission__transfer",
+          "importance_mean": 0.0028714281635266793,
+          "importance_std": 0.0027063960002960148
+        },
+        {
+          "feature_name": "source_of_admission__clinic",
+          "importance_mean": 0.002856095423399263,
+          "importance_std": 0.0016381613756769817
+        },
+        {
+          "feature_name": "primary_diagnosis_group__other_synthetic",
+          "importance_mean": 0.002314354387479989,
+          "importance_std": 0.002779749979315115
+        },
+        {
+          "feature_name": "admission_type__emergency",
+          "importance_mean": 0.0022283220548464876,
+          "importance_std": 0.001932542595420068
+        },
+        {
+          "feature_name": "admission_type__urgent",
+          "importance_mean": 0.0022251678564775834,
+          "importance_std": 0.0028186302327714774
+        },
+        {
+          "feature_name": "primary_diagnosis_complexity__low",
+          "importance_mean": 0.0018866099071207288,
+          "importance_std": 0.0013843931909108046
+        },
+        {
+          "feature_name": "deprivation_decile",
+          "importance_mean": 0.001327374251135871,
+          "importance_std": 0.001964649232850275
+        },
+        {
+          "feature_name": "mobility_status__assisted",
+          "importance_mean": 0.0011952202349631124,
+          "importance_std": 0.0032343948768268423
+        }
+      ],
+      "small_sample_warning": "Validation-set importance is directionally useful only because the synthetic validation set is small."
+    },
+    "random_forest": {
+      "logistic_coefficients": [],
+      "model_family": "random_forest",
+      "native_importance": [
+        {
+          "feature_name": "initial_news2_score",
+          "importance": 0.13611744137099308
+        },
+        {
+          "feature_name": "occupancy_rate",
+          "importance": 0.08281176954989207
+        },
+        {
+          "feature_name": "staff_to_bed_ratio",
+          "importance": 0.07589241071329114
+        },
+        {
+          "feature_name": "deprivation_decile",
+          "importance": 0.07065336548875129
+        },
+        {
+          "feature_name": "admission_day_of_week__wednesday",
+          "importance": 0.06945214584004335
+        },
+        {
+          "feature_name": "age",
+          "importance": 0.05278108753530988
+        },
+        {
+          "feature_name": "secondary_diagnosis_count",
+          "importance": 0.050110574163069306
+        },
+        {
+          "feature_name": "admission_hour",
+          "importance": 0.04824805273301128
+        },
+        {
+          "feature_name": "diagnosis_count",
+          "importance": 0.04319819447059698
+        },
+        {
+          "feature_name": "source_of_admission__clinic",
+          "importance": 0.03597179762701015
+        },
+        {
+          "feature_name": "comorbidity_count",
+          "importance": 0.03375872382448801
+        },
+        {
+          "feature_name": "primary_diagnosis_complexity__low",
+          "importance": 0.02219796189865601
+        },
+        {
+          "feature_name": "primary_diagnosis_complexity__moderate",
+          "importance": 0.02006933342384659
+        },
+        {
+          "feature_name": "mobility_status__independent",
+          "importance": 0.019200852061218975
+        },
+        {
+          "feature_name": "sex__female",
+          "importance": 0.018171872151410823
+        },
+        {
+          "feature_name": "source_of_admission__home",
+          "importance": 0.017289657661966634
+        },
+        {
+          "feature_name": "postcode_region__sr_north",
+          "importance": 0.01694009062346708
+        },
+        {
+          "feature_name": "primary_diagnosis_group__other_synthetic",
+          "importance": 0.015264757908803116
+        },
+        {
+          "feature_name": "previous_admissions_12m",
+          "importance": 0.014445943021796227
+        },
+        {
+          "feature_name": "admission_type__planned",
+          "importance": 0.013007439024747054
+        }
+      ],
+      "non_causal_warning": "Feature importance and coefficients describe associations in synthetic data; they are not causal effects.",
+      "permutation_importance": [
+        {
+          "feature_name": "primary_diagnosis_group__infection_synthetic",
+          "importance_mean": 0.03413598462940575,
+          "importance_std": 0.01712645878343051
+        },
+        {
+          "feature_name": "initial_news2_score",
+          "importance_mean": 0.03204773624656867,
+          "importance_std": 0.036004114972068575
+        },
+        {
+          "feature_name": "age",
+          "importance_mean": 0.03162628393278557,
+          "importance_std": 0.01781181166368892
+        },
+        {
+          "feature_name": "staff_to_bed_ratio",
+          "importance_mean": 0.028996037774518,
+          "importance_std": 0.023643156226369262
+        },
+        {
+          "feature_name": "occupancy_rate",
+          "importance_mean": 0.020769737443499157,
+          "importance_std": 0.018175761948212982
+        },
+        {
+          "feature_name": "comorbidity_count",
+          "importance_mean": 0.018808697107845794,
+          "importance_std": 0.023242688053695434
+        },
+        {
+          "feature_name": "primary_diagnosis_complexity__moderate",
+          "importance_mean": 0.012556994089501894,
+          "importance_std": 0.01322154278622733
+        },
+        {
+          "feature_name": "previous_admissions_12m",
+          "importance_mean": 0.012268198347919802,
+          "importance_std": 0.010394890322556886
+        },
+        {
+          "feature_name": "sex__female",
+          "importance_mean": 0.010490118756372712,
+          "importance_std": 0.01031881514506921
+        },
+        {
+          "feature_name": "postcode_region__sr_south",
+          "importance_mean": 0.00963736770625324,
+          "importance_std": 0.005669771145185853
+        },
+        {
+          "feature_name": "admission_type__emergency",
+          "importance_mean": 0.008420583544422622,
+          "importance_std": 0.009375232037903627
+        },
+        {
+          "feature_name": "mobility_status__independent",
+          "importance_mean": 0.007639941395848271,
+          "importance_std": 0.009845149689037786
+        },
+        {
+          "feature_name": "primary_diagnosis_complexity__low",
+          "importance_mean": 0.007135958975212753,
+          "importance_std": 0.011138824232238224
+        },
+        {
+          "feature_name": "source_of_admission__transfer",
+          "importance_mean": 0.0033539731682146858,
+          "importance_std": 0.007701141154076027
+        },
+        {
+          "feature_name": "admission_day_of_week__friday",
+          "importance_mean": 0.002978117084154275,
+          "importance_std": 0.006043399406020408
+        },
+        {
+          "feature_name": "mobility_status__limited",
+          "importance_mean": 0.002855651830110073,
+          "importance_std": 0.00564510353025306
+        },
+        {
+          "feature_name": "admission_season__spring",
+          "importance_mean": 0.002639553429027175,
+          "importance_std": 0.002985684697604157
+        },
+        {
+          "feature_name": "postcode_region__sr_west",
+          "importance_mean": 0.0026315789473684292,
+          "importance_std": 0.0062644109022305895
+        },
+        {
+          "feature_name": "primary_diagnosis_group__frailty_synthetic",
+          "importance_mean": 0.002583732057416288,
+          "importance_std": 0.005566073949006435
+        },
+        {
+          "feature_name": "admission_day_of_week__monday",
+          "importance_mean": 0.0017543859649122862,
+          "importance_std": 0.0052631578947368585
+        }
+      ],
+      "small_sample_warning": "Validation-set importance is directionally useful only because the synthetic validation set is small."
+    },
+    "xgboost": {
+      "logistic_coefficients": [],
+      "model_family": "xgboost",
+      "native_importance": [
+        {
+          "feature_name": "initial_news2_score",
+          "importance": 3.2891526222229004
+        },
+        {
+          "feature_name": "diagnosis_count",
+          "importance": 1.503753900527954
+        },
+        {
+          "feature_name": "primary_diagnosis_complexity__moderate",
+          "importance": 1.33315110206604
+        },
+        {
+          "feature_name": "deprivation_decile",
+          "importance": 0.9966031312942505
+        },
+        {
+          "feature_name": "sex__male",
+          "importance": 0.9935694932937622
+        },
+        {
+          "feature_name": "staff_to_bed_ratio",
+          "importance": 0.7872186899185181
+        },
+        {
+          "feature_name": "age",
+          "importance": 0.7470543384552002
+        },
+        {
+          "feature_name": "source_of_admission__home",
+          "importance": 0.7204577326774597
+        },
+        {
+          "feature_name": "sex__female",
+          "importance": 0.7020382285118103
+        },
+        {
+          "feature_name": "admission_hour",
+          "importance": 0.36788371205329895
+        },
+        {
+          "feature_name": "occupancy_rate",
+          "importance": 0.12455713748931885
+        },
+        {
+          "feature_name": "age__missing",
+          "importance": 0.0
+        },
+        {
+          "feature_name": "deprivation_decile__missing",
+          "importance": 0.0
+        },
+        {
+          "feature_name": "comorbidity_count__missing",
+          "importance": 0.0
+        },
+        {
+          "feature_name": "comorbidity_count",
+          "importance": 0.0
+        },
+        {
+          "feature_name": "previous_admissions_12m__missing",
+          "importance": 0.0
+        },
+        {
+          "feature_name": "previous_admissions_12m",
+          "importance": 0.0
+        },
+        {
+          "feature_name": "initial_news2_score__missing",
+          "importance": 0.0
+        },
+        {
+          "feature_name": "diagnosis_count__missing",
+          "importance": 0.0
+        },
+        {
+          "feature_name": "secondary_diagnosis_count__missing",
+          "importance": 0.0
+        }
+      ],
+      "non_causal_warning": "Feature importance and coefficients describe associations in synthetic data; they are not causal effects.",
+      "permutation_importance": [
+        {
+          "feature_name": "initial_news2_score",
+          "importance_mean": 0.04160570581694935,
+          "importance_std": 0.026936729257972344
+        },
+        {
+          "feature_name": "staff_to_bed_ratio",
+          "importance_mean": 0.016838866921265305,
+          "importance_std": 0.012470076515743068
+        },
+        {
+          "feature_name": "age",
+          "importance_mean": 0.009490886865112791,
+          "importance_std": 0.005465143928375738
+        },
+        {
+          "feature_name": "deprivation_decile",
+          "importance_mean": 0.0012074405061567096,
+          "importance_std": 0.00509404162412066
+        },
+        {
+          "feature_name": "source_of_admission__home",
+          "importance_mean": 0.0002047278935150665,
+          "importance_std": 0.0014916175537577087
+        },
+        {
+          "feature_name": "diagnosis_count",
+          "importance_mean": 4.4714990730176926e-05,
+          "importance_std": 0.002980218582234435
+        },
+        {
+          "feature_name": "age__missing",
+          "importance_mean": 0.0,
+          "importance_std": 0.0
+        },
+        {
+          "feature_name": "deprivation_decile__missing",
+          "importance_mean": 0.0,
+          "importance_std": 0.0
+        },
+        {
+          "feature_name": "comorbidity_count__missing",
+          "importance_mean": 0.0,
+          "importance_std": 0.0
+        },
+        {
+          "feature_name": "comorbidity_count",
+          "importance_mean": 0.0,
+          "importance_std": 0.0
+        },
+        {
+          "feature_name": "previous_admissions_12m__missing",
+          "importance_mean": 0.0,
+          "importance_std": 0.0
+        },
+        {
+          "feature_name": "previous_admissions_12m",
+          "importance_mean": 0.0,
+          "importance_std": 0.0
+        },
+        {
+          "feature_name": "initial_news2_score__missing",
+          "importance_mean": 0.0,
+          "importance_std": 0.0
+        },
+        {
+          "feature_name": "diagnosis_count__missing",
+          "importance_mean": 0.0,
+          "importance_std": 0.0
+        },
+        {
+          "feature_name": "secondary_diagnosis_count__missing",
+          "importance_mean": 0.0,
+          "importance_std": 0.0
+        },
+        {
+          "feature_name": "secondary_diagnosis_count",
+          "importance_mean": 0.0,
+          "importance_std": 0.0
+        },
+        {
+          "feature_name": "occupancy_rate__missing",
+          "importance_mean": 0.0,
+          "importance_std": 0.0
+        },
+        {
+          "feature_name": "occupancy_rate",
+          "importance_mean": 0.0,
+          "importance_std": 0.0
+        },
+        {
+          "feature_name": "staff_to_bed_ratio__missing",
+          "importance_mean": 0.0,
+          "importance_std": 0.0
+        },
+        {
+          "feature_name": "admission_hour__missing",
+          "importance_mean": 0.0,
+          "importance_std": 0.0
+        }
+      ],
+      "small_sample_warning": "Validation-set importance is directionally useful only because the synthetic validation set is small."
+    }
+  },
+  "logistic_coefficients": [],
+  "model_family": "xgboost",
+  "native_importance": [
+    {
+      "feature_name": "initial_news2_score",
+      "importance": 3.2891526222229004
+    },
+    {
+      "feature_name": "diagnosis_count",
+      "importance": 1.503753900527954
+    },
+    {
+      "feature_name": "primary_diagnosis_complexity__moderate",
+      "importance": 1.33315110206604
+    },
+    {
+      "feature_name": "deprivation_decile",
+      "importance": 0.9966031312942505
+    },
+    {
+      "feature_name": "sex__male",
+      "importance": 0.9935694932937622
+    },
+    {
+      "feature_name": "staff_to_bed_ratio",
+      "importance": 0.7872186899185181
+    },
+    {
+      "feature_name": "age",
+      "importance": 0.7470543384552002
+    },
+    {
+      "feature_name": "source_of_admission__home",
+      "importance": 0.7204577326774597
+    },
+    {
+      "feature_name": "sex__female",
+      "importance": 0.7020382285118103
+    },
+    {
+      "feature_name": "admission_hour",
+      "importance": 0.36788371205329895
+    },
+    {
+      "feature_name": "occupancy_rate",
+      "importance": 0.12455713748931885
+    },
+    {
+      "feature_name": "age__missing",
+      "importance": 0.0
+    },
+    {
+      "feature_name": "deprivation_decile__missing",
+      "importance": 0.0
+    },
+    {
+      "feature_name": "comorbidity_count__missing",
+      "importance": 0.0
+    },
+    {
+      "feature_name": "comorbidity_count",
+      "importance": 0.0
+    },
+    {
+      "feature_name": "previous_admissions_12m__missing",
+      "importance": 0.0
+    },
+    {
+      "feature_name": "previous_admissions_12m",
+      "importance": 0.0
+    },
+    {
+      "feature_name": "initial_news2_score__missing",
+      "importance": 0.0
+    },
+    {
+      "feature_name": "diagnosis_count__missing",
+      "importance": 0.0
+    },
+    {
+      "feature_name": "secondary_diagnosis_count__missing",
+      "importance": 0.0
+    }
+  ],
+  "non_causal_warning": "Feature importance and coefficients describe associations in synthetic data; they are not causal effects.",
+  "permutation_importance": [
+    {
+      "feature_name": "initial_news2_score",
+      "importance_mean": 0.04160570581694935,
+      "importance_std": 0.026936729257972344
+    },
+    {
+      "feature_name": "staff_to_bed_ratio",
+      "importance_mean": 0.016838866921265305,
+      "importance_std": 0.012470076515743068
+    },
+    {
+      "feature_name": "age",
+      "importance_mean": 0.009490886865112791,
+      "importance_std": 0.005465143928375738
+    },
+    {
+      "feature_name": "deprivation_decile",
+      "importance_mean": 0.0012074405061567096,
+      "importance_std": 0.00509404162412066
+    },
+    {
+      "feature_name": "source_of_admission__home",
+      "importance_mean": 0.0002047278935150665,
+      "importance_std": 0.0014916175537577087
+    },
+    {
+      "feature_name": "diagnosis_count",
+      "importance_mean": 4.4714990730176926e-05,
+      "importance_std": 0.002980218582234435
+    },
+    {
+      "feature_name": "age__missing",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    },
+    {
+      "feature_name": "deprivation_decile__missing",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    },
+    {
+      "feature_name": "comorbidity_count__missing",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    },
+    {
+      "feature_name": "comorbidity_count",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    },
+    {
+      "feature_name": "previous_admissions_12m__missing",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    },
+    {
+      "feature_name": "previous_admissions_12m",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    },
+    {
+      "feature_name": "initial_news2_score__missing",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    },
+    {
+      "feature_name": "diagnosis_count__missing",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    },
+    {
+      "feature_name": "secondary_diagnosis_count__missing",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    },
+    {
+      "feature_name": "secondary_diagnosis_count",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    },
+    {
+      "feature_name": "occupancy_rate__missing",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    },
+    {
+      "feature_name": "occupancy_rate",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    },
+    {
+      "feature_name": "staff_to_bed_ratio__missing",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    },
+    {
+      "feature_name": "admission_hour__missing",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    }
+  ],
+  "principal_candidate": "xgboost",
+  "small_sample_warning": "Validation-set importance is directionally useful only because the synthetic validation set is small."
+}

@@ -1,0 +1,38 @@
+{
+  "container_vulnerability_scan": {
+    "blocking_policy": "critical_or_high_blocks",
+    "local_status": "not_installed_locally",
+    "tool": "trivy"
+  },
+  "dockerfile_lint": {
+    "blocking_policy": "error_or_critical_blocks",
+    "local_status": "not_installed_locally",
+    "tool": "hadolint"
+  },
+  "iac_scan": {
+    "blocking_policy": "critical_blocks",
+    "local_status": "not_installed_locally",
+    "tool": "checkov"
+  },
+  "limitations": [
+    "Specialist security tools run in CI workflows when dependencies are installed.",
+    "Local summary records missing tools instead of fabricating scan results."
+  ],
+  "overall_status": "passed",
+  "python_dependency_audit": {
+    "blocking_policy": "high_or_critical_blocks_or_document_exception",
+    "local_status": "not_installed_locally",
+    "tool": "pip-audit"
+  },
+  "python_static_analysis": {
+    "blocking_policy": "high_or_critical_blocks",
+    "local_status": "not_installed_locally",
+    "tool": "bandit"
+  },
+  "secrets": {
+    "blocking": true,
+    "findings": [],
+    "status": "passed",
+    "tool": "local_secret_pattern_scan"
+  }
+}

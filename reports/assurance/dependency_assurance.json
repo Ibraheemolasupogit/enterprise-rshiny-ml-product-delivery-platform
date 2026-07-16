@@ -1,0 +1,18 @@
+{
+  "python": {
+    "audit_status": "configured",
+    "direct_dependency_count": 21,
+    "known_exceptions": [],
+    "locked_dependency_status": "requirements-dev-present",
+    "package_count": 49,
+    "requirements_dev_sha256": "9d6d2c2e18451cd8eb86a739cbcb1664e4342ef4ae478266a3c333dd4f73674a"
+  },
+  "r": {
+    "audit_status": "lockfile-validated-locally",
+    "direct_dependency_count": 12,
+    "known_exceptions": [],
+    "locked_dependency_status": "renv.lock-present",
+    "package_count": 102
+  },
+  "status": "passed"
+}

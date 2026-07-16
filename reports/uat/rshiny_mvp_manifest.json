@@ -1,0 +1,34 @@
+{
+  "application_version": "0.1.0",
+  "r_version": "R version 4.6.1 (2026-06-24)",
+  "architecture": "arm64",
+  "api_contract_version": "v1",
+  "expected_registry_model": "MODEL-REG-000001",
+  "candidate_identifier": "CAND-85EA9202CAD6FE7F",
+  "review_mode_policy": {
+    "required_for_demo": true,
+    "ui_toggle": false,
+    "labels": [
+      "Review mode",
+      "Unapproved model",
+      "Synthetic-data prototype",
+      "Not for operational or clinical use"
+    ]
+  },
+  "enabled_pages": [
+    "Product Overview",
+    "Single Prediction",
+    "User Feedback"
+  ],
+  "disabled_future_pages": [
+    "Governance administration",
+    "Retraining"
+  ],
+  "input_field_count": 27,
+  "evidence_fingerprints": {
+    "registry_manifest": "82de686703db23cc7e96ccd8222977ae7b5f883bb75ac198a60be1ab9bc1007c",
+    "serving_readiness": "c6bae690b777546a6d153197ebd5c350382753f465a29882fbde3146ef59c8e5",
+    "rshiny_config": "9416c1b635c735983bdd08823ea6516514c8af9944592e442badcdd3e9ca5275"
+  },
+  "synthetic_data_declaration": "Synthetic-data prototype only."
+}

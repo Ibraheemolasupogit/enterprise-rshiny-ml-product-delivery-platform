@@ -1,0 +1,14 @@
+{
+  "format": "csv",
+  "filename_policy": "synthetic_cohort_predictions_<timestamp>.csv",
+  "excluded_fields": [
+    "api_key",
+    "local_paths",
+    "stack_traces",
+    "hidden_transformed_features",
+    "raw_inputs",
+    "identifier_fields",
+    "outcome_fields"
+  ],
+  "server_side_retention": false
+}

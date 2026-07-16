@@ -1,0 +1,9 @@
+{
+  "category_vocabulary_changes": [],
+  "feature_count": 71,
+  "feature_schema_matches_champion": true,
+  "fit_on_retraining_train_only": true,
+  "preprocessor_fingerprint": "a9c3c73300c75b7bb85c293e3c753611bed74fc0918fe91495ac8ea6f8fde7ff",
+  "reused_old_fitted_preprocessor": false,
+  "validation_transformed_with_training_state": true
+}

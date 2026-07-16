@@ -1,0 +1,4 @@
+{
+  "scenario": "performance_degradation",
+  "window_type": "current_labelled_window"
+}

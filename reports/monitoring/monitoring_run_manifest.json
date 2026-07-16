@@ -1,0 +1,36 @@
+{
+  "alert_counts_by_severity": {
+    "critical": 4,
+    "warning": 1
+  },
+  "automatic_action_status": "none",
+  "baseline_identifier": "aeb31ad3b65f4949",
+  "candidate_identifier": "CAND-85EA9202CAD6FE7F",
+  "feature_build_identifier": "FBUILD-ADB1D374A8E41F8E",
+  "feature_schema_fingerprint": "FBUILD-ADB1D374A8E41F8E",
+  "label_availability": true,
+  "label_row_count": 40,
+  "metrics_executed": [
+    "schema",
+    "data_quality",
+    "numeric_drift",
+    "categorical_drift",
+    "missingness",
+    "prediction_drift",
+    "performance",
+    "calibration",
+    "operational"
+  ],
+  "metrics_skipped": [],
+  "model_registry_version": 1,
+  "monitoring_run_identifier": "d0a1b64599791e42",
+  "package_versions": {
+    "pandas": "2.3.3",
+    "python": "3.12"
+  },
+  "prediction_event_count": 40,
+  "review_disposition": "review_required",
+  "synthetic_data_declaration": "Synthetic monitoring fixture only.",
+  "window_fingerprint": "8d3c4fb4660b2582df2737684d37cae46dc19cdc34b6a4614ea3f5cf48901634",
+  "window_row_count": 40
+}

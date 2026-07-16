@@ -1,0 +1,25 @@
+{
+  "api_dockerfile_sha256": "f69e184fcbc408346d7e3e77324528e7b154a21aa0442dfaad98aeb5c036c857",
+  "checks": {
+    "api_base_pinned": true,
+    "api_healthcheck": true,
+    "api_non_root_user": true,
+    "no_docker_socket": true,
+    "no_privileged_mode": true,
+    "review_mode_disabled_by_default": true,
+    "review_override_labelled": true,
+    "rshiny_base_pinned": true,
+    "rshiny_healthcheck": true,
+    "rshiny_non_root_user": true
+  },
+  "compose_services": [
+    "api",
+    "rshiny"
+  ],
+  "review_services": [
+    "api",
+    "rshiny"
+  ],
+  "rshiny_dockerfile_sha256": "43bcb3e8b3bfc61416bacb318d2418d44d632d1dcdcf9acb0c968706396902d3",
+  "status": "passed"
+}

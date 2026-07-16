@@ -1,0 +1,9 @@
+version: "0.1.0"
+description: "Documented target production environment; not deployed in Milestone 1."
+implementation_status: documented_target
+enabled: false
+environment: production
+deployed: false
+synthetic_data_only: true
+approval_required: true
+no_direct_feature_branch_deployments: true

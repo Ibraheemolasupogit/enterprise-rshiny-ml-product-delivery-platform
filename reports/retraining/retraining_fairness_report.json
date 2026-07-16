@@ -1,0 +1,40 @@
+{
+  "fairness_certification": false,
+  "groups": [
+    {
+      "count": 9,
+      "fairness_certification": false,
+      "group": "sex",
+      "positive_prevalence": 0.7777777777777778,
+      "value": "female"
+    },
+    {
+      "count": 12,
+      "fairness_certification": false,
+      "group": "age_band",
+      "positive_prevalence": 0.75,
+      "value": "under_50"
+    },
+    {
+      "count": 9,
+      "fairness_certification": false,
+      "group": "deprivation_group",
+      "positive_prevalence": 0.7777777777777778,
+      "value": "high"
+    }
+  ],
+  "result": "review_required",
+  "suppressed_groups": [
+    {
+      "count": 3,
+      "group": "sex",
+      "value": "male"
+    },
+    {
+      "count": 3,
+      "group": "deprivation_group",
+      "value": "nan"
+    }
+  ],
+  "worsening_disparity_flagged": true
+}

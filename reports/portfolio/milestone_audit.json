@@ -1,0 +1,472 @@
+{
+  "errors": [],
+  "external_blockers": {
+    "denodo": "externally blocked and not implemented",
+    "sas_viya": "externally blocked and not implemented"
+  },
+  "generated_at_utc": "2026-07-16T23:28:48.387985+00:00",
+  "governance_state": {
+    "activation_status": "inactive",
+    "active_model": null,
+    "approval_status": "pending",
+    "automatic_action": "none",
+    "local_review_readiness": "ready_for_local_review",
+    "operational_release_readiness": "blocked_for_operational_release",
+    "recommendation": "retain_champion",
+    "registered_model": "CAND-85EA9202CAD6FE7F",
+    "registry_version": 1
+  },
+  "milestones": [
+    {
+      "adrs": [
+        "docs/adr/0001-milestone-based-delivery.md"
+      ],
+      "checks": {
+        "adrs_exist": true,
+        "config_exists": true,
+        "documentation_exists": true,
+        "evidence_exists": true,
+        "source_exists": true,
+        "tests_exist": true
+      },
+      "config": [
+        "config/settings.yaml"
+      ],
+      "docs": [
+        "docs/product_vision.md",
+        "docs/roadmap.md"
+      ],
+      "evidence": [
+        "README.md"
+      ],
+      "name": "Foundation",
+      "number": 1,
+      "source": [
+        "pyproject.toml",
+        "src/ml_product/settings.py"
+      ],
+      "status": "complete",
+      "tests": [
+        "tests/unit/test_package.py",
+        "tests/unit/test_settings.py"
+      ]
+    },
+    {
+      "adrs": [
+        "docs/adr/0003-synthetic-data-only.md"
+      ],
+      "checks": {
+        "adrs_exist": true,
+        "config_exists": true,
+        "documentation_exists": true,
+        "evidence_exists": true,
+        "source_exists": true,
+        "tests_exist": true
+      },
+      "config": [
+        "config/synthetic_data.yaml"
+      ],
+      "docs": [
+        "docs/data_dictionary.md"
+      ],
+      "evidence": [
+        "data/sample/generation_manifest.json"
+      ],
+      "name": "Synthetic source systems",
+      "number": 2,
+      "source": [
+        "src/ml_product/synthetic_data/generator.py"
+      ],
+      "status": "complete",
+      "tests": [
+        "tests/unit/synthetic_data/test_generation_and_quality.py"
+      ]
+    },
+    {
+      "adrs": [
+        "docs/adr/0006-duckdb-local-database.md"
+      ],
+      "checks": {
+        "adrs_exist": true,
+        "config_exists": true,
+        "documentation_exists": true,
+        "evidence_exists": true,
+        "source_exists": true,
+        "tests_exist": true
+      },
+      "config": [
+        "config/database.yaml"
+      ],
+      "docs": [
+        "docs/database_architecture.md",
+        "docs/governed_logical_layer.md"
+      ],
+      "evidence": [
+        "reports/data_quality/database_validation.json"
+      ],
+      "name": "Database and governed logical layer",
+      "number": 3,
+      "source": [
+        "src/ml_product/ingestion/build.py"
+      ],
+      "status": "complete",
+      "tests": [
+        "tests/integration/test_database_build_pipeline.py"
+      ]
+    },
+    {
+      "adrs": [
+        "docs/adr/0010-provider-neutral-logical-view-client.md"
+      ],
+      "checks": {
+        "adrs_exist": true,
+        "config_exists": true,
+        "documentation_exists": true,
+        "evidence_exists": true,
+        "source_exists": true,
+        "tests_exist": true
+      },
+      "config": [
+        "config/database.yaml"
+      ],
+      "docs": [
+        "docs/denodo_integration.md"
+      ],
+      "evidence": [
+        "denodo/evidence/.gitkeep"
+      ],
+      "exception": "Real Denodo access is externally blocked; local provider-neutral abstraction is implemented.",
+      "name": "Denodo",
+      "number": 4,
+      "source": [
+        "src/ml_product/ingestion/denodo_client.py"
+      ],
+      "status": "complete_with_external_blocker",
+      "tests": [
+        "tests/integration/test_logical_view_queries.py"
+      ]
+    },
+    {
+      "adrs": [
+        "docs/adr/0013-training-only-preprocessing-fit.md"
+      ],
+      "checks": {
+        "adrs_exist": true,
+        "config_exists": true,
+        "documentation_exists": true,
+        "evidence_exists": true,
+        "source_exists": true,
+        "tests_exist": true
+      },
+      "config": [
+        "config/features.yaml"
+      ],
+      "docs": [
+        "docs/feature_engineering.md",
+        "docs/target_leakage_controls.md"
+      ],
+      "evidence": [
+        "reports/model_evaluation/feature_build_manifest.json"
+      ],
+      "name": "Feature engineering",
+      "number": 5,
+      "source": [
+        "src/ml_product/features/builder.py"
+      ],
+      "status": "complete",
+      "tests": [
+        "tests/integration/test_feature_build_pipeline.py"
+      ]
+    },
+    {
+      "adrs": [
+        "docs/adr/0016-validation-led-model-selection.md"
+      ],
+      "checks": {
+        "adrs_exist": true,
+        "config_exists": true,
+        "documentation_exists": true,
+        "evidence_exists": true,
+        "source_exists": true,
+        "tests_exist": true
+      },
+      "config": [
+        "config/model_training.yaml",
+        "config/model_thresholds.yaml"
+      ],
+      "docs": [
+        "docs/model_development.md",
+        "docs/model_evaluation.md"
+      ],
+      "evidence": [
+        "reports/model_evaluation/test_metrics.json"
+      ],
+      "name": "Model development",
+      "number": 6,
+      "source": [
+        "src/ml_product/modelling/training.py"
+      ],
+      "status": "complete",
+      "tests": [
+        "tests/integration/test_model_training_pipeline.py"
+      ]
+    },
+    {
+      "adrs": [
+        "docs/adr/0023-registration-does-not-equal-approval.md"
+      ],
+      "checks": {
+        "adrs_exist": true,
+        "config_exists": true,
+        "documentation_exists": true,
+        "evidence_exists": true,
+        "source_exists": true,
+        "tests_exist": true
+      },
+      "config": [
+        "config/model_registry.yaml",
+        "config/serving.yaml"
+      ],
+      "docs": [
+        "docs/model_registry.md",
+        "docs/model_serving.md"
+      ],
+      "evidence": [
+        "models/registry.json",
+        "reports/model_evaluation/serving_readiness.json"
+      ],
+      "name": "Registry and FastAPI serving",
+      "number": 7,
+      "source": [
+        "src/ml_product/registry/registry.py",
+        "src/ml_product/serving/app.py"
+      ],
+      "status": "complete",
+      "tests": [
+        "tests/integration/test_serving_api.py"
+      ]
+    },
+    {
+      "adrs": [
+        "docs/adr/0004-commercial-tool-fallbacks.md"
+      ],
+      "checks": {
+        "adrs_exist": true,
+        "config_exists": true,
+        "documentation_exists": true,
+        "evidence_exists": true,
+        "source_exists": true,
+        "tests_exist": true
+      },
+      "config": [
+        "config/deployment.yaml"
+      ],
+      "docs": [
+        "docs/sas_viya_integration.md"
+      ],
+      "evidence": [
+        "sas_viya/model_evidence/.gitkeep"
+      ],
+      "exception": "Real SAS Viya access is externally blocked; no fabricated Viya execution evidence exists.",
+      "name": "SAS Viya",
+      "number": 8,
+      "source": [
+        "sas_viya/programs/.gitkeep"
+      ],
+      "status": "complete_with_external_blocker",
+      "tests": [
+        "tests/contract/test_config_files.py"
+      ]
+    },
+    {
+      "adrs": [
+        "docs/adr/0029-rshiny-consumes-fastapi-not-model-files.md"
+      ],
+      "checks": {
+        "adrs_exist": true,
+        "config_exists": true,
+        "documentation_exists": true,
+        "evidence_exists": true,
+        "source_exists": true,
+        "tests_exist": true
+      },
+      "config": [
+        "config/rshiny.yaml"
+      ],
+      "docs": [
+        "docs/rshiny_architecture.md"
+      ],
+      "evidence": [
+        "reports/uat/rshiny_mvp_manifest.json"
+      ],
+      "name": "R-Shiny MVP",
+      "number": 9,
+      "source": [
+        "rshiny/app.R"
+      ],
+      "status": "complete",
+      "tests": [
+        "rshiny/tests/testthat/test-contract.R"
+      ]
+    },
+    {
+      "adrs": [
+        "docs/adr/0040-browser-backed-shiny-tests-required.md"
+      ],
+      "checks": {
+        "adrs_exist": true,
+        "config_exists": true,
+        "documentation_exists": true,
+        "evidence_exists": true,
+        "source_exists": true,
+        "tests_exist": true
+      },
+      "config": [
+        "config/rshiny.yaml"
+      ],
+      "docs": [
+        "docs/rshiny_cohort_scoring.md"
+      ],
+      "evidence": [
+        "reports/uat/rshiny_advanced_manifest.json"
+      ],
+      "name": "Advanced R-Shiny",
+      "number": 10,
+      "source": [
+        "rshiny/modules/mod_batch_scoring.R"
+      ],
+      "status": "complete",
+      "tests": [
+        "rshiny/tests/shinytest2/test-app.R"
+      ]
+    },
+    {
+      "adrs": [
+        "docs/adr/0042-monitoring-is-review-only.md"
+      ],
+      "checks": {
+        "adrs_exist": true,
+        "config_exists": true,
+        "documentation_exists": true,
+        "evidence_exists": true,
+        "source_exists": true,
+        "tests_exist": true
+      },
+      "config": [
+        "config/monitoring.yaml",
+        "config/drift_thresholds.yaml"
+      ],
+      "docs": [
+        "docs/monitoring_architecture.md"
+      ],
+      "evidence": [
+        "reports/monitoring/monitoring_summary.json"
+      ],
+      "name": "Monitoring and drift",
+      "number": 11,
+      "source": [
+        "src/ml_product/monitoring/pipeline.py"
+      ],
+      "status": "complete",
+      "tests": [
+        "tests/integration/test_monitoring_cli.py"
+      ]
+    },
+    {
+      "adrs": [
+        "docs/adr/0050-champion-challenger-does-not-imply-promotion.md"
+      ],
+      "checks": {
+        "adrs_exist": true,
+        "config_exists": true,
+        "documentation_exists": true,
+        "evidence_exists": true,
+        "source_exists": true,
+        "tests_exist": true
+      },
+      "config": [
+        "config/retraining.yaml",
+        "config/champion_challenger.yaml"
+      ],
+      "docs": [
+        "docs/retraining_governance.md"
+      ],
+      "evidence": [
+        "reports/retraining/retraining_recommendation.json"
+      ],
+      "name": "Controlled retraining",
+      "number": 12,
+      "source": [
+        "src/ml_product/retraining/pipeline.py"
+      ],
+      "status": "complete",
+      "tests": [
+        "tests/integration/test_retraining_cli.py"
+      ]
+    },
+    {
+      "adrs": [
+        "docs/adr/0063-first-commit-precedes-genuine-remote-ci-evidence.md"
+      ],
+      "checks": {
+        "adrs_exist": true,
+        "config_exists": true,
+        "documentation_exists": true,
+        "evidence_exists": true,
+        "source_exists": true,
+        "tests_exist": true
+      },
+      "config": [
+        "config/release.yaml"
+      ],
+      "docs": [
+        "docs/release_assurance.md"
+      ],
+      "evidence": [
+        "reports/assurance/release_manifest.json"
+      ],
+      "name": "CI/CD and release assurance",
+      "number": 13,
+      "source": [
+        "src/ml_product/release/reporting.py"
+      ],
+      "status": "complete",
+      "tests": [
+        "tests/integration/test_release_cli.py"
+      ]
+    },
+    {
+      "adrs": [
+        "docs/adr/0065-first-commit-occurs-only-after-full-local-assurance.md"
+      ],
+      "checks": {
+        "adrs_exist": true,
+        "config_exists": true,
+        "documentation_exists": true,
+        "evidence_exists": true,
+        "source_exists": true,
+        "tests_exist": true
+      },
+      "config": [
+        ".gitignore",
+        ".dockerignore"
+      ],
+      "docs": [
+        "docs/portfolio_case_study.md"
+      ],
+      "evidence": [
+        "reports/portfolio/portfolio_readiness.json"
+      ],
+      "name": "Portfolio assurance and controlled initial release",
+      "number": 14,
+      "source": [
+        "scripts/generate_portfolio_evidence.py"
+      ],
+      "status": "complete",
+      "tests": [
+        "tests/contract/test_portfolio_evidence.py"
+      ]
+    }
+  ],
+  "result": "passed"
+}

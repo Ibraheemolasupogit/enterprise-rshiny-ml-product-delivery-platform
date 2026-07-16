@@ -1,0 +1,62 @@
+version: 1
+description: "Milestone 11 deterministic local drift threshold configuration."
+implementation_status: implemented
+enabled: true
+
+numeric:
+  psi:
+    warning: 0.10
+    critical: 0.25
+  ks:
+    warning_p_value: 0.05
+    critical_p_value: 0.01
+  wasserstein:
+    enabled: true
+    normalise: true
+
+categorical:
+  jensen_shannon:
+    warning: 0.10
+    critical: 0.20
+  chi_square:
+    warning_p_value: 0.05
+    critical_p_value: 0.01
+
+prediction:
+  psi:
+    warning: 0.10
+    critical: 0.25
+  mean_probability_change:
+    warning: 0.05
+    critical: 0.15
+  positive_rate_change:
+    warning: 0.05
+    critical: 0.15
+
+performance:
+  pr_auc_drop:
+    warning: 0.05
+    critical: 0.15
+  roc_auc_drop:
+    warning: 0.05
+    critical: 0.15
+  brier_increase:
+    warning: 0.03
+    critical: 0.08
+  recall_drop:
+    warning: 0.05
+    critical: 0.15
+  specificity_drop:
+    warning: 0.05
+    critical: 0.15
+  calibration_error_increase:
+    warning: 0.03
+    critical: 0.08
+
+operational:
+  p95_latency_ms:
+    warning: 500
+    critical: 1000
+  error_rate:
+    warning: 0.01
+    critical: 0.05

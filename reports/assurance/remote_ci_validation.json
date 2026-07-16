@@ -1,0 +1,6 @@
+{
+  "generated_at_utc": "2026-07-16T23:28:49.762637+00:00",
+  "reason": "pre-push Milestone 14 evidence; genuine GitHub Actions runs are not available until after initial push",
+  "remote_ci_executed": false,
+  "workflows": []
+}

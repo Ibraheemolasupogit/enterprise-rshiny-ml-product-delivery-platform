@@ -1,0 +1,28 @@
+{
+  "decision_hierarchy": [
+    "invalid_schema",
+    "critical_alert",
+    "warning_alert",
+    "insufficient_labelled_evidence",
+    "pass"
+  ],
+  "model_replacement_status": "none",
+  "overall_disposition": "review_required",
+  "reasons": [
+    "Numeric drift result.",
+    "Categorical drift result.",
+    "Prediction drift result.",
+    "Performance monitoring result.",
+    "Calibration monitoring result."
+  ],
+  "registry_mutation_status": "none",
+  "retraining_status": "not_implemented",
+  "suggested_next_steps": [
+    "Investigate upstream data",
+    "Confirm category mapping",
+    "Collect more labelled outcomes",
+    "Review calibration",
+    "Review operational latency",
+    "Consider retraining assessment under Milestone 12"
+  ]
+}

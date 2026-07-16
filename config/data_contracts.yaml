@@ -1,0 +1,9 @@
+version: "0.1.0"
+description: "Placeholder data-contract configuration for future synthetic source systems."
+implementation_status: planned
+enabled: false
+synthetic_data_only: true
+contracts: []
+notes:
+  - "No source datasets or tables exist in Milestone 1."
+  - "Future contracts will describe synthetic fields, types, nullability, and lineage."

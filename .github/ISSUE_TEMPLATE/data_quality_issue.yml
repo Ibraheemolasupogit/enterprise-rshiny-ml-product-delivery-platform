@@ -1,0 +1,25 @@
+name: Data quality issue
+description: Report a synthetic data or contract quality issue
+title: "[Data quality]: "
+labels: ["data-quality"]
+body:
+  - type: input
+    id: milestone
+    attributes:
+      label: Target milestone
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: Data quality concern
+      description: Use synthetic data references only.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety confirmation
+      options:
+        - label: No real sensitive data is included.
+          required: true

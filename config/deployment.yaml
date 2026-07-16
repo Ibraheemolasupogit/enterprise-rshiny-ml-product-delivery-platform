@@ -1,0 +1,18 @@
+version: "0.1.0"
+description: "Documented deployment target configuration; no deployment is implemented in Milestone 1."
+implementation_status: documented_target
+enabled: false
+deployment_enabled: false
+targets:
+  local:
+    implementation_status: planned
+    enabled: false
+  staging:
+    implementation_status: documented_target
+    enabled: false
+  production:
+    implementation_status: documented_target
+    enabled: false
+notes:
+  - "Feature branches must not deploy directly to production."
+  - "Production release will require manual approval in a later milestone."

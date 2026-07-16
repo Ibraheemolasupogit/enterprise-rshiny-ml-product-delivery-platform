@@ -1,0 +1,48 @@
+name: Release Assurance
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release-assurance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4 # v4 release tag; pin to commit SHA after first remote CI baseline.
+      - name: Set up Python
+        uses: actions/setup-python@v5 # v5 release tag; pin to commit SHA after first remote CI baseline.
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install -e ".[dev]"
+      - name: Build release manifest
+        run: python -m ml_product.cli build-release-manifest --config config/release.yaml
+      - name: Assess release readiness
+        run: python -m ml_product.cli assess-release-readiness --config config/release.yaml
+      - name: Show release gates
+        run: python -m ml_product.cli show-release-gates --config config/release.yaml
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0 # v0 release tag; artefact upload only, no publication.
+        with:
+          path: .
+          format: cyclonedx-json
+          output-file: repository-sbom.cdx.json
+      - name: Upload release assurance artefacts
+        uses: actions/upload-artifact@v4 # v4 release tag; CI artefact only.
+        with:
+          name: release-assurance-local-evidence
+          path: |
+            reports/assurance/*.json
+            reports/assurance/*.md
+            repository-sbom.cdx.json

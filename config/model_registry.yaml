@@ -1,0 +1,41 @@
+version: 1
+description: "Milestone 7 local model registry configuration."
+implementation_status: implemented
+enabled: true
+
+registry:
+  type: local_filesystem
+  metadata_path: models/registry.json
+  registered_directory: models/registered
+  approved_directory: models/approved
+  archived_directory: models/archived
+
+registration:
+  require_candidate_recommendation: true
+  require_reproducibility_pass: true
+  require_feature_schema_match: true
+  require_test_set_lock: true
+  copy_artifact: true
+
+approval:
+  automatic_approval: false
+  require_human_decision: true
+  allowed_decisions:
+    - approve
+    - approve_with_conditions
+    - reject
+    - defer
+  required_evidence:
+    - model_training_manifest
+    - validation_metrics
+    - test_metrics
+    - calibration_report
+    - threshold_analysis
+    - fairness_report
+    - feature_importance
+    - model_card
+
+activation:
+  require_approved_status: true
+  allow_single_active_model: true
+  enable_rollback: true

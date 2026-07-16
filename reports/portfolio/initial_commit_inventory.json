@@ -1,0 +1,13 @@
+{
+  "absolute_path_findings": [],
+  "absolute_path_result": "passed",
+  "binary_files": [],
+  "commit_eligible": true,
+  "eligible_file_count": 824,
+  "generated_at_utc": "2026-07-16T23:28:49.676199+00:00",
+  "ignored_file_count_estimate": 81,
+  "large_files": [],
+  "secret_findings": [],
+  "secrets_result": "passed",
+  "unexpected_files": []
+}

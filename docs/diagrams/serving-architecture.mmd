@@ -1,0 +1,5 @@
+flowchart TD
+  Shiny --> API[FastAPI]
+  API --> Gate[Approval and activation gate]
+  Gate -->|default| Blocked[Operational scoring unavailable]
+  Gate -->|review override| Demo[Local review only]

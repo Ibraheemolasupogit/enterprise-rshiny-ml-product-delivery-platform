@@ -1,0 +1,55 @@
+{
+  "adapter": "duckdb",
+  "build_id": "DBUILD-4297e140973e369c",
+  "commercial_tool_evidence": false,
+  "counts": {
+    "curated.admission_diagnosis_summary": 120,
+    "curated.admission_operational_context": 117,
+    "curated.daily_ward_operational_context": 360,
+    "curated.model_source_view": 117,
+    "curated.outcome_context_view": 120,
+    "curated.patient_admission_view": 117,
+    "quality.data_quality_issues": 9,
+    "quality.rejected_records": 4,
+    "raw.admissions": 121,
+    "raw.diagnoses": 291,
+    "raw.outcomes": 120,
+    "raw.patients": 81,
+    "raw.ward_capacity": 360,
+    "raw.workforce": 360
+  },
+  "dataset_version": "0.2.0",
+  "engine": "duckdb",
+  "issue_counts": {
+    "duplicate_admission": 1,
+    "duplicate_patient": 1,
+    "inconsistent_long_stay_flag": 1,
+    "missing_deprivation_decile": 1,
+    "missing_mobility_status": 2,
+    "occupied_beds_over_capacity": 1,
+    "orphan_diagnosis": 1,
+    "vacancy_rate_out_of_range": 1
+  },
+  "provider": "denodo_compatible_local",
+  "source_fingerprint": "6e5bd61f48c601d102f3297e474b9f850f9369f1fa6ccc6e70415d1fb7a933ab",
+  "validation": {
+    "counts": {
+      "curated.admission_diagnosis_summary": 120,
+      "curated.admission_operational_context": 117,
+      "curated.daily_ward_operational_context": 360,
+      "curated.model_source_view": 117,
+      "curated.outcome_context_view": 120,
+      "curated.patient_admission_view": 117,
+      "quality.data_quality_issues": 9,
+      "quality.rejected_records": 4,
+      "raw.admissions": 121,
+      "raw.diagnoses": 291,
+      "raw.outcomes": 120,
+      "raw.patients": 81,
+      "raw.ward_capacity": 360,
+      "raw.workforce": 360
+    },
+    "errors": [],
+    "valid": true
+  }
+}

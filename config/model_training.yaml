@@ -1,0 +1,104 @@
+version: 1
+description: "Milestone 6 deterministic model-development configuration."
+implementation_status: implemented
+enabled: true
+
+experiment:
+  name: long_stay_admission_risk
+  random_seed: 20260714
+  target_column: long_stay_flag_governed
+  positive_class: true
+  prediction_point: shortly_after_admission
+
+feature_source:
+  directory: data/processed/features
+  manifest: reports/model_evaluation/feature_build_manifest.json
+  registry: reports/model_evaluation/feature_registry.json
+  split_summary: reports/model_evaluation/split_summary.json
+  leakage_report: reports/model_evaluation/leakage_report.json
+  preprocessor_metadata: reports/model_evaluation/preprocessor_metadata.json
+  expected_feature_count: 71
+
+baselines:
+  prevalence:
+    enabled: true
+  majority_class:
+    enabled: true
+
+models:
+  logistic_regression:
+    enabled: true
+    parameters:
+      penalty: l2
+      C: 1.0
+      solver: liblinear
+      max_iter: 2000
+      class_weight: null
+
+  random_forest:
+    enabled: true
+    parameters:
+      n_estimators: 300
+      max_depth: 6
+      min_samples_split: 6
+      min_samples_leaf: 3
+      max_features: sqrt
+      class_weight: null
+      n_jobs: 1
+
+  xgboost:
+    enabled: true
+    parameters:
+      n_estimators: 200
+      max_depth: 3
+      learning_rate: 0.03
+      min_child_weight: 3
+      subsample: 0.9
+      colsample_bytree: 0.9
+      reg_alpha: 0.0
+      reg_lambda: 1.0
+      objective: binary:logistic
+      eval_metric: logloss
+      n_jobs: 1
+
+calibration:
+  methods:
+    - uncalibrated
+    - sigmoid
+    - isotonic
+  selection_metric: brier_score
+  minimum_validation_rows_for_isotonic: 100
+  maximum_allowed_brier_worsening: 0.000001
+
+evaluation:
+  bootstrap_iterations: 50
+  bootstrap_seed: 20260715
+
+explainability:
+  permutation_importance:
+    enabled: true
+    repeats: 20
+    scoring: average_precision
+  coefficient_analysis:
+    enabled: true
+  tree_importance:
+    enabled: true
+  local_explanations:
+    enabled: true
+    maximum_examples: 5
+
+fairness:
+  groups:
+    - sex
+    - age_band
+    - deprivation_group
+  minimum_group_size: 10
+
+selection:
+  allow_no_candidate: true
+  prefer_simpler_within_pr_auc: 0.02
+
+outputs:
+  candidate_directory: models/candidate
+  report_directory: reports/model_evaluation
+  overwrite: false

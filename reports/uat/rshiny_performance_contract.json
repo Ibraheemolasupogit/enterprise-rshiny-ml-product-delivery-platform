@@ -1,0 +1,28 @@
+{
+  "evidence_sources": [
+    "baseline_metrics.json",
+    "validation_metrics.json",
+    "test_metrics.json",
+    "model_comparison.json",
+    "threshold_analysis.json",
+    "calibration_report.json",
+    "fairness_report.json",
+    "candidate_recommendation.json"
+  ],
+  "candidate_identifier": "CAND-85EA9202CAD6FE7F",
+  "validation_test_separation": true,
+  "metrics_displayed": [
+    "roc_auc",
+    "pr_auc",
+    "brier_score",
+    "log_loss",
+    "precision",
+    "recall",
+    "specificity",
+    "f1",
+    "balanced_accuracy"
+  ],
+  "test_specificity_displayed": 0.4,
+  "test_balanced_accuracy_displayed": 0.5611111111111111,
+  "no_live_recalculation": true
+}

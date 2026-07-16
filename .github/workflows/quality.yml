@@ -1,0 +1,39 @@
+name: Quality
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4 # v4 release tag; pin to commit SHA after first remote CI baseline.
+      - name: Set up Python
+        uses: actions/setup-python@v5 # v5 release tag; pin to commit SHA after first remote CI baseline.
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install development dependencies
+        run: python -m pip install -e ".[dev]"
+      - name: Ruff lint
+        run: python -m ruff check .
+      - name: Ruff format check
+        run: python -m ruff format --check .
+      - name: Mypy
+        run: python -m mypy src scripts
+      - name: Repository validator
+        run: python scripts/validate_repository.py
+      - name: Release configuration
+        run: python -m ml_product.cli validate-release-config --config config/release.yaml

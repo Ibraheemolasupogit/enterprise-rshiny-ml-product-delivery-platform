@@ -1,0 +1,10 @@
+{
+  "active_approved_model_exists": false,
+  "approved_serving": false,
+  "local_review_mode": {
+    "available": true,
+    "enabled_by_default": false
+  },
+  "production_deployment": false,
+  "readiness_status": "not_ready_no_active_approved_model"
+}

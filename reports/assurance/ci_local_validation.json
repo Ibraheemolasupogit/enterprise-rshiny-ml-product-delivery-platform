@@ -1,0 +1,7 @@
+{
+  "local_equivalent_validation": "passed",
+  "reason": "repository has no commits and has not been pushed",
+  "remote_ci_executed": false,
+  "remote_run_ids": [],
+  "remote_workflow_urls": []
+}

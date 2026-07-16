@@ -1,0 +1,8 @@
+{
+  "curated.admission_diagnosis_summary": 120,
+  "curated.admission_operational_context": 117,
+  "curated.daily_ward_operational_context": 360,
+  "curated.model_source_view": 117,
+  "curated.outcome_context_view": 120,
+  "curated.patient_admission_view": 117
+}

@@ -1,0 +1,30 @@
+{
+  "counts": {
+    "eligible_row_count": 117,
+    "excluded_row_count": 0,
+    "final_feature_count": 71,
+    "source_row_count": 117
+  },
+  "database_build_identifier": "DBUILD-4297e140973e369c",
+  "dataset_version": "0.5.0",
+  "feature_build_identifier": "FBUILD-ADB1D374A8E41F8E",
+  "feature_configuration_fingerprint": "ad40ca5c3958431bcabcd81ec17cfde599e8c87e3acf62705e94a8d9950180ea",
+  "generated_at_utc": "2026-07-15T22:36:58+00:00",
+  "output_checksums": {
+    "test_features": "6d52868ea4599388b13567f8fe2f67761916c797c8a33eef604b32d321521160",
+    "test_identifiers": "45132a5146b71a6f029c3ddfbbd0f28a1ce224b4efb07293fe51faf56e68b636",
+    "test_target": "9a2825428feced60d3463bbf3b08585a9e877abd927d36b729f69c7d4861d9bb",
+    "train_features": "132a51a700a0c747f1fd3e02dcc697b5a6e29734418bedc10be76f635ef92437",
+    "train_identifiers": "aed6d1c8347d00d07c0ae1a205b3a862de3c60884c4ede77ff20a4d3744557c1",
+    "train_target": "95b18211aca0d9b8c51c4f9931dd3129f7753d43bcd61c0f6a140f3d9f71fd92",
+    "validation_features": "c82be345034670feee2ed941e5cdde1f01b1124a5b7141f482358f88f276a7a7",
+    "validation_identifiers": "00bc7b60e25c5363fff52fd5dadedcf68b1048af16ce3fdcfbda909ac202f4d0",
+    "validation_target": "bd5622911980c5e2a5b667e3730f90e73a9f6e4150a5c4b750611e864ed90113"
+  },
+  "prediction_point": "shortly_after_admission",
+  "source_fingerprint": "a420857558b5de7ae92167c6ce58a2afe609810ae7c8d38f0605be6394f05509",
+  "source_provider": "denodo_compatible_local",
+  "source_view": "curated.model_source_view",
+  "split_fingerprint": "87d61fbfec1cb0b48afa7edcd047a313533a5d9381697f9472c178ff0e19a3ee",
+  "target_column": "long_stay_flag_governed"
+}

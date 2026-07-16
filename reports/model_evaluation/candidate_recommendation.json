@@ -1,0 +1,17 @@
+{
+  "approval_status": "not_granted",
+  "deployment_status": "not_performed",
+  "known_risks": [
+    "small synthetic validation and test sets",
+    "high positive-class prevalence",
+    "subgroup metrics are exploratory and unstable"
+  ],
+  "recommendation_status": "recommended_for_registration_review",
+  "recommended_calibration": "sigmoid",
+  "recommended_model": "xgboost",
+  "registration_readiness": "candidate_evidence_ready_for_future_review",
+  "selected_threshold": 0.75,
+  "selection_evidence": "Selected using validation metrics only: minimum recall, Brier score no worse than prevalence baseline, probability quality, and simpler-model preference.",
+  "selection_rule": "validation-only deterministic candidate and threshold selection",
+  "test_set_used_for_selection": false
+}

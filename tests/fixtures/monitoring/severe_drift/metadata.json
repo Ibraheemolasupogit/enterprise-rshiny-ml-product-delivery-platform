@@ -1,0 +1,4 @@
+{
+  "scenario": "severe_drift",
+  "window_type": "current_labelled_window"
+}

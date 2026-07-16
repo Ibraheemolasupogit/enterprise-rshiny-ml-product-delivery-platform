@@ -1,0 +1,42 @@
+version: 1
+description: "Milestone 11 deterministic local monitoring configuration."
+implementation_status: implemented
+enabled: true
+
+baseline:
+  source: training_features
+  reference_split: train
+  minimum_rows: 50
+
+windows:
+  minimum_unlabelled_rows: 30
+  minimum_labelled_rows: 30
+  event_window_size: 100
+  maximum_rows: 10000
+
+schema:
+  fail_on_missing_required_column: true
+  fail_on_unexpected_column: true
+  fail_on_type_change: true
+
+data_quality:
+  missingness_warning_increase: 0.05
+  missingness_critical_increase: 0.15
+  invalid_value_warning_rate: 0.01
+  invalid_value_critical_rate: 0.05
+
+performance:
+  evaluate_when_labels_available: true
+  minimum_labelled_rows: 30
+  minimum_positive_rows: 5
+  minimum_negative_rows: 5
+
+alerts:
+  review_required_on_warning: true
+  review_required_on_critical: true
+  automatic_retraining: false
+  automatic_model_replacement: false
+
+outputs:
+  directory: monitoring/reports
+  committed_evidence_directory: reports/monitoring

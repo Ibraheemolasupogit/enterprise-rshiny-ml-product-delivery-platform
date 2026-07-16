@@ -1,0 +1,7 @@
+{
+  "audit_status": "lockfile-validated-locally",
+  "direct_dependency_count": 12,
+  "known_exceptions": [],
+  "locked_dependency_status": "renv.lock-present",
+  "package_count": 102
+}

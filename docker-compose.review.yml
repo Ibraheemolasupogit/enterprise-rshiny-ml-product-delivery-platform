@@ -1,0 +1,10 @@
+# Local review only: unapproved model, not for operational use.
+services:
+  api:
+    environment:
+      SERVING_REVIEW_MODE: "true"
+      REVIEW_RELEASE_LABEL: "local review only - unapproved model - not for operational use"
+
+  rshiny:
+    environment:
+      REVIEW_RELEASE_LABEL: "local review only - unapproved model - not for operational use"

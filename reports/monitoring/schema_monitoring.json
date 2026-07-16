@@ -1,0 +1,15 @@
+{
+  "alerts": [],
+  "column_order_changed": false,
+  "feature_count_match": true,
+  "missing_required_columns": [],
+  "policy": {
+    "fail_on_missing_required_column": true,
+    "fail_on_type_change": true,
+    "fail_on_unexpected_column": true
+  },
+  "section": "schema",
+  "status": "pass",
+  "type_changes": [],
+  "unexpected_columns": []
+}

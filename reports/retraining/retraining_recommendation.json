@@ -1,0 +1,24 @@
+{
+  "activation_status": "inactive",
+  "approval_status": "not_granted",
+  "automatic_action": "none",
+  "champion_registry_state_unchanged": true,
+  "champion_retained": true,
+  "deployment_status": "not_performed",
+  "historical_test_set_used_for_selection": false,
+  "human_review_remaining": [
+    "Review synthetic-only evidence",
+    "Review fairness and calibration uncertainty",
+    "Separate approval workflow required before activation"
+  ],
+  "human_review_required": true,
+  "recommendation": "retain_champion",
+  "recommended_candidate": null,
+  "registration_eligible": false,
+  "why_challenger_was_or_was_not_preferred": {
+    "champion_preference_rule": true,
+    "difference_considered_small": false,
+    "gate_result": "conditional"
+  },
+  "why_retraining_occurred": []
+}

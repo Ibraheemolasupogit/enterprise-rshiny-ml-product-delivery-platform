@@ -1,0 +1,92 @@
+{
+  "datasets": {
+    "admissions": {
+      "column_names": [
+        "admission_id",
+        "patient_id",
+        "admission_datetime",
+        "admission_type",
+        "source_of_admission",
+        "ward_id",
+        "initial_news2_score",
+        "mobility_status"
+      ],
+      "columns": 8,
+      "rows": 121
+    },
+    "diagnoses": {
+      "column_names": [
+        "diagnosis_id",
+        "admission_id",
+        "diagnosis_group",
+        "diagnosis_complexity",
+        "primary_diagnosis_flag"
+      ],
+      "columns": 5,
+      "rows": 291
+    },
+    "outcomes": {
+      "column_names": [
+        "admission_id",
+        "discharge_datetime",
+        "length_of_stay_days",
+        "long_stay_flag",
+        "readmission_30d",
+        "discharge_destination"
+      ],
+      "columns": 6,
+      "rows": 120
+    },
+    "patients": {
+      "column_names": [
+        "patient_id",
+        "age",
+        "sex",
+        "postcode_region",
+        "deprivation_decile",
+        "comorbidity_count",
+        "previous_admissions_12m"
+      ],
+      "columns": 7,
+      "rows": 81
+    },
+    "ward_capacity": {
+      "column_names": [
+        "ward_id",
+        "record_date",
+        "staffed_beds",
+        "occupied_beds",
+        "closed_beds",
+        "isolation_capacity"
+      ],
+      "columns": 6,
+      "rows": 360
+    },
+    "workforce": {
+      "column_names": [
+        "workforce_record_id",
+        "ward_id",
+        "record_date",
+        "registered_nurses",
+        "support_workers",
+        "medical_staff",
+        "agency_hours",
+        "vacancy_rate"
+      ],
+      "columns": 8,
+      "rows": 360
+    }
+  },
+  "issue_counts_by_type": {
+    "duplicate_admission": 1,
+    "duplicate_patient": 1,
+    "inconsistent_long_stay_flag": 1,
+    "missing_deprivation_decile": 1,
+    "missing_mobility_status": 2,
+    "occupied_beds_over_capacity": 1,
+    "orphan_diagnosis": 1,
+    "vacancy_rate_out_of_range": 1
+  },
+  "synthetic_data_declaration": "Generated synthetic operational source data only; not extracted from real systems and not for clinical or operational use.",
+  "total_issue_count": 9
+}

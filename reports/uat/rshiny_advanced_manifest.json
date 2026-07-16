@@ -1,0 +1,51 @@
+{
+  "application_version": "0.1.0",
+  "enabled_pages": [
+    "Overview",
+    "Single Prediction",
+    "Cohort Scoring",
+    "Model Performance",
+    "Model Governance",
+    "Monitoring",
+    "Feedback"
+  ],
+  "disabled_future_pages": [
+    "Drift detection",
+    "Retraining",
+    "Governance administration",
+    "Deployment controls"
+  ],
+  "r_version": "R version 4.6.1 (2026-06-24)",
+  "package_versions": {
+    "shiny": "renv.lock",
+    "shinytest2": "renv.lock"
+  },
+  "api_contract_version": "v1",
+  "batch_maximum": 100,
+  "registry_model": "long_stay_admission_risk",
+  "governance_status": {
+    "registry_state": "registered",
+    "approval_status": "pending",
+    "activation_status": "inactive",
+    "recommendation": "defer"
+  },
+  "review_mode_policy": {
+    "required_for_demo": true,
+    "ui_toggle": false,
+    "labels": [
+      "Review mode",
+      "Unapproved model",
+      "Synthetic-data prototype",
+      "Not for operational or clinical use"
+    ]
+  },
+  "evidence_fingerprints": {
+    "registry_manifest": "82de686703db23cc7e96ccd8222977ae7b5f883bb75ac198a60be1ab9bc1007c",
+    "test_metrics": "5b1ca1b49fa1c83939a71d058b7f4779c17bc5ee76caf3bee370c4c5bd3ff750",
+    "governance_review": "246b10ecd53418c3286653729a7d1f0b20facff09556f8180228b9be69ea9800",
+    "approval_decision": "694261c64d2032ee6d947d1819b5ca25d2850f169800876dee05eb4fbb789a4e",
+    "activation_status": "bff7fde2d54b964d75bcaf2806dd18db1d69502b0091a7beed23e6db78fb953f",
+    "monitoring_review": "1808e998a837c521414df1a5177f8d02b0bb567073bf5502550c573e67419980"
+  },
+  "synthetic_data_statement": "Synthetic inputs and synthetic model evidence only."
+}

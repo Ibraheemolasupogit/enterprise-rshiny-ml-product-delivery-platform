@@ -1,0 +1,5 @@
+flowchart TD
+  Predictions --> Monitoring[Review-only monitoring]
+  Monitoring --> Review[Human drift review]
+  Review --> Retraining[Controlled retraining]
+  Retraining --> Decision[retain_champion]

@@ -1,0 +1,578 @@
+{
+  "alerts": [],
+  "critical_affected_fields": [],
+  "invalid_value_status": "pass",
+  "missingness": [
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "age__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "age",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "deprivation_decile__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "deprivation_decile",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "comorbidity_count__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "comorbidity_count",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "previous_admissions_12m__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "previous_admissions_12m",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "initial_news2_score__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "initial_news2_score",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "diagnosis_count__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "diagnosis_count",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "secondary_diagnosis_count__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "secondary_diagnosis_count",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "occupancy_rate__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "occupancy_rate",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "staff_to_bed_ratio__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "staff_to_bed_ratio",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_hour__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_hour",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_month__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_month",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "weekend_admission__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "weekend_admission",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "sex__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "sex__female",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "sex__male",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "sex__not_specified",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "postcode_region__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "postcode_region__sr_central",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "postcode_region__sr_east",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "postcode_region__sr_north",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "postcode_region__sr_south",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "postcode_region__sr_west",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_type__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_type__emergency",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_type__planned",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_type__urgent",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "source_of_admission__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "source_of_admission__care_facility",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "source_of_admission__clinic",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "source_of_admission__home",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "source_of_admission__transfer",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "mobility_status__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "mobility_status____missing__",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "mobility_status__assisted",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "mobility_status__bedbound",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "mobility_status__independent",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "mobility_status__limited",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "primary_diagnosis_group__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "primary_diagnosis_group__cardiovascular_synthetic",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "primary_diagnosis_group__frailty_synthetic",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "primary_diagnosis_group__infection_synthetic",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "primary_diagnosis_group__other_synthetic",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "primary_diagnosis_group__respiratory_synthetic",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "primary_diagnosis_group__surgical_synthetic",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "primary_diagnosis_complexity__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "primary_diagnosis_complexity__high",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "primary_diagnosis_complexity__low",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "primary_diagnosis_complexity__moderate",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_day_of_week__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_day_of_week__friday",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_day_of_week__monday",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_day_of_week__saturday",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_day_of_week__sunday",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_day_of_week__thursday",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_day_of_week__tuesday",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_day_of_week__wednesday",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_season__missing",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_season__spring",
+      "relative_change": 0.0,
+      "status": "pass"
+    },
+    {
+      "absolute_change": 0.0,
+      "baseline_rate": 0.0,
+      "current_rate": 0.0,
+      "feature": "admission_season__winter",
+      "relative_change": 0.0,
+      "status": "pass"
+    }
+  ],
+  "row_completeness": 1.0,
+  "section": "data_quality",
+  "status": "pass"
+}

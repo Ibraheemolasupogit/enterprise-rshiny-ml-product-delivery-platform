@@ -1,0 +1,62 @@
+{
+  "request_fields": [
+    "age",
+    "sex",
+    "postcode_region",
+    "deprivation_decile",
+    "comorbidity_count",
+    "previous_admissions_12m",
+    "admission_type",
+    "source_of_admission",
+    "initial_news2_score",
+    "mobility_status",
+    "primary_diagnosis_group",
+    "primary_diagnosis_complexity",
+    "diagnosis_count",
+    "secondary_diagnosis_count",
+    "staffed_beds",
+    "occupied_beds",
+    "closed_beds",
+    "isolation_capacity",
+    "registered_nurses",
+    "support_workers",
+    "medical_staff",
+    "agency_hours",
+    "vacancy_rate",
+    "occupancy_rate",
+    "staff_to_bed_ratio",
+    "admission_datetime",
+    "request_id"
+  ],
+  "prohibited_fields": [
+    "patient_id",
+    "admission_id",
+    "discharge_datetime",
+    "length_of_stay_days",
+    "long_stay_flag",
+    "readmission_30d",
+    "discharge_destination"
+  ],
+  "response_fields": [
+    "prediction",
+    "model",
+    "explanation",
+    "limitations",
+    "request"
+  ],
+  "authentication_header": "X-API-Key",
+  "error_mappings": [
+    "401",
+    "403",
+    "422",
+    "503",
+    "network_failure",
+    "malformed_response"
+  ],
+  "review_mode_metadata": [
+    "review_mode",
+    "unapproved_model",
+    "not_for_operational_use"
+  ],
+  "contract_result": "passed"
+}

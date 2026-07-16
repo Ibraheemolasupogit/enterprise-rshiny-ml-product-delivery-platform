@@ -1,0 +1,101 @@
+[
+  {
+    "column": "deprivation_decile",
+    "dataset": "patients",
+    "expected_rule": "deprivation_decile is normally an integer from 1 to 10",
+    "injected_value_summary": "null",
+    "intentional": true,
+    "issue_id": "DQ-000001",
+    "issue_type": "missing_deprivation_decile",
+    "record_identifier": "PAT-000039",
+    "seed": 20260714
+  },
+  {
+    "column": "patient_id",
+    "dataset": "patients",
+    "expected_rule": "patient_id is unique in clean data",
+    "injected_value_summary": "duplicate row appended",
+    "intentional": true,
+    "issue_id": "DQ-000002",
+    "issue_type": "duplicate_patient",
+    "record_identifier": "PAT-000057",
+    "seed": 20260714
+  },
+  {
+    "column": "mobility_status",
+    "dataset": "admissions",
+    "expected_rule": "mobility_status uses the controlled vocabulary",
+    "injected_value_summary": "null",
+    "intentional": true,
+    "issue_id": "DQ-000003",
+    "issue_type": "missing_mobility_status",
+    "record_identifier": "ADM-000086",
+    "seed": 20260714
+  },
+  {
+    "column": "mobility_status",
+    "dataset": "admissions",
+    "expected_rule": "mobility_status uses the controlled vocabulary",
+    "injected_value_summary": "null",
+    "intentional": true,
+    "issue_id": "DQ-000004",
+    "issue_type": "missing_mobility_status",
+    "record_identifier": "ADM-000111",
+    "seed": 20260714
+  },
+  {
+    "column": "admission_id",
+    "dataset": "admissions",
+    "expected_rule": "admission_id is unique in clean data",
+    "injected_value_summary": "duplicate row appended",
+    "intentional": true,
+    "issue_id": "DQ-000005",
+    "issue_type": "duplicate_admission",
+    "record_identifier": "ADM-000049",
+    "seed": 20260714
+  },
+  {
+    "column": "admission_id",
+    "dataset": "diagnoses",
+    "expected_rule": "diagnosis admission_id references admissions.admission_id",
+    "injected_value_summary": "ADM-999999",
+    "intentional": true,
+    "issue_id": "DQ-000006",
+    "issue_type": "orphan_diagnosis",
+    "record_identifier": "DIA-000071",
+    "seed": 20260714
+  },
+  {
+    "column": "long_stay_flag",
+    "dataset": "outcomes",
+    "expected_rule": "long_stay_flag equals length_of_stay_days >= 7",
+    "injected_value_summary": "false",
+    "intentional": true,
+    "issue_id": "DQ-000007",
+    "issue_type": "inconsistent_long_stay_flag",
+    "record_identifier": "ADM-000012",
+    "seed": 20260714
+  },
+  {
+    "column": "occupied_beds",
+    "dataset": "ward_capacity",
+    "expected_rule": "occupied_beds normally does not exceed staffed_beds",
+    "injected_value_summary": "36",
+    "intentional": true,
+    "issue_id": "DQ-000008",
+    "issue_type": "occupied_beds_over_capacity",
+    "record_identifier": "WARD-04|2025-01-19",
+    "seed": 20260714
+  },
+  {
+    "column": "vacancy_rate",
+    "dataset": "workforce",
+    "expected_rule": "vacancy_rate normally remains between 0.0 and 1.0",
+    "injected_value_summary": "1.25",
+    "intentional": true,
+    "issue_id": "DQ-000009",
+    "issue_type": "vacancy_rate_out_of_range",
+    "record_identifier": "WRK-000309",
+    "seed": 20260714
+  }
+]

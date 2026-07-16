@@ -1,0 +1,14 @@
+{
+  "admission_diagnosis": {
+    "unmatched_records": 1
+  },
+  "admission_operational_context": {
+    "context_match_type": "exact_date"
+  },
+  "admission_outcome": {
+    "unmatched_records": 0
+  },
+  "patient_admission": {
+    "unmatched_records": 0
+  }
+}
