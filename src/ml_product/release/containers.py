@@ -23,7 +23,7 @@ def validate_container_files(root: Path) -> dict[str, Any]:
         "rshiny_non_root_user": "USER shiny" in rshiny,
         "api_healthcheck": "HEALTHCHECK" in api,
         "rshiny_healthcheck": "HEALTHCHECK" in rshiny,
-        "api_base_pinned": "python:3.12.8-slim-bookworm" in api,
+        "api_base_pinned": "python:3.12.13-slim-trixie" in api,
         "rshiny_base_pinned": "r-base:4.4.2" in rshiny,
         "review_mode_disabled_by_default": "SERVING_REVIEW_MODE" not in str(compose),
         "review_override_labelled": "local review only" in str(review).lower(),

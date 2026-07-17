@@ -1539,7 +1539,7 @@ def validate_release_containers() -> list[str]:
         ("R-Shiny Dockerfile non-root user", "USER shiny", rshiny_text),
         ("API Dockerfile healthcheck", "HEALTHCHECK", api_text),
         ("R-Shiny Dockerfile healthcheck", "HEALTHCHECK", rshiny_text),
-        ("API pinned base", "python:3.12.8-slim-bookworm", api_text),
+        ("API pinned base", "python:3.12.13-slim-trixie", api_text),
         ("R-Shiny pinned base", "r-base:4.4.2", rshiny_text),
         ("OCI revision label API", "org.opencontainers.image.revision", api_text),
         ("OCI revision label R-Shiny", "org.opencontainers.image.revision", rshiny_text),
@@ -1731,6 +1731,15 @@ def _load_json(path: Path) -> dict[str, Any]:
 
 
 def run(selected: set[str]) -> int:
+    checkout_safe = {
+        "structure",
+        "docs",
+        "config",
+        "boundaries",
+        "release_workflows",
+        "release_shell",
+        "release_containers",
+    }
     checks = {
         "structure": validate_structure,
         "docs": validate_docs,
@@ -1750,7 +1759,7 @@ def run(selected: set[str]) -> int:
         "release_containers": validate_release_containers,
         "portfolio": validate_portfolio_foundation,
     }
-    active = selected or set(checks)
+    active = checkout_safe if "checkout_safe" in selected else selected or set(checks)
     errors: list[str] = []
     for name, check in checks.items():
         if name in active:
@@ -1808,6 +1817,12 @@ def parse_args() -> argparse.Namespace:
         help="Validate Milestone 13 Docker and Compose files.",
     )
     parser.add_argument("--portfolio", action="store_true", help="Validate Milestone 14 assets.")
+    parser.add_argument(
+        "--checkout-safe",
+        dest="checkout_safe",
+        action="store_true",
+        help="Validate only checks that are safe before ignored generated artefacts exist.",
+    )
     return parser.parse_args()
 
 
@@ -1833,6 +1848,7 @@ def main() -> int:
             "release_shell",
             "release_containers",
             "portfolio",
+            "checkout_safe",
         )
         if getattr(args, name)
     }

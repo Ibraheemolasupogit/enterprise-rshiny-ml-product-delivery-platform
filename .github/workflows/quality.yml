@@ -33,7 +33,11 @@ jobs:
         run: python -m ruff format --check .
       - name: Mypy
         run: python -m mypy src scripts
-      - name: Repository validator
+      - name: Repository validator checkout-safe
+        run: python scripts/validate_repository.py --checkout-safe
+      - name: Build clean-checkout review artefacts
+        run: make build-review-artifacts
+      - name: Repository validator full
         run: python scripts/validate_repository.py
       - name: Release configuration
         run: python -m ml_product.cli validate-release-config --config config/release.yaml
