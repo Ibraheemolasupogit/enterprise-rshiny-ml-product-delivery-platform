@@ -13,3 +13,5 @@ The build validates the Milestone 2 manifest and checksums, creates a temporary 
 ## Portability
 
 DuckDB is the local baseline because it needs no service and reads CSV/Parquet directly. Future PostgreSQL or Denodo adapters should follow the same raw, staged, quality, metadata, and curated contracts.
+
+Milestone 14.1 introduces a PostgreSQL foundation beside DuckDB. See `docs/postgresql_foundation.md` for local startup, environment variables, migration commands, validation commands, and the explicit boundary between the default DuckDB workflow and PostgreSQL.

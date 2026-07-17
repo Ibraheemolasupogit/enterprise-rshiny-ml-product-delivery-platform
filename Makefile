@@ -1,4 +1,4 @@
-.PHONY: help install-python install-r restore-r lint-python lint-r format-python typecheck-python test-python test-r test-shiny test-shiny-browser run-shiny smoke-test-rshiny-api smoke-test-advanced-rshiny-api validate-rshiny validate-rshiny-advanced test-rshiny test-rshiny-advanced validate-structure validate-config docs-check generate-sample-data validate-sample-data describe-sample-data test-synthetic-data verify-synthetic-data build-database validate-database describe-database list-logical-views test-database verify-database-build build-features validate-features describe-features list-features show-split-summary check-feature-leakage verify-feature-build test-features train-models validate-models compare-models show-threshold-analysis show-calibration-report show-fairness-report show-candidate-recommendation verify-model-build test-models register-model validate-registry list-models show-governance-review submit-model-for-approval record-approval-decision activate-model validate-serving serve-model-api build-review-artifacts test-registry test-serving build-monitoring-baseline generate-monitoring-fixtures run-monitoring validate-monitoring describe-monitoring list-monitoring-alerts show-monitoring-review verify-monitoring test-monitoring lint-workflows lint-shell lint-docker security-secrets security-python security-dependencies security-container generate-sbom validate-containers build-containers smoke-test-local-deployment validate-release assess-release-readiness show-release-gates release-assurance portfolio-evidence quality quality-full clean
+.PHONY: help install-python install-r restore-r lint-python lint-r format-python typecheck-python test-python test-r test-shiny test-shiny-browser run-shiny smoke-test-rshiny-api smoke-test-advanced-rshiny-api validate-rshiny validate-rshiny-advanced test-rshiny test-rshiny-advanced validate-structure validate-config docs-check generate-sample-data validate-sample-data describe-sample-data test-synthetic-data verify-synthetic-data build-database validate-database describe-database list-logical-views postgres-start postgres-ready postgres-migrate postgres-load-synthetic-data postgres-validate postgres-stop test-database verify-database-build build-features validate-features describe-features list-features show-split-summary check-feature-leakage verify-feature-build test-features train-models validate-models compare-models show-threshold-analysis show-calibration-report show-fairness-report show-candidate-recommendation verify-model-build test-models register-model validate-registry list-models show-governance-review submit-model-for-approval record-approval-decision activate-model validate-serving serve-model-api build-review-artifacts test-registry test-serving build-monitoring-baseline generate-monitoring-fixtures run-monitoring validate-monitoring describe-monitoring list-monitoring-alerts show-monitoring-review verify-monitoring test-monitoring lint-workflows lint-shell lint-docker security-secrets security-python security-dependencies security-container generate-sbom validate-containers build-containers smoke-test-local-deployment validate-release assess-release-readiness show-release-gates release-assurance portfolio-evidence quality quality-full clean
 
 PYTHON ?= python3
 R_SETUP ?= minor <- strsplit(R.version[["minor"]], "[.]")[[1]][1]; lib <- file.path("renv", "library", "local", paste0("R-", R.version[["major"]], ".", minor)); dir.create(lib, recursive = TRUE, showWarnings = FALSE); .libPaths(c(normalizePath(lib), .libPaths()))
@@ -26,6 +26,12 @@ help:
 	@echo "  validate-database   Validate local DuckDB database"
 	@echo "  describe-database   Describe database build evidence"
 	@echo "  list-logical-views  List governed logical views"
+	@echo "  postgres-start      Start local PostgreSQL service"
+	@echo "  postgres-ready      Check PostgreSQL readiness"
+	@echo "  postgres-migrate    Run PostgreSQL migrations"
+	@echo "  postgres-load-synthetic-data Load synthetic source data into PostgreSQL"
+	@echo "  postgres-validate   Validate PostgreSQL schemas, counts, and quality controls"
+	@echo "  postgres-stop       Stop local PostgreSQL service"
 	@echo "  test-database       Run database-focused tests"
 	@echo "  verify-database-build Verify deterministic database build"
 	@echo "  build-features      Build deterministic Milestone 5 feature datasets"
@@ -141,6 +147,25 @@ describe-database:
 
 list-logical-views:
 	$(PYTHON) -m ml_product.cli list-logical-views --config config/database.yaml
+
+postgres-start:
+	@test -n "$$POSTGRES_PASSWORD" || { echo "POSTGRES_PASSWORD must be set locally."; exit 1; }
+	docker compose up -d postgres
+
+postgres-ready:
+	$(PYTHON) -m ml_product.cli postgres-check-readiness --config config/database.yaml
+
+postgres-migrate:
+	$(PYTHON) -m ml_product.cli postgres-migrate --config config/database.yaml
+
+postgres-load-synthetic-data:
+	$(PYTHON) -m ml_product.cli postgres-load-synthetic-data --config config/database.yaml
+
+postgres-validate:
+	$(PYTHON) -m ml_product.cli postgres-validate --config config/database.yaml
+
+postgres-stop:
+	docker compose stop postgres
 
 test-database:
 	$(PYTHON) -m pytest tests/unit/ingestion tests/unit/validation tests/unit/linking tests/integration/test_database_build_pipeline.py tests/integration/test_database_cli.py tests/integration/test_curated_views.py tests/integration/test_logical_view_queries.py tests/contract/test_database_schema_contracts.py tests/contract/test_curated_view_contracts.py tests/contract/test_database_evidence.py tests/contract/test_sql_files.py

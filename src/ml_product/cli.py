@@ -17,6 +17,12 @@ from ml_product.features.validation import validate_feature_outputs
 from ml_product.ingestion.build import build_database
 from ml_product.ingestion.config import DatabaseConfig
 from ml_product.ingestion.local_view_client import LocalDuckDBViewClient
+from ml_product.ingestion.postgresql import (
+    check_postgresql_readiness,
+    load_synthetic_data_to_postgresql,
+    run_postgresql_migrations,
+    validate_postgresql_database,
+)
 from ml_product.modelling.config import ModelTrainingConfig, ThresholdConfig
 from ml_product.modelling.training import train_models
 from ml_product.modelling.validation import validate_model_outputs
@@ -58,6 +64,17 @@ from ml_product.synthetic_data.validation import load_tables_from_directory, val
 from ml_product.utils.paths import repository_root
 
 app = typer.Typer(help="Milestone foundation utilities.")
+
+
+def _run_compose(*args: str) -> None:
+    result = subprocess.run(
+        ["docker", "compose", *args],
+        cwd=repository_root(),
+        check=False,
+        text=True,
+    )
+    if result.returncode != 0:
+        raise typer.Exit(result.returncode)
 
 
 def _run_validator(*args: str) -> None:
@@ -260,6 +277,85 @@ def describe_database_command(
     typer.echo(f"Source fingerprint: {payload['source_fingerprint']}")
     for name, count in payload["counts"].items():
         typer.echo(f"- {name}: {count}")
+
+
+@app.command("postgres-start")
+def postgres_start_command() -> None:
+    """Start the local PostgreSQL Compose service."""
+
+    _run_compose("up", "-d", "postgres")
+
+
+@app.command("postgres-stop")
+def postgres_stop_command() -> None:
+    """Stop the local PostgreSQL Compose service."""
+
+    _run_compose("stop", "postgres")
+
+
+@app.command("postgres-check-readiness")
+def postgres_check_readiness_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/database.yaml"),
+) -> None:
+    """Check the configured PostgreSQL datastore is reachable."""
+
+    try:
+        check_postgresql_readiness(DatabaseConfig.from_file(config_path))
+    except Exception as exc:
+        typer.echo(f"PostgreSQL readiness check failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    typer.echo("PostgreSQL readiness check passed.")
+
+
+@app.command("postgres-migrate")
+def postgres_migrate_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/database.yaml"),
+) -> None:
+    """Run idempotent PostgreSQL migrations."""
+
+    try:
+        migrations = run_postgresql_migrations(DatabaseConfig.from_file(config_path))
+    except Exception as exc:
+        typer.echo(f"PostgreSQL migration failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    typer.echo(f"Applied {len(migrations)} PostgreSQL migration files.")
+
+
+@app.command("postgres-load-synthetic-data")
+def postgres_load_synthetic_data_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/database.yaml"),
+) -> None:
+    """Load synthetic source datasets into PostgreSQL."""
+
+    try:
+        result = load_synthetic_data_to_postgresql(DatabaseConfig.from_file(config_path))
+    except Exception as exc:
+        typer.echo(f"PostgreSQL synthetic data load failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    typer.echo(
+        f"Loaded PostgreSQL synthetic data with build_id={result.build_id} "
+        f"and {len(result.counts)} counted objects."
+    )
+
+
+@app.command("postgres-validate")
+def postgres_validate_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/database.yaml"),
+) -> None:
+    """Validate PostgreSQL row counts, schemas, and quality controls."""
+
+    try:
+        result = validate_postgresql_database(DatabaseConfig.from_file(config_path))
+    except Exception as exc:
+        typer.echo(f"PostgreSQL validation failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    if not result["valid"]:
+        typer.echo(f"PostgreSQL validation failed: {result['errors']}", err=True)
+        raise typer.Exit(1)
+    typer.echo(
+        "PostgreSQL validation passed with "
+        f"{result['eligible_population']} eligible model-source rows."
+    )
 
 
 def _client(config_path: Path) -> LocalDuckDBViewClient:

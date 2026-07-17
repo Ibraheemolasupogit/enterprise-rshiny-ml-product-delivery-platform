@@ -7,6 +7,13 @@ engine:
   type: duckdb
   database_path: data/processed/ml_product.duckdb
   read_only: false
+  postgresql:
+    host_env: POSTGRES_HOST
+    port_env: POSTGRES_PORT
+    database_env: POSTGRES_DB
+    user_env: POSTGRES_USER
+    password_env: POSTGRES_PASSWORD
+    backend_env: DATABASE_BACKEND
 
 sources:
   directory: data/sample

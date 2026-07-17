@@ -11,10 +11,20 @@ from pydantic import BaseModel, Field, model_validator
 from ml_product.utils.paths import repository_root
 
 
+class PostgresEnvironmentConfig(BaseModel):
+    host_env: str = "POSTGRES_HOST"
+    port_env: str = "POSTGRES_PORT"
+    database_env: str = "POSTGRES_DB"
+    user_env: str = "POSTGRES_USER"
+    password_env: str = "POSTGRES_PASSWORD"
+    backend_env: str = "DATABASE_BACKEND"
+
+
 class EngineConfig(BaseModel):
-    type: Literal["duckdb"]
+    type: Literal["duckdb", "postgresql"]
     database_path: Path
     read_only: bool = False
+    postgresql: PostgresEnvironmentConfig = Field(default_factory=PostgresEnvironmentConfig)
 
 
 class SourceConfig(BaseModel):
@@ -46,7 +56,7 @@ class QualityConfig(BaseModel):
 
 class LogicalLayerConfig(BaseModel):
     provider: Literal["denodo_compatible_local"]
-    adapter: Literal["duckdb"]
+    adapter: Literal["duckdb", "postgresql"]
     default_limit: int = Field(default=100, gt=0)
     max_limit: int = Field(default=1000, gt=0)
     allow_arbitrary_sql: bool = False
