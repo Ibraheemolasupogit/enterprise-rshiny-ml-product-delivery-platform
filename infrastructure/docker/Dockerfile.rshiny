@@ -34,6 +34,8 @@ COPY reports/assurance /srv/shiny-server/enterprise-ml-product/reports/assurance
 
 RUN mkdir -p /usr/local/lib/R/site-library \
     && Rscript --vanilla -e "install.packages('renv', repos = 'https://cloud.r-project.org'); .libPaths('/usr/local/lib/R/site-library'); renv::restore(prompt = FALSE, library = '/usr/local/lib/R/site-library')" \
+    && rm -rf /root/.cache/R/renv \
+    && find /usr/local/lib/R/site-library -path '*/openssl/doc/keys.html' -delete \
     && mkdir -p /srv/shiny-server/enterprise-ml-product/data/monitoring \
     && chown -R shiny:shiny /srv/shiny-server/enterprise-ml-product /usr/local/lib/R/site-library
 

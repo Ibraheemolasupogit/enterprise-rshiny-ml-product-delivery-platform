@@ -41,6 +41,7 @@ jobs:
         uses: aquasecurity/trivy-action@v0.36.0 # Fixed release tag; high/critical findings block.
         with:
           image-ref: enterprise-ml-product-api:0.1.0-uncommitted
+          scanners: vuln
           severity: HIGH,CRITICAL
           exit-code: "1"
           ignore-unfixed: true
@@ -48,6 +49,7 @@ jobs:
         uses: aquasecurity/trivy-action@v0.36.0 # Fixed release tag; high/critical findings block.
         with:
           image-ref: enterprise-ml-product-rshiny:0.1.0-uncommitted
+          scanners: vuln
           severity: HIGH,CRITICAL
           exit-code: "1"
           ignore-unfixed: true

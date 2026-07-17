@@ -28,8 +28,10 @@ from ml_product.monitoring import (
 )
 from ml_product.monitoring.config import DriftThresholdConfig, MonitoringConfig
 from ml_product.registry.config import GovernanceConfig, RegistryConfig
+from ml_product.registry.metadata import sha256_file
 from ml_product.registry.models import ApprovalDecisionValue
 from ml_product.registry.registry import LocalModelRegistry
+from ml_product.registry.storage import copy_immutable
 from ml_product.release import (
     ReleaseConfig,
     assess_release_readiness,
@@ -615,6 +617,24 @@ def _registry(
     )
 
 
+def _materialise_registered_artefacts(version: Any, candidate_dir: Path) -> None:
+    root = repository_root()
+    artefacts = version.artefacts
+    for source_name, target_text, expected_checksum in (
+        ("xgboost.json", artefacts.model_path, artefacts.model_sha256),
+        ("calibrator.joblib", artefacts.calibrator_path, artefacts.calibrator_sha256),
+    ):
+        target = root / target_text
+        if target.is_file():
+            if sha256_file(target) != expected_checksum:
+                raise ValueError(f"Registered artefact checksum mismatch: {target_text}")
+            continue
+        checksum = copy_immutable(candidate_dir / source_name, target)
+        if checksum != expected_checksum:
+            target.unlink(missing_ok=True)
+            raise ValueError(f"Candidate artefact checksum mismatch for {target_text}")
+
+
 @app.command("register-model")
 def register_model_command(
     registry_config_path: Annotated[Path, typer.Option("--registry-config")] = Path(
@@ -648,6 +668,7 @@ def register_model_command(
                 for item in entry.versions
                 if item.candidate_identifier == candidate_identifier
             )
+            _materialise_registered_artefacts(version, candidate_dir)
             registry.write_evidence(record, version)
     except Exception as exc:
         typer.echo(f"Model registration failed: {exc}", err=True)

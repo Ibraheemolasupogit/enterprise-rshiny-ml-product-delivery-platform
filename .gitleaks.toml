@@ -5,10 +5,11 @@ useDefault = true
 description = "Allow API Dockerfile SHA-256 checksums in release evidence only."
 condition = "AND"
 regexTarget = "line"
+targetRules = ["generic-api-key"]
 paths = [
   '''^reports/assurance/container_validation\.json$''',
   '''^reports/assurance/release_readiness\.json$''',
 ]
 regexes = [
-  '''"api_dockerfile_sha256":\s*"[a-f0-9]{64}"''',
+  '''^\s*"api_dockerfile_sha256":\s*"[a-f0-9]{64}",?\s*$''',
 ]

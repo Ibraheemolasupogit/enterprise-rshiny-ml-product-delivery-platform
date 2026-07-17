@@ -226,7 +226,9 @@ validate-serving:
 serve-model-api:
 	$(PYTHON) -m ml_product.cli serve-model-api --serving-config config/serving.yaml
 
-build-review-artifacts: validate-sample-data build-database build-features train-models register-model validate-registry validate-serving
+build-review-artifacts: validate-sample-data build-database build-features train-models register-model validate-registry validate-serving build-monitoring-baseline
+	@test -f models/registered/v000001/xgboost.json || { echo "Missing registered XGBoost artefact: models/registered/v000001/xgboost.json"; exit 1; }
+	@test -f monitoring/reports/monitoring_baseline.json || { echo "Missing monitoring baseline: monitoring/reports/monitoring_baseline.json"; exit 1; }
 
 build-monitoring-baseline:
 	$(PYTHON) -m ml_product.cli build-monitoring-baseline --config config/monitoring.yaml --threshold-config config/drift_thresholds.yaml --replace
