@@ -1,0 +1,56 @@
+flowchart LR
+  subgraph DataPlane["Data plane"]
+    Source["Synthetic source data"]
+    Postgres["PostgreSQL datastore"]
+    Denodo["Denodo governed virtual views"]
+    Features["Leakage-safe feature engineering"]
+    Training["Model training and evaluation"]
+  end
+
+  subgraph ControlPlane["Control plane"]
+    Lifecycle["Provider-neutral lifecycle provider"]
+    LocalRegistry["Local registry"]
+    SasViya["SAS Viya provider boundary"]
+    Approval["Governance approval gate"]
+    Promotion["External promotion decision"]
+    Activation["Explicit local activation"]
+  end
+
+  subgraph ProductPlane["Product and operations"]
+    API["FastAPI review serving"]
+    Shiny["R Shiny review product"]
+    Monitoring["Monitoring and retraining review"]
+    Release["Release assurance"]
+  end
+
+  subgraph EvidencePlane["Evidence outputs"]
+    Evidence["Reports, manifests, registry and workflow evidence"]
+  end
+
+  Source --> Postgres --> Denodo --> Features --> Training --> Lifecycle
+  Lifecycle --> LocalRegistry
+  Lifecycle --> SasViya
+  Lifecycle --> Approval --> Promotion
+  Approval --> Activation
+  Promotion -. "external state only" .-> SasViya
+  Activation -. "separate governed local action" .-> LocalRegistry
+  Activation --> API --> Shiny --> Monitoring --> Release
+
+  Source -.-> Evidence
+  Postgres -.-> Evidence
+  Denodo -.-> Evidence
+  Features -.-> Evidence
+  Training -.-> Evidence
+  LocalRegistry -.-> Evidence
+  Approval -.-> Evidence
+  Promotion -.-> Evidence
+  Activation -.-> Evidence
+  Monitoring -.-> Evidence
+  Release -.-> Evidence
+
+  classDef gate fill:#fff4d6,stroke:#9a6b00,color:#2d2100
+  classDef boundary fill:#e8f1ff,stroke:#2f5f9f,color:#10233f
+  classDef evidence fill:#eef8ee,stroke:#377a37,color:#143214
+  class Approval,Promotion,Activation gate
+  class Lifecycle,LocalRegistry,SasViya boundary
+  class Evidence evidence

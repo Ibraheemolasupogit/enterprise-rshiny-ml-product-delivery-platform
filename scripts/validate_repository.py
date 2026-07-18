@@ -696,6 +696,29 @@ PORTFOLIO_DIAGRAMS = [
     "docs/diagrams/cicd-release-flow.mmd",
 ]
 
+INTERVIEW_DOCS = [
+    "docs/interview_architecture.md",
+    "docs/end_to_end_lineage.md",
+    "docs/interview_evidence_index.md",
+    "docs/interview_demo_guide.md",
+    "docs/interview_talking_points.md",
+    "docs/interview_star_narrative.md",
+    "docs/portfolio_capability_map.md",
+    "docs/lifecycle_orchestration_demo.md",
+]
+
+INTERVIEW_DIAGRAMS = [
+    "docs/diagrams/interview-architecture.mmd",
+]
+
+CAPABILITY_STATUS_VOCABULARY = {
+    "implemented_and_tested",
+    "live_validated",
+    "offline_mock_validated",
+    "documented_extension",
+    "requires_external_environment",
+}
+
 REQUIRED_WORKFLOWS = [
     ".github/workflows/quality.yml",
     ".github/workflows/python-tests.yml",
@@ -801,7 +824,7 @@ def validate_structure() -> list[str]:
 
 def validate_docs() -> list[str]:
     errors: list[str] = []
-    for doc in REQUIRED_DOCS:
+    for doc in [*REQUIRED_DOCS, *INTERVIEW_DOCS]:
         path = ROOT / doc
         if not path.is_file():
             errors.append(f"Missing required documentation: {doc}")
@@ -809,7 +832,98 @@ def validate_docs() -> list[str]:
         text = path.read_text(encoding="utf-8")
         if len(text.strip()) < 200:
             errors.append(f"Documentation is too thin for Milestone 1: {doc}")
+    for diagram in INTERVIEW_DIAGRAMS:
+        path = ROOT / diagram
+        if not path.is_file():
+            errors.append(f"Missing required architecture diagram source: {diagram}")
+            continue
+        text = path.read_text(encoding="utf-8")
+        if "flowchart" not in text or "DataPlane" not in text or "ControlPlane" not in text:
+            errors.append(f"Architecture diagram is not a readable Mermaid flowchart: {diagram}")
+    errors.extend(_validate_interview_evidence_docs())
     return errors
+
+
+def _validate_interview_evidence_docs() -> list[str]:
+    errors: list[str] = []
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    evidence_index = (ROOT / "docs/interview_evidence_index.md").read_text(encoding="utf-8")
+    architecture = (ROOT / "docs/interview_architecture.md").read_text(encoding="utf-8")
+    demo = (ROOT / "docs/interview_demo_guide.md").read_text(encoding="utf-8")
+    for status in CAPABILITY_STATUS_VOCABULARY:
+        if status not in evidence_index:
+            errors.append(f"Evidence index missing capability status: {status}")
+    for phrase in [
+        "Synthetic data",
+        "PostgreSQL",
+        "Denodo",
+        "SAS Viya registration",
+        "Promotion assessment",
+        "Local activation",
+        "Orchestration",
+    ]:
+        if phrase not in evidence_index:
+            errors.append(f"Evidence index missing capability row: {phrase}")
+    for phrase in [
+        "fully synthetic",
+        "External promotion never activates the local model",
+        "live SAS Viya registration and promotion require",
+    ]:
+        if phrase not in architecture:
+            errors.append(f"Interview architecture missing disclosure: {phrase}")
+    if "external promotion is separate from local activation" not in demo:
+        errors.append("Interview demo must disclose promotion versus activation boundary.")
+    unsupported_claims = [
+        "live SAS Viya validated",
+        "live SAS Viya registration validated",
+        "live SAS Viya promotion validated",
+        "real clinical deployment",
+        "real patient outcome",
+    ]
+    combined = "\n".join(
+        [
+            readme,
+            evidence_index,
+            architecture,
+            demo,
+            (ROOT / "docs/interview_talking_points.md").read_text(encoding="utf-8"),
+            (ROOT / "docs/interview_star_narrative.md").read_text(encoding="utf-8"),
+            (ROOT / "docs/portfolio_capability_map.md").read_text(encoding="utf-8"),
+        ]
+    )
+    lowered = combined.lower()
+    for claim in unsupported_claims:
+        if claim.lower() in lowered:
+            errors.append(f"Unsupported interview documentation claim: {claim}")
+    for link in _markdown_links(readme):
+        if link.startswith(("http://", "https://", "#", "mailto:")):
+            continue
+        target = link.split("#", 1)[0]
+        if target and not (ROOT / target).exists():
+            errors.append(f"README link target does not exist: {link}")
+    for path in _backtick_paths(evidence_index):
+        if not (ROOT / path).exists():
+            errors.append(f"Evidence index path does not exist: {path}")
+    return errors
+
+
+def _markdown_links(text: str) -> list[str]:
+    return re.findall(r"\[[^\]]+\]\(([^)]+)\)", text)
+
+
+def _backtick_paths(text: str) -> list[str]:
+    paths: list[str] = []
+    for value in re.findall(r"`([^`]+)`", text):
+        if value.startswith(("make ", "python3 ", "curated.", "live_", "offline_", "implemented_")):
+            continue
+        if "/" not in value and "." not in Path(value).name:
+            continue
+        if any(part in value for part in ("*", " ", ",")):
+            continue
+        if value.startswith(("http://", "https://")):
+            continue
+        paths.append(value)
+    return paths
 
 
 def validate_config() -> list[str]:
@@ -946,16 +1060,10 @@ def validate_boundaries() -> list[str]:
                 if pattern.search(text):
                     errors.append(f"Potential committed secret in {relative}")
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    if "Denodo integration: externally blocked and not implemented" not in readme:
-        errors.append(
-            "README must explicitly state Denodo integration is externally blocked "
-            "and not implemented."
-        )
-    if "SAS Viya integration: externally blocked and not implemented" not in readme:
-        errors.append(
-            "README must explicitly state SAS Viya integration is externally blocked "
-            "and not implemented."
-        )
+    if "Denodo: live_validated" not in readme:
+        errors.append("README must describe current Denodo live-validation status.")
+    if "Live SAS Viya registration and promotion: requires_external_environment" not in readme:
+        errors.append("README must describe live SAS Viya external-environment boundary.")
     if "Milestone 2" not in readme or "synthetic source" not in readme.lower():
         errors.append("README must describe Milestone 2 synthetic source-system status.")
     if "Milestone 3" not in readme or "DuckDB" not in readme:

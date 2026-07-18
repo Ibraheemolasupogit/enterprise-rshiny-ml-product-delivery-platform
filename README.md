@@ -240,13 +240,26 @@ Milestone 13 adds focused GitHub Actions workflow definitions, local release ass
 
 This repository is a governed end-to-end R-Shiny ML product delivery platform for a synthetic healthcare operations use case. It demonstrates product delivery, data engineering, model development, FastAPI serving, R-Shiny user workflows, monitoring, controlled retraining, CI/CD, containers and release assurance without claiming real clinical impact.
 
+## Reviewer Navigation
+
+- Primary architecture: [docs/interview_architecture.md](docs/interview_architecture.md)
+- Architecture diagram source: [docs/diagrams/interview-architecture.mmd](docs/diagrams/interview-architecture.mmd)
+- Evidence index: [docs/interview_evidence_index.md](docs/interview_evidence_index.md)
+- End-to-end lineage: [docs/end_to_end_lineage.md](docs/end_to_end_lineage.md)
+- Interview demo guide: [docs/interview_demo_guide.md](docs/interview_demo_guide.md)
+- Talking points: [docs/interview_talking_points.md](docs/interview_talking_points.md)
+- STAR narrative: [docs/interview_star_narrative.md](docs/interview_star_narrative.md)
+- Portfolio capability map: [docs/portfolio_capability_map.md](docs/portfolio_capability_map.md)
+- Canonical workflow: [docs/lifecycle_orchestration_demo.md](docs/lifecycle_orchestration_demo.md)
+- Known limitations: [docs/limitations.md](docs/limitations.md)
+
 ## Product Outcome
 
 The implemented product supports local review of long-stay admission risk evidence. Default operational scoring is unavailable because the model is pending approval and inactive. Explicit review mode is available for demonstration only.
 
 ## Architecture
 
-Synthetic source systems flow into DuckDB raw, staged, quality, metadata and curated layers, then through a provider-neutral logical layer, feature engineering, model development, local registry and governance, FastAPI, R-Shiny, monitoring, controlled retraining review and release assurance. See `docs/architecture_overview.md`.
+Synthetic source systems flow into DuckDB or PostgreSQL, through Denodo-compatible governed views, feature engineering, model development, local registry and provider-neutral lifecycle controls, FastAPI, R-Shiny, monitoring, controlled retraining review and release assurance. See [docs/interview_architecture.md](docs/interview_architecture.md) for the concise reviewer architecture and [docs/architecture_overview.md](docs/architecture_overview.md) for the broader portfolio overview.
 
 ## Technology Stack
 
@@ -258,7 +271,7 @@ Core source lives under `src/ml_product`, R-Shiny code under `rshiny`, configura
 
 ## Quick Start
 
-Install Python dependencies with `python3 -m pip install -e ".[dev]"`, restore R dependencies with `make restore-r`, run quality checks with `make quality-full`, and run release assurance with `make release-assurance`.
+Install Python dependencies with `python3 -m pip install -e ".[dev]"`, restore R dependencies with `make restore-r`, run focused local checks with `python3 -m pytest -q tests/contract`, and run release assurance with `make release-assurance`. For a 10-15 minute walkthrough, use [docs/interview_demo_guide.md](docs/interview_demo_guide.md) rather than rebuilding every artifact.
 
 ## Local Review-Mode Runbook
 
@@ -266,7 +279,16 @@ Use `docker compose -f docker-compose.yml -f docker-compose.review.yml up --buil
 
 ## Core Workflows
 
-The Makefile covers validation, reproducibility, R-Shiny checks, container checks, smoke tests, release assurance and final quality gates.
+The Makefile covers validation, reproducibility, PostgreSQL, optional Denodo checks, R-Shiny checks, container checks, smoke tests, lifecycle orchestration, release assurance and final quality gates.
+
+Canonical workflow commands:
+
+```bash
+make lifecycle-e2e-local
+make lifecycle-e2e-dry-run
+make lifecycle-e2e-show
+make lifecycle-e2e-validate
+```
 
 ## Model Results
 
@@ -298,7 +320,7 @@ The repository includes local secret scanning, dependency summaries, SBOM manife
 
 ## Commercial-Tool Boundaries
 
-Denodo integration is externally blocked and not implemented. SAS Viya integration is externally blocked and not implemented. No fabricated commercial evidence is included.
+PostgreSQL: live_validated locally. Denodo: live_validated when the optional local Developer Tier path is enabled; CI remains safe when Denodo is unavailable. SAS Viya client and lifecycle workflows: implemented_and_tested and offline_mock_validated. Live SAS Viya registration and promotion: requires_external_environment. No fabricated commercial evidence is included.
 
 ## Limitations
 
@@ -306,7 +328,7 @@ All data are synthetic. The model is not approved or active. Operational release
 
 ## Milestone Status
 
-Milestones 1, 2, 3, 5, 6, 7, 9, 10, 11, 12, 13 and 14 are complete. Milestones 4 and 8 are externally blocked.
+Milestones 1, 2, 3, 5, 6, 7, 9, 10, 11, 12, 13, 14 and 15.1-15.5 are complete for local portfolio review. Live SAS Viya execution remains externally blocked until an available environment is provided.
 
 ## Interview Relevance
 
