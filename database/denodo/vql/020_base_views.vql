@@ -1,0 +1,21 @@
+-- Base-view mapping over the local PostgreSQL datastore.
+-- These names intentionally separate physical PostgreSQL sources from governed views.
+
+create or replace view bv_pg_curated_patient_admission_view as
+select * from curated.patient_admission_view;
+
+create or replace view bv_pg_curated_admission_diagnosis_summary as
+select * from curated.admission_diagnosis_summary;
+
+create or replace view bv_pg_curated_daily_ward_operational_context as
+select * from curated.daily_ward_operational_context;
+
+create or replace view bv_pg_curated_admission_operational_context as
+select * from curated.admission_operational_context;
+
+create or replace view bv_pg_curated_outcome_context_view as
+select * from curated.outcome_context_view;
+
+create or replace view bv_pg_curated_model_source_view as
+select * from curated.model_source_view;
+

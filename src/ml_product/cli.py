@@ -15,14 +15,16 @@ from ml_product.features.config import FeatureConfig
 from ml_product.features.leakage import check_leakage
 from ml_product.features.validation import validate_feature_outputs
 from ml_product.ingestion.build import build_database
+from ml_product.ingestion.client_factory import build_logical_view_client
 from ml_product.ingestion.config import DatabaseConfig
-from ml_product.ingestion.local_view_client import LocalDuckDBViewClient
+from ml_product.ingestion.denodo_client import DenodoConnectionError
 from ml_product.ingestion.postgresql import (
     check_postgresql_readiness,
     load_synthetic_data_to_postgresql,
     run_postgresql_migrations,
     validate_postgresql_database,
 )
+from ml_product.ingestion.postgresql_view_client import PostgreSQLViewClient
 from ml_product.modelling.config import ModelTrainingConfig, ThresholdConfig
 from ml_product.modelling.training import train_models
 from ml_product.modelling.validation import validate_model_outputs
@@ -62,6 +64,7 @@ from ml_product.synthetic_data.config import DatasetMode, SyntheticDataConfig
 from ml_product.synthetic_data.generator import generate_synthetic_data
 from ml_product.synthetic_data.validation import load_tables_from_directory, validate_tables
 from ml_product.utils.paths import repository_root
+from ml_product.validation.data_contracts import CURATED_VIEWS
 
 app = typer.Typer(help="Milestone foundation utilities.")
 
@@ -69,6 +72,17 @@ app = typer.Typer(help="Milestone foundation utilities.")
 def _run_compose(*args: str) -> None:
     result = subprocess.run(
         ["docker", "compose", *args],
+        cwd=repository_root(),
+        check=False,
+        text=True,
+    )
+    if result.returncode != 0:
+        raise typer.Exit(result.returncode)
+
+
+def _run_postgresql_compose(*args: str) -> None:
+    result = subprocess.run(
+        ["docker", "compose", "-f", "docker-compose.postgresql.yml", *args],
         cwd=repository_root(),
         check=False,
         text=True,
@@ -283,14 +297,14 @@ def describe_database_command(
 def postgres_start_command() -> None:
     """Start the local PostgreSQL Compose service."""
 
-    _run_compose("up", "-d", "postgres")
+    _run_postgresql_compose("up", "-d", "postgres")
 
 
 @app.command("postgres-stop")
 def postgres_stop_command() -> None:
     """Stop the local PostgreSQL Compose service."""
 
-    _run_compose("stop", "postgres")
+    _run_postgresql_compose("stop", "postgres")
 
 
 @app.command("postgres-check-readiness")
@@ -358,10 +372,10 @@ def postgres_validate_command(
     )
 
 
-def _client(config_path: Path) -> LocalDuckDBViewClient:
+def _client(config_path: Path) -> Any:
     config = DatabaseConfig.from_file(config_path)
-    return LocalDuckDBViewClient(
-        config.database_path(),
+    return build_logical_view_client(
+        config,
         default_limit=config.logical_layer.default_limit,
         max_limit=config.logical_layer.max_limit,
     )
@@ -401,6 +415,128 @@ def query_logical_view_command(
     import json
 
     rows = _client(config_path).query_view(view_name, limit=limit)
+    typer.echo(json.dumps(rows, default=str, indent=2))
+
+
+def _denodo_client(config_path: Path) -> Any:
+    config = DatabaseConfig.from_file(config_path)
+    from ml_product.ingestion.denodo_client import DenodoClient
+
+    return DenodoClient.from_config(
+        config,
+        default_limit=config.logical_layer.default_limit,
+        max_limit=config.logical_layer.max_limit,
+    )
+
+
+def _view_count(client: Any, view_name: str, *, limit: int) -> int:
+    return len(client.query_view(view_name, limit=limit))
+
+
+@app.command("denodo-check-readiness")
+def denodo_check_readiness_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/database.yaml"),
+) -> None:
+    """Check live Denodo ODBC readiness."""
+
+    client = _denodo_client(config_path)
+    result = client.health_check()
+    if not result["healthy"]:
+        typer.echo(f"Denodo readiness check failed: {result.get('error', result)}", err=True)
+        raise typer.Exit(1)
+    typer.echo("Denodo readiness check passed.")
+
+
+@app.command("denodo-list-views")
+def denodo_list_views_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/database.yaml"),
+) -> None:
+    """List expected governed Denodo virtual views."""
+
+    for view_name in _denodo_client(config_path).list_views():
+        typer.echo(view_name)
+
+
+@app.command("denodo-validate-row-counts")
+def denodo_validate_row_counts_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/database.yaml"),
+) -> None:
+    """Validate live Denodo governed virtual-view row counts."""
+
+    try:
+        config = DatabaseConfig.from_file(config_path)
+        client = _denodo_client(config_path)
+        for view_name in CURATED_VIEWS:
+            count = _view_count(client, view_name, limit=config.logical_layer.max_limit)
+            typer.echo(f"{view_name}: {count}")
+        eligible = sum(
+            1
+            for row in client.query_view(
+                "curated.model_source_view", limit=config.logical_layer.max_limit
+            )
+            if row.get("eligibility_flag") is True
+        )
+    except DenodoConnectionError as exc:
+        typer.echo(f"Denodo validation failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    if eligible != 117:
+        typer.echo(f"Denodo eligible model-source rows mismatch: {eligible} != 117", err=True)
+        raise typer.Exit(1)
+    typer.echo("Denodo row-count validation passed with 117 eligible model-source rows.")
+
+
+@app.command("denodo-compare-postgresql")
+def denodo_compare_postgresql_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/database.yaml"),
+) -> None:
+    """Compare Denodo and direct PostgreSQL governed model-source populations."""
+
+    try:
+        config = DatabaseConfig.from_file(config_path)
+        denodo = _denodo_client(config_path)
+        postgresql = PostgreSQLViewClient(
+            config,
+            default_limit=config.logical_layer.max_limit,
+            max_limit=config.logical_layer.max_limit,
+        )
+        denodo_rows = denodo.query_view(
+            "curated.model_source_view", limit=config.logical_layer.max_limit
+        )
+        postgres_rows = postgresql.query_view(
+            "curated.model_source_view", limit=config.logical_layer.max_limit
+        )
+    except Exception as exc:
+        typer.echo(f"Denodo/PostgreSQL comparison failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    denodo_ids = {row["admission_id"] for row in denodo_rows if row.get("eligibility_flag") is True}
+    postgres_ids = {
+        row["admission_id"] for row in postgres_rows if row.get("eligibility_flag") is True
+    }
+    if denodo_ids != postgres_ids:
+        typer.echo(
+            "Denodo/PostgreSQL eligible model-source populations differ: "
+            f"denodo={len(denodo_ids)} postgresql={len(postgres_ids)}",
+            err=True,
+        )
+        raise typer.Exit(1)
+    typer.echo(f"Denodo/PostgreSQL model-source populations match: {len(denodo_ids)} rows.")
+
+
+@app.command("denodo-sample")
+def denodo_sample_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/database.yaml"),
+    view_name: Annotated[str, typer.Option("--view")] = "curated.model_source_view",
+    limit: Annotated[int, typer.Option("--limit")] = 5,
+) -> None:
+    """Read a bounded sample from a governed Denodo virtual view."""
+
+    import json
+
+    try:
+        rows = _denodo_client(config_path).query_view(view_name, limit=limit)
+    except Exception as exc:
+        typer.echo(f"Denodo sample read failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
     typer.echo(json.dumps(rows, default=str, indent=2))
 
 

@@ -26,6 +26,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+denodo = [
+  "pyodbc>=5.2,<6",
+]
 dev = [
   "mypy>=1.10,<2",
   "pandas-stubs>=2.2,<3",

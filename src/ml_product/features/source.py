@@ -10,8 +10,8 @@ from typing import Any
 import pandas as pd
 
 from ml_product.features.config import FeatureConfig
+from ml_product.ingestion.client_factory import build_logical_view_client
 from ml_product.ingestion.config import DatabaseConfig
-from ml_product.ingestion.local_view_client import LocalDuckDBViewClient
 
 
 @dataclass(frozen=True)
@@ -33,8 +33,9 @@ def load_source(
     db_config = DatabaseConfig.from_file(config.resolved_database_config(database_config_path))
     if database_path is not None:
         db_config = db_config.with_overrides(database_path=database_path)
-    client = LocalDuckDBViewClient(
-        db_config.database_path(),
+    client = build_logical_view_client(
+        db_config,
+        database_path=database_path,
         default_limit=db_config.logical_layer.max_limit,
         max_limit=db_config.logical_layer.max_limit,
     )
@@ -61,13 +62,15 @@ def load_source(
     missing = sorted(required.difference(frame.columns))
     if missing:
         raise ValueError(f"Governed source view is missing required columns: {missing}")
-    if config.source.provider != client.provider_info()["provider"]:
+    provider_info = client.provider_info()
+    contract_provider = provider_info.get("logical_contract_provider", provider_info["provider"])
+    if config.source.provider != contract_provider:
         raise ValueError("Feature source provider does not match governed logical-view client.")
     build_identifier = _single_value(frame, "build_identifier") or "unknown"
     return SourceDataset(
         frame=frame,
         columns=list(description["columns"]),
-        provider_info=client.provider_info(),
+        provider_info=provider_info,
         lineage=client.get_lineage(config.source.view),
         source_fingerprint=_fingerprint_frame(frame),
         database_build_identifier=str(build_identifier),

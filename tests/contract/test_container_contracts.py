@@ -14,6 +14,19 @@ def test_compose_default_and_review_modes_are_governed() -> None:
     assert "privileged" not in str(compose).lower()
 
 
+def test_postgresql_compose_is_separate_from_application_stack() -> None:
+    compose = yaml.safe_load(Path("docker-compose.postgresql.yml").read_text(encoding="utf-8"))
+
+    assert set(compose["services"]) == {"postgres"}
+    assert compose["services"]["postgres"]["image"] == "postgres:16.10-bookworm"
+    assert compose["services"]["postgres"]["environment"]["POSTGRES_PASSWORD"] == (
+        "${POSTGRES_PASSWORD:-}"
+    )
+    assert set(compose["volumes"]) == {"postgres-data"}
+    assert "/var/run/docker.sock" not in str(compose)
+    assert "privileged" not in str(compose).lower()
+
+
 def test_dockerfiles_have_non_root_users_and_healthchecks() -> None:
     api = Path("infrastructure/docker/Dockerfile.api").read_text(encoding="utf-8")
     rshiny = Path("infrastructure/docker/Dockerfile.rshiny").read_text(encoding="utf-8")

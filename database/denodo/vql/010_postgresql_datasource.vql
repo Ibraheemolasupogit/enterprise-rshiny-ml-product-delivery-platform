@@ -1,0 +1,16 @@
+-- Milestone 14.2 Denodo Developer Tier PostgreSQL datasource template.
+-- Replace ${...} placeholders in Denodo with local environment-specific values.
+-- Credentials must be entered through Denodo credential management, not committed.
+
+-- Source connection guidance:
+--   host: ${POSTGRES_HOST}
+--   port: ${POSTGRES_PORT}
+--   database: ${POSTGRES_DB}
+--   user: ${POSTGRES_USER}
+--   password: supplied interactively/secret store
+--   JDBC URL: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+
+-- In Developer Tier, create a JDBC data source named ds_postgresql_ml_product
+-- using the PostgreSQL JDBC driver, then introspect the raw, quality, metadata,
+-- and curated schemas required by the base views below.
+

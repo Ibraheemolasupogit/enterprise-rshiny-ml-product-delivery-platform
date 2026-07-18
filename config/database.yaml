@@ -14,6 +14,15 @@ engine:
     user_env: POSTGRES_USER
     password_env: POSTGRES_PASSWORD
     backend_env: DATABASE_BACKEND
+  denodo:
+    host_env: DENODO_HOST
+    port_env: DENODO_PORT
+    database_env: DENODO_DATABASE
+    user_env: DENODO_USER
+    password_env: DENODO_PASSWORD
+    jdbc_url_env: DENODO_JDBC_URL
+    odbc_dsn_env: DENODO_ODBC_DSN
+    logical_backend_env: LOGICAL_VIEW_BACKEND
 
 sources:
   directory: data/sample
@@ -41,6 +50,13 @@ quality:
 logical_layer:
   provider: denodo_compatible_local
   adapter: duckdb
+  view_mapping:
+    admission_diagnosis_summary: curated.admission_diagnosis_summary
+    admission_operational_context: curated.admission_operational_context
+    daily_ward_operational_context: curated.daily_ward_operational_context
+    model_source_view: curated.model_source_view
+    outcome_context_view: curated.outcome_context_view
+    patient_admission_view: curated.patient_admission_view
   default_limit: 100
   max_limit: 1000
   allow_arbitrary_sql: false

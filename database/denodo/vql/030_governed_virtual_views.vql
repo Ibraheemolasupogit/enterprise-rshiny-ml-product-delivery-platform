@@ -1,0 +1,72 @@
+-- Governed Denodo derived views exposed to the Python feature pipeline.
+-- The physical PostgreSQL objects are imported as bv_pg_curated_* base views.
+
+CREATE OR REPLACE VIEW patient_admission_view
+    DESCRIPTION = 'Governed patient admission view' AS
+    SELECT *
+    FROM bv_pg_curated_patient_admission_view;
+
+CREATE OR REPLACE VIEW admission_diagnosis_summary
+    DESCRIPTION = 'Governed admission diagnosis summary' AS
+    SELECT *
+    FROM bv_pg_curated_admission_diagnosis_summary;
+
+CREATE OR REPLACE VIEW daily_ward_operational_context
+    DESCRIPTION = 'Governed daily ward operational context' AS
+    SELECT *
+    FROM bv_pg_curated_daily_ward_operational_context;
+
+CREATE OR REPLACE VIEW admission_operational_context
+    DESCRIPTION = 'Governed admission operational context' AS
+    SELECT *
+    FROM bv_pg_curated_admission_operational_context;
+
+CREATE OR REPLACE VIEW outcome_context_view
+    DESCRIPTION = 'Governed outcome context view' AS
+    SELECT *
+    FROM bv_pg_curated_outcome_context_view;
+
+CREATE OR REPLACE VIEW model_source_view
+    DESCRIPTION = 'Governed modelling source view' AS
+    SELECT
+        admission_id,
+        patient_id,
+        admission_datetime,
+        admission_date,
+        admission_type,
+        source_of_admission,
+        ward_id,
+        initial_news2_score,
+        mobility_status,
+        age,
+        sex,
+        postcode_region,
+        deprivation_decile,
+        comorbidity_count,
+        previous_admissions_12m,
+        primary_diagnosis_group,
+        primary_diagnosis_complexity,
+        diagnosis_count,
+        secondary_diagnosis_count,
+        operational_context_available,
+        context_match_type,
+        occupancy_rate,
+        staff_to_bed_ratio,
+        capacity_quality_status,
+        workforce_quality_status,
+        discharge_datetime,
+        length_of_stay_days_source,
+        long_stay_flag_source,
+        length_of_stay_days_governed,
+        long_stay_flag_governed,
+        readmission_30d,
+        discharge_destination,
+        patient_quality_status,
+        admission_quality_status,
+        diagnosis_quality_status,
+        outcome_quality_status,
+        eligibility_flag,
+        exclusion_reason,
+        dataset_version,
+        build_identifier
+    FROM bv_pg_curated_model_source_view;

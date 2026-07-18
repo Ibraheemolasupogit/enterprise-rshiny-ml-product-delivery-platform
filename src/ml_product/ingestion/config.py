@@ -20,11 +20,23 @@ class PostgresEnvironmentConfig(BaseModel):
     backend_env: str = "DATABASE_BACKEND"
 
 
+class DenodoEnvironmentConfig(BaseModel):
+    host_env: str = "DENODO_HOST"
+    port_env: str = "DENODO_PORT"
+    database_env: str = "DENODO_DATABASE"
+    user_env: str = "DENODO_USER"
+    password_env: str = "DENODO_PASSWORD"
+    jdbc_url_env: str = "DENODO_JDBC_URL"
+    odbc_dsn_env: str = "DENODO_ODBC_DSN"
+    logical_backend_env: str = "LOGICAL_VIEW_BACKEND"
+
+
 class EngineConfig(BaseModel):
     type: Literal["duckdb", "postgresql"]
     database_path: Path
     read_only: bool = False
     postgresql: PostgresEnvironmentConfig = Field(default_factory=PostgresEnvironmentConfig)
+    denodo: DenodoEnvironmentConfig = Field(default_factory=DenodoEnvironmentConfig)
 
 
 class SourceConfig(BaseModel):
@@ -56,7 +68,8 @@ class QualityConfig(BaseModel):
 
 class LogicalLayerConfig(BaseModel):
     provider: Literal["denodo_compatible_local"]
-    adapter: Literal["duckdb", "postgresql"]
+    adapter: Literal["duckdb", "postgresql", "denodo"]
+    view_mapping: dict[str, str] = Field(default_factory=dict)
     default_limit: int = Field(default=100, gt=0)
     max_limit: int = Field(default=1000, gt=0)
     allow_arbitrary_sql: bool = False

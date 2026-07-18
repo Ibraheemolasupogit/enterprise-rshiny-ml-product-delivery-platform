@@ -1,4 +1,4 @@
-.PHONY: help install-python install-r restore-r lint-python lint-r format-python typecheck-python test-python test-r test-shiny test-shiny-browser run-shiny smoke-test-rshiny-api smoke-test-advanced-rshiny-api validate-rshiny validate-rshiny-advanced test-rshiny test-rshiny-advanced validate-structure validate-config docs-check generate-sample-data validate-sample-data describe-sample-data test-synthetic-data verify-synthetic-data build-database validate-database describe-database list-logical-views postgres-start postgres-ready postgres-migrate postgres-load-synthetic-data postgres-validate postgres-stop test-database verify-database-build build-features validate-features describe-features list-features show-split-summary check-feature-leakage verify-feature-build test-features train-models validate-models compare-models show-threshold-analysis show-calibration-report show-fairness-report show-candidate-recommendation verify-model-build test-models register-model validate-registry list-models show-governance-review submit-model-for-approval record-approval-decision activate-model validate-serving serve-model-api build-review-artifacts test-registry test-serving build-monitoring-baseline generate-monitoring-fixtures run-monitoring validate-monitoring describe-monitoring list-monitoring-alerts show-monitoring-review verify-monitoring test-monitoring lint-workflows lint-shell lint-docker security-secrets security-python security-dependencies security-container generate-sbom validate-containers build-containers smoke-test-local-deployment validate-release assess-release-readiness show-release-gates release-assurance portfolio-evidence quality quality-full clean
+.PHONY: help install-python install-r restore-r lint-python lint-r format-python typecheck-python test-python test-r test-shiny test-shiny-browser run-shiny smoke-test-rshiny-api smoke-test-advanced-rshiny-api validate-rshiny validate-rshiny-advanced test-rshiny test-rshiny-advanced validate-structure validate-config docs-check generate-sample-data validate-sample-data describe-sample-data test-synthetic-data verify-synthetic-data build-database validate-database describe-database list-logical-views postgres-start postgres-ready postgres-migrate postgres-load-synthetic-data postgres-validate postgres-stop denodo-ready denodo-list-views denodo-validate-row-counts denodo-compare-postgresql denodo-sample test-denodo test-database verify-database-build build-features validate-features describe-features list-features show-split-summary check-feature-leakage verify-feature-build test-features train-models validate-models compare-models show-threshold-analysis show-calibration-report show-fairness-report show-candidate-recommendation verify-model-build test-models register-model validate-registry list-models show-governance-review submit-model-for-approval record-approval-decision activate-model validate-serving serve-model-api build-review-artifacts test-registry test-serving build-monitoring-baseline generate-monitoring-fixtures run-monitoring validate-monitoring describe-monitoring list-monitoring-alerts show-monitoring-review verify-monitoring test-monitoring lint-workflows lint-shell lint-docker security-secrets security-python security-dependencies security-container generate-sbom validate-containers build-containers smoke-test-local-deployment validate-release assess-release-readiness show-release-gates release-assurance portfolio-evidence quality quality-full clean
 
 PYTHON ?= python3
 R_SETUP ?= minor <- strsplit(R.version[["minor"]], "[.]")[[1]][1]; lib <- file.path("renv", "library", "local", paste0("R-", R.version[["major"]], ".", minor)); dir.create(lib, recursive = TRUE, showWarnings = FALSE); .libPaths(c(normalizePath(lib), .libPaths()))
@@ -32,6 +32,12 @@ help:
 	@echo "  postgres-load-synthetic-data Load synthetic source data into PostgreSQL"
 	@echo "  postgres-validate   Validate PostgreSQL schemas, counts, and quality controls"
 	@echo "  postgres-stop       Stop local PostgreSQL service"
+	@echo "  denodo-ready        Check live Denodo readiness"
+	@echo "  denodo-list-views   List governed Denodo virtual views"
+	@echo "  denodo-validate-row-counts Validate governed Denodo view row counts"
+	@echo "  denodo-compare-postgresql Compare Denodo and PostgreSQL populations"
+	@echo "  denodo-sample       Read a bounded sample from Denodo"
+	@echo "  test-denodo         Run optional Denodo integration tests"
 	@echo "  test-database       Run database-focused tests"
 	@echo "  verify-database-build Verify deterministic database build"
 	@echo "  build-features      Build deterministic Milestone 5 feature datasets"
@@ -150,7 +156,7 @@ list-logical-views:
 
 postgres-start:
 	@test -n "$$POSTGRES_PASSWORD" || { echo "POSTGRES_PASSWORD must be set locally."; exit 1; }
-	docker compose up -d postgres
+	docker compose -f docker-compose.postgresql.yml up -d postgres
 
 postgres-ready:
 	$(PYTHON) -m ml_product.cli postgres-check-readiness --config config/database.yaml
@@ -165,7 +171,25 @@ postgres-validate:
 	$(PYTHON) -m ml_product.cli postgres-validate --config config/database.yaml
 
 postgres-stop:
-	docker compose stop postgres
+	docker compose -f docker-compose.postgresql.yml stop postgres
+
+denodo-ready:
+	$(PYTHON) -m ml_product.cli denodo-check-readiness --config config/database.yaml
+
+denodo-list-views:
+	$(PYTHON) -m ml_product.cli denodo-list-views --config config/database.yaml
+
+denodo-validate-row-counts:
+	$(PYTHON) -m ml_product.cli denodo-validate-row-counts --config config/database.yaml
+
+denodo-compare-postgresql:
+	$(PYTHON) -m ml_product.cli denodo-compare-postgresql --config config/database.yaml
+
+denodo-sample:
+	$(PYTHON) -m ml_product.cli denodo-sample --config config/database.yaml --view curated.model_source_view --limit 5
+
+test-denodo:
+	DENODO_INTEGRATION_ENABLED=true $(PYTHON) -m pytest tests/integration/test_denodo_integration.py
 
 test-database:
 	$(PYTHON) -m pytest tests/unit/ingestion tests/unit/validation tests/unit/linking tests/integration/test_database_build_pipeline.py tests/integration/test_database_cli.py tests/integration/test_curated_views.py tests/integration/test_logical_view_queries.py tests/contract/test_database_schema_contracts.py tests/contract/test_curated_view_contracts.py tests/contract/test_database_evidence.py tests/contract/test_sql_files.py
