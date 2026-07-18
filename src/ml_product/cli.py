@@ -25,6 +25,12 @@ from ml_product.ingestion.postgresql import (
     validate_postgresql_database,
 )
 from ml_product.ingestion.postgresql_view_client import PostgreSQLViewClient
+from ml_product.lifecycle import (
+    LifecycleConfig,
+    build_lifecycle_provider,
+    build_model_package,
+    write_model_package,
+)
 from ml_product.modelling.config import ModelTrainingConfig, ThresholdConfig
 from ml_product.modelling.training import train_models
 from ml_product.modelling.validation import validate_model_outputs
@@ -1074,6 +1080,71 @@ def show_governance_review_command(
     typer.echo(f"Human decision required: {payload['human_decision_required']}")
     for flag in payload["review_flags"]:
         typer.echo(f"- {flag['code']}: {flag['detail']}")
+
+
+@app.command("lifecycle-check-readiness")
+def lifecycle_check_readiness_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+) -> None:
+    """Check the configured model-lifecycle provider readiness."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        provider = build_lifecycle_provider(config)
+        result = provider.readiness_check()
+    except Exception as exc:
+        typer.echo(f"Lifecycle readiness failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    typer.echo(
+        f"Lifecycle provider={result['provider']} "
+        f"label={result.get('provider_label')} healthy={result['healthy']}"
+    )
+
+
+@app.command("lifecycle-describe-provider")
+def lifecycle_describe_provider_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+) -> None:
+    """Describe the configured model-lifecycle provider boundary."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        provider = build_lifecycle_provider(config)
+    except Exception as exc:
+        typer.echo(f"Lifecycle provider configuration failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    typer.echo(f"Selected provider: {provider.provider_name}")
+    typer.echo(f"Local label: {config.local.provider_label}")
+    typer.echo(f"SAS Viya label: {config.sas_viya.provider_label}")
+    typer.echo(f"SAS Viya enabled: {config.sas_viya.enabled}")
+    typer.echo(f"Model package output: {config.model_package.output_path}")
+
+
+@app.command("lifecycle-build-model-package")
+def lifecycle_build_model_package_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+    output_path: Annotated[Path | None, typer.Option("--output-path")] = None,
+) -> None:
+    """Build a portable model-lifecycle package from existing review evidence."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        package = build_model_package(config)
+        destination = write_model_package(
+            package,
+            output_path or config.model_package.output_path,
+        )
+    except Exception as exc:
+        typer.echo(f"Lifecycle package build failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    try:
+        display_path = destination.relative_to(repository_root())
+    except ValueError:
+        display_path = destination
+    typer.echo(
+        f"Built lifecycle package for {package.model_name}:{package.model_version} "
+        f"at {display_path}."
+    )
 
 
 @app.command("validate-serving")

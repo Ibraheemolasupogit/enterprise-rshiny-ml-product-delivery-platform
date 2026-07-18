@@ -256,6 +256,7 @@ REQUIRED_CONFIGS = [
     "config/model_thresholds.yaml",
     "config/model_registry.yaml",
     "config/model_governance.yaml",
+    "config/model_lifecycle.yaml",
     "config/serving.yaml",
     "config/rshiny.yaml",
     "config/monitoring.yaml",

@@ -48,7 +48,22 @@ The future `real_denodo` path may connect to Denodo for governed virtual views. 
 
 ## Optional SAS Viya Integration
 
-The future `real_sas_viya` path may document SAS Viya lifecycle evidence. The local fallback will be labelled `local_model_lifecycle`.
+Milestone 15.1 introduces an explicit provider-neutral model-lifecycle boundary:
+
+```text
+PostgreSQL
+-> Denodo
+-> feature engineering
+-> Python model training/evaluation
+-> lifecycle provider
+   -> local registry
+   -> SAS Viya
+-> approval/promotion
+-> API and R Shiny
+-> monitoring and retraining
+```
+
+The default lifecycle provider is `local_model_lifecycle`, which delegates to the existing local registry and governance workflow. The `real_sas_viya` provider is optional and remains disabled unless explicitly configured with local environment secrets.
 
 ## Target Environments
 

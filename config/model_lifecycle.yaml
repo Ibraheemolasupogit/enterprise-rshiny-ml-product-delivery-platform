@@ -1,0 +1,37 @@
+version: "0.15.1"
+description: "Milestone 15.1 provider-neutral model-lifecycle integration configuration."
+implementation_status: implemented
+enabled: true
+
+provider:
+  selected: local
+  enabled: true
+
+local:
+  provider_label: local_model_lifecycle
+  registry_config: config/model_registry.yaml
+  governance_config: config/model_governance.yaml
+
+sas_viya:
+  enabled: false
+  provider_label: real_sas_viya
+  base_url: "https://sas-viya.example.local"
+  authentication_mode: bearer_token
+  project_identifier: "enterprise-rshiny-ml-product-delivery-platform"
+  model_repository_identifier: "local-review-repository"
+  model_name: long_stay_admission_risk
+  readiness_path: "/SASLogon/actuator/health"
+  timeout_seconds: 10
+  verify_tls: true
+  client_id_env: SAS_VIYA_CLIENT_ID
+  client_secret_env: SAS_VIYA_CLIENT_SECRET
+  access_token_env: SAS_VIYA_ACCESS_TOKEN
+
+model_package:
+  output_path: reports/model_evaluation/model_lifecycle_package.json
+  model_config: config/model_training.yaml
+  registry_config: config/model_registry.yaml
+  governance_config: config/model_governance.yaml
+  model_name: long_stay_admission_risk
+  registry_version: 1
+  report_directory: reports/model_evaluation
