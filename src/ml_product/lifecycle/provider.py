@@ -4,13 +4,21 @@ from __future__ import annotations
 
 from typing import Any, Protocol
 
+from ml_product.lifecycle.models import RegistrationResult
+from ml_product.lifecycle.package import ModelLifecyclePackage
+
 
 class ModelLifecycleProvider(Protocol):
     provider_name: str
 
     def readiness_check(self) -> dict[str, Any]: ...
 
-    def register_model_package(self, package: dict[str, Any]) -> dict[str, Any]: ...
+    def register_model_package(
+        self,
+        package: ModelLifecyclePackage,
+        *,
+        dry_run: bool = False,
+    ) -> RegistrationResult: ...
 
     def retrieve_model_metadata(self, model_name: str, version: int) -> dict[str, Any]: ...
 

@@ -9,6 +9,7 @@ import ssl
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
+from string import Formatter
 from typing import Any, Protocol
 
 from ml_product.lifecycle.config import SasViyaConfig
@@ -179,7 +180,124 @@ class SasViyaClient:
             "response": payload,
         }
 
+    def resolve_target_repository(self) -> dict[str, Any]:
+        payload = self.request(
+            "GET",
+            self._format_endpoint(
+                self.config.endpoints.project_lookup,
+                repository_identifier=self.config.model_repository_identifier,
+                project_identifier=self.config.project_identifier,
+            ),
+        )
+        item = _first_item(payload)
+        if item is None:
+            raise SasViyaApiError("SAS Viya target repository was not found.")
+        return item
+
+    def find_model_by_identity(self, repository_id: str, model_name: str) -> dict[str, Any] | None:
+        payload = self.request(
+            "GET",
+            self._format_endpoint(
+                self.config.endpoints.model_lookup,
+                repository_id=repository_id,
+                model_name=model_name,
+            ),
+        )
+        return _first_item(payload)
+
+    def create_model(self, repository_id: str, payload: dict[str, Any]) -> dict[str, Any]:
+        return self.request(
+            "POST",
+            self._format_endpoint(
+                self.config.endpoints.model_creation,
+                repository_id=repository_id,
+            ),
+            json_body=payload,
+        )
+
+    def find_model_version_by_fingerprint(
+        self,
+        model_id: str,
+        registration_fingerprint: str,
+    ) -> dict[str, Any] | None:
+        payload = self.request(
+            "GET",
+            self._format_endpoint(
+                self.config.endpoints.model_version_lookup,
+                model_id=model_id,
+                registration_fingerprint=registration_fingerprint,
+            ),
+        )
+        return _first_item(payload)
+
+    def create_model_version(self, model_id: str, payload: dict[str, Any]) -> dict[str, Any]:
+        return self.request(
+            "POST",
+            self._format_endpoint(
+                self.config.endpoints.model_version_creation,
+                model_id=model_id,
+            ),
+            json_body=payload,
+        )
+
+    def synchronise_metadata(
+        self,
+        model_id: str,
+        version_id: str,
+        payload: dict[str, Any],
+    ) -> dict[str, Any]:
+        return self.request(
+            "PUT",
+            self._format_endpoint(
+                self.config.endpoints.metadata_update,
+                model_id=model_id,
+                version_id=version_id,
+            ),
+            json_body=payload,
+        )
+
+    def retrieve_model_metadata(self, model_id: str) -> dict[str, Any]:
+        return self.request(
+            "GET",
+            self._format_endpoint(self.config.endpoints.model_retrieval, model_id=model_id),
+        )
+
+    def retrieve_model_version_metadata(self, model_id: str, version_id: str) -> dict[str, Any]:
+        return self.request(
+            "GET",
+            self._format_endpoint(
+                self.config.endpoints.model_version_retrieval,
+                model_id=model_id,
+                version_id=version_id,
+            ),
+        )
+
     def _url(self, path: str) -> str:
         if not path.startswith("/"):
             raise SasViyaConfigurationError("SAS Viya API path must start with /.")
         return f"{self.config.base_url}{path}"
+
+    def _format_endpoint(self, template: str, **values: str) -> str:
+        expected = {
+            item[1]
+            for item in Formatter().parse(template)
+            if item[1] is not None and item[1] != ""
+        }
+        missing = sorted(expected - set(values))
+        if missing:
+            raise SasViyaConfigurationError(
+                "Missing SAS Viya endpoint template value(s): " + ", ".join(missing)
+            )
+        return template.format(**values)
+
+
+def _first_item(payload: dict[str, Any]) -> dict[str, Any] | None:
+    if "id" in payload:
+        return payload
+    for key in ("items", "resources"):
+        value = payload.get(key)
+        if isinstance(value, list) and value:
+            item = value[0]
+            if isinstance(item, dict):
+                return item
+    return None

@@ -26,6 +26,15 @@ sas_viya:
   client_id_env: SAS_VIYA_CLIENT_ID
   client_secret_env: SAS_VIYA_CLIENT_SECRET
   access_token_env: SAS_VIYA_ACCESS_TOKEN
+  endpoints:
+    project_lookup: "/modelRepository/repositories?name={repository_identifier}"
+    model_lookup: "/modelRepository/repositories/{repository_id}/models?name={model_name}"
+    model_creation: "/modelRepository/repositories/{repository_id}/models"
+    model_version_lookup: "/modelRepository/models/{model_id}/versions?registrationFingerprint={registration_fingerprint}"
+    model_version_creation: "/modelRepository/models/{model_id}/versions"
+    metadata_update: "/modelRepository/models/{model_id}/versions/{version_id}/metadata"
+    model_retrieval: "/modelRepository/models/{model_id}"
+    model_version_retrieval: "/modelRepository/models/{model_id}/versions/{version_id}"
 
 model_package:
   output_path: reports/model_evaluation/model_lifecycle_package.json
@@ -35,3 +44,8 @@ model_package:
   model_name: long_stay_admission_risk
   registry_version: 1
   report_directory: reports/model_evaluation
+
+registration:
+  linkage_path: reports/model_evaluation/lifecycle_registration_linkage.json
+  evidence_directory: reports/model_evaluation/lifecycle_registrations
+  metadata_sync_policy: safe_only

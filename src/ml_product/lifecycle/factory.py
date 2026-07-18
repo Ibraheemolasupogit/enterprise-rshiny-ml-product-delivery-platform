@@ -26,5 +26,9 @@ def build_lifecycle_provider(
     if config.provider.selected == "sas_viya":
         if not config.sas_viya.enabled:
             raise ValueError("SAS Viya provider selected but sas_viya.enabled is false.")
-        return SasViyaLifecycleProvider(config.sas_viya, transport=transport)
+        return SasViyaLifecycleProvider(
+            config.sas_viya,
+            registration_config=config.registration,
+            transport=transport,
+        )
     raise ValueError(f"Unsupported lifecycle provider: {config.provider.selected}")

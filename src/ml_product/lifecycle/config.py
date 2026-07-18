@@ -23,6 +23,29 @@ class LocalLifecycleConfig(BaseModel):
     governance_config: Path = Path("config/model_governance.yaml")
 
 
+class SasViyaEndpointConfig(BaseModel):
+    project_lookup: str = "/modelRepository/repositories?name={repository_identifier}"
+    model_lookup: str = (
+        "/modelRepository/repositories/{repository_id}/models?name={model_name}"
+    )
+    model_creation: str = "/modelRepository/repositories/{repository_id}/models"
+    model_version_lookup: str = (
+        "/modelRepository/models/{model_id}/versions?"
+        "registrationFingerprint={registration_fingerprint}"
+    )
+    model_version_creation: str = "/modelRepository/models/{model_id}/versions"
+    metadata_update: str = "/modelRepository/models/{model_id}/versions/{version_id}/metadata"
+    model_retrieval: str = "/modelRepository/models/{model_id}"
+    model_version_retrieval: str = "/modelRepository/models/{model_id}/versions/{version_id}"
+
+    @field_validator("*")
+    @classmethod
+    def validate_endpoint_path(cls, value: str) -> str:
+        if not value.startswith("/"):
+            raise ValueError("SAS Viya endpoint paths must start with /")
+        return value
+
+
 class SasViyaConfig(BaseModel):
     enabled: bool = False
     provider_label: Literal["real_sas_viya"] = "real_sas_viya"
@@ -37,6 +60,7 @@ class SasViyaConfig(BaseModel):
     client_id_env: str = "SAS_VIYA_CLIENT_ID"
     client_secret_env: str = "SAS_VIYA_CLIENT_SECRET"
     access_token_env: str = "SAS_VIYA_ACCESS_TOKEN"
+    endpoints: SasViyaEndpointConfig = Field(default_factory=lambda: SasViyaEndpointConfig())
 
     @field_validator("base_url")
     @classmethod
@@ -68,6 +92,12 @@ class ModelPackageConfig(BaseModel):
     report_directory: Path = Path("reports/model_evaluation")
 
 
+class RegistrationConfig(BaseModel):
+    linkage_path: Path = Path("reports/model_evaluation/lifecycle_registration_linkage.json")
+    evidence_directory: Path = Path("reports/model_evaluation/lifecycle_registrations")
+    metadata_sync_policy: Literal["safe_only"] = "safe_only"
+
+
 class LifecycleConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -79,6 +109,7 @@ class LifecycleConfig(BaseModel):
     local: LocalLifecycleConfig
     sas_viya: SasViyaConfig
     model_package: ModelPackageConfig
+    registration: RegistrationConfig = Field(default_factory=RegistrationConfig)
 
     @classmethod
     def from_file(cls, path: Path) -> LifecycleConfig:

@@ -6,6 +6,9 @@ from pathlib import Path
 from typing import Any
 
 from ml_product.lifecycle.config import LocalLifecycleConfig
+from ml_product.lifecycle.identity import registration_fingerprint
+from ml_product.lifecycle.models import RegistrationResult
+from ml_product.lifecycle.package import ModelLifecyclePackage
 from ml_product.registry.config import GovernanceConfig, RegistryConfig
 from ml_product.registry.registry import LocalModelRegistry
 
@@ -29,17 +32,29 @@ class LocalLifecycleProvider:
             "errors": validation.get("errors", []),
         }
 
-    def register_model_package(self, package: dict[str, Any]) -> dict[str, Any]:
-        return {
-            "provider": self.provider_name,
-            "accepted": False,
-            "reason": (
-                "Milestone 15.1 builds review packages only; "
-                "local registration is unchanged."
-            ),
-            "model_name": package.get("model_name"),
-            "model_version": package.get("model_version"),
-        }
+    def register_model_package(
+        self,
+        package: ModelLifecyclePackage,
+        *,
+        dry_run: bool = False,
+    ) -> RegistrationResult:
+        del dry_run
+        version = self.registry.get_model_version(package.model_name, package.model_version)
+        fingerprint = registration_fingerprint(package)
+        return RegistrationResult(
+            provider=self.provider_name,
+            registration_status="already_registered",
+            local_model_id=version.registry_id,
+            local_model_version=version.registry_version,
+            local_build_identifier=version.candidate_identifier,
+            external_project_id="local-filesystem-registry",
+            external_model_id=version.registry_id,
+            external_model_version_id=f"v{version.registry_version:06d}",
+            registration_fingerprint=fingerprint,
+            registered_timestamp_utc=version.created_at_utc,
+            metadata_synchronisation_status="synchronised",
+            warnings=["Local provider delegates to the existing registry; no external call made."],
+        )
 
     def retrieve_model_metadata(self, model_name: str, version: int) -> dict[str, Any]:
         model_version = self.registry.get_model_version(model_name, version)

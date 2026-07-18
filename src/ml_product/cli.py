@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -31,6 +32,9 @@ from ml_product.lifecycle import (
     build_model_package,
     write_model_package,
 )
+from ml_product.lifecycle.identity import registration_fingerprint
+from ml_product.lifecycle.linkage import LinkageStore
+from ml_product.lifecycle.metadata import comparable_metadata, reconcile_metadata
 from ml_product.modelling.config import ModelTrainingConfig, ThresholdConfig
 from ml_product.modelling.training import train_models
 from ml_product.modelling.validation import validate_model_outputs
@@ -1145,6 +1149,70 @@ def lifecycle_build_model_package_command(
         f"Built lifecycle package for {package.model_name}:{package.model_version} "
         f"at {display_path}."
     )
+
+
+@app.command("lifecycle-register-model")
+def lifecycle_register_model_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+    dry_run: Annotated[bool, typer.Option("--dry-run")] = False,
+) -> None:
+    """Register or dry-run-register the lifecycle package with the selected provider."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        package = build_model_package(config)
+        provider = build_lifecycle_provider(config)
+        result = provider.register_model_package(package, dry_run=dry_run)
+    except Exception as exc:
+        typer.echo(f"Lifecycle registration failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    typer.echo(result.model_dump_json(indent=2))
+
+
+@app.command("lifecycle-show-registration")
+def lifecycle_show_registration_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+) -> None:
+    """Show local linkage state for the configured lifecycle package."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        package = build_model_package(config)
+        fingerprint = registration_fingerprint(package)
+        provider = build_lifecycle_provider(config)
+        record = LinkageStore(config.registration.linkage_path).find(
+            provider.provider_name,
+            fingerprint,
+        )
+    except Exception as exc:
+        typer.echo(f"Lifecycle registration lookup failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    payload = {
+        "provider": provider.provider_name,
+        "registration_fingerprint": fingerprint,
+        "found": record is not None,
+        "record": None if record is None else record.model_dump(mode="json"),
+    }
+    typer.echo(json.dumps(payload, indent=2, sort_keys=True))
+
+
+@app.command("lifecycle-reconcile-registration")
+def lifecycle_reconcile_registration_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+) -> None:
+    """Reconcile configured local package metadata with linkage-compatible metadata."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        package = build_model_package(config)
+        result = reconcile_metadata(
+            package,
+            {"customProperties": comparable_metadata(package)},
+        )
+    except Exception as exc:
+        typer.echo(f"Lifecycle reconciliation failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    typer.echo(result.model_dump_json(indent=2))
 
 
 @app.command("validate-serving")
