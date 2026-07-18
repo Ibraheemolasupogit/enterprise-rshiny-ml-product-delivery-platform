@@ -661,6 +661,7 @@ PORTFOLIO_EVIDENCE_FILES = [
     "reports/assurance/final_security_review.md",
     "reports/assurance/remote_ci_validation.json",
     "reports/assurance/remote_ci_validation.md",
+    "reports/assurance/final_assurance.json",
 ]
 
 PORTFOLIO_DOCS = [
@@ -705,6 +706,7 @@ INTERVIEW_DOCS = [
     "docs/interview_star_narrative.md",
     "docs/portfolio_capability_map.md",
     "docs/lifecycle_orchestration_demo.md",
+    "docs/repository_freeze.md",
 ]
 
 INTERVIEW_DIAGRAMS = [
@@ -1757,6 +1759,7 @@ def validate_portfolio_foundation() -> list[str]:
     inventory = ROOT / "reports/portfolio/initial_commit_inventory.json"
     readiness = ROOT / "reports/portfolio/portfolio_readiness.json"
     remote_ci = ROOT / "reports/assurance/remote_ci_validation.json"
+    final_assurance = ROOT / "reports/assurance/final_assurance.json"
     registry = ROOT / "models/registry.json"
     retraining = ROOT / "reports/retraining/retraining_recommendation.json"
 
@@ -1818,6 +1821,31 @@ def validate_portfolio_foundation() -> list[str]:
             errors.append("Retraining recommendation must remain retain_champion.")
         if payload.get("automatic_action") != "none":
             errors.append("Retraining automatic action must remain none.")
+    if final_assurance.is_file():
+        payload = _load_json(final_assurance)
+        if payload.get("schema_version") != "final-assurance-report/v1":
+            errors.append("Final assurance report has unexpected schema version.")
+        if payload.get("offline_safe_by_default") is not True:
+            errors.append("Final assurance must be offline-safe by default.")
+        if payload.get("credentials_required") is not False:
+            errors.append("Final assurance must not require credentials by default.")
+        if payload.get("overall_outcome") not in {"not_run", "passed", "failed"}:
+            errors.append("Final assurance overall outcome is invalid.")
+        optional = payload.get("optional_live_integrations", {})
+        if not isinstance(optional, dict):
+            errors.append("Final assurance optional live integration status must be a mapping.")
+        elif optional.get("sas_viya") != "requires_external_environment":
+            errors.append("Final assurance must keep live SAS Viya externally gated.")
+        lifecycle = payload.get("lifecycle_orchestration", {})
+        if isinstance(lifecycle, dict):
+            flags = lifecycle.get("mutation_flags")
+            if isinstance(flags, dict) and any(flags.values()):
+                errors.append("Final assurance lifecycle mutation flags must remain false.")
+    makefile = (ROOT / "Makefile").read_text(encoding="utf-8")
+    if "final-assurance:" not in makefile:
+        errors.append("Makefile must expose final-assurance target.")
+    if "$(PYTHON) scripts/final_assurance.py" not in makefile:
+        errors.append("final-assurance target must use scripts/final_assurance.py.")
     readme = (ROOT / "README.md").read_text(encoding="utf-8").lower()
     for phrase in [
         "executive summary",

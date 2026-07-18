@@ -1,0 +1,371 @@
+{
+  "container_results": {
+    "status": "passed",
+    "steps": [
+      "container_contract_validation"
+    ]
+  },
+  "credentials_required": false,
+  "documentation_validation": {
+    "checks": [
+      "README links",
+      "architecture diagram source",
+      "evidence-index paths",
+      "synthetic-data disclosure",
+      "SAS Viya limitations",
+      "promotion versus activation distinction"
+    ],
+    "status": "passed"
+  },
+  "environment": {
+    "bandit_available": false,
+    "docker_available": true,
+    "mypy": "mypy 1.16.1 (compiled: yes)",
+    "pip_audit_available": false,
+    "pytest": "pytest 8.4.1",
+    "python": "3.12.8",
+    "rscript_available": true,
+    "ruff": "ruff 0.12.2",
+    "trivy_available": true
+  },
+  "failed_required_steps": [],
+  "known_limitations": [
+    "Synthetic data only; no clinical deployment claim.",
+    "Live SAS Viya registration and promotion require an external environment.",
+    "Operational release remains blocked until approval and activation are granted.",
+    "Specialist security tools may be unavailable locally and are recorded honestly."
+  ],
+  "lifecycle_orchestration": {
+    "blocked_not_failed": true,
+    "evidence_checksum_status": "passed",
+    "mutation_flags": {
+      "allow_external_promotion": false,
+      "allow_external_registration": false,
+      "allow_local_activation": false
+    },
+    "resume_status": "passed",
+    "status": "passed",
+    "summary_status": "blocked"
+  },
+  "offline_safe_by_default": true,
+  "optional_live_integrations": {
+    "denodo": "not_run",
+    "included": false,
+    "postgresql": "not_run",
+    "sas_viya": "requires_external_environment"
+  },
+  "overall_outcome": "passed",
+  "reconstruction": {
+    "canonical_command": "make build-review-artifacts",
+    "status": "passed"
+  },
+  "release_readiness": {
+    "external_deployment_state": "not_performed",
+    "local_review_readiness": "ready_for_local_review",
+    "model_activation_state": "inactive",
+    "model_approval_state": "pending",
+    "operational_release_readiness": "blocked_for_operational_release"
+  },
+  "repository": "enterprise-rshiny-ml-product-delivery-platform",
+  "repository_commit": "010b4348ed5a19e63d1ecb22f404e07141c61b0c",
+  "schema_version": "final-assurance-report/v1",
+  "security_results": {
+    "status": "passed",
+    "steps": [
+      "workflow_lint",
+      "shell_lint",
+      "dockerfile_lint",
+      "secret_scanning",
+      "python_security_scan",
+      "dependency_scan",
+      "sbom_generation"
+    ]
+  },
+  "steps": [
+    {
+      "category": "reconstruction",
+      "command": [
+        "make",
+        "build-review-artifacts"
+      ],
+      "name": "clean_checkout_review_artifact_reconstruction",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "<user-path>:239: IOError: sysctlbyname failed for 'hw.l1dcachesize'. Detail: [errno 1] Operation not permitted\n<user-path>:239: IOError: sysctlbyname failed for 'hw.l2cachesize'. Detail: [errno 1] Operation not permitted\n<user-path>:239: IOError: sysctlbyname failed for 'hw.l3cachesize'. Detail: [errno 1] Operation not permitted\n<user-path>:239: IOError: sysctlbyname failed for 'hw.optional.neon'. Detail: [errno 1] Operation not permitted\n<system-python-path>:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.\nwarnings.warn(",
+      "stdout_summary": "python3 -m ml_product.cli build-features --config config/features.yaml --database-config config/database.yaml --replace\nBuilt features in ./data/processed/features with build_id=FBUILD-ADB1D374A8E41F8E and 71 output features.\npython3 -m ml_product.cli train-models --config config/model_training.yaml --threshold-config config/model_thresholds.yaml --replace\nTrained models with selected=xgboost calibration=sigmoid threshold=0.75.\npython3 -m ml_product.cli register-model --registry-config config/model_registry.yaml --model-config config/model_training.yaml --candidate-identifier CAND-85EA9202CAD6FE7F\nRegistered long_stay_admission_risk:1 status=registered candidate=CAND-85EA9202CAD6FE7F.\npython3 -m ml_product.cli validate-registry --config config/model_registry.yaml\nRegistry validation passed.\npython3 -m ml_product.cli validate-serving --registry-config config/model_registry.yaml --serving-config config/serving.yaml\nServing validation passed. approved_serving_ready=False default_ready=False\npython3 -m ml_product.cli build-monitoring-baseline --config config/monitoring.yaml --threshold-config config/drift_thresholds.yaml --replace\nBuilt monitoring baseline aeb31ad3b65f4949 for candidate CAND-85EA9202CAD6FE7F."
+    },
+    {
+      "category": "quality",
+      "command": [
+        "python3",
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "name": "python_lint",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "",
+      "stdout_summary": "All checks passed!"
+    },
+    {
+      "category": "quality",
+      "command": [
+        "python3",
+        "-m",
+        "mypy",
+        "src"
+      ],
+      "name": "python_typecheck",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "",
+      "stdout_summary": "Success: no issues found in 174 source files"
+    },
+    {
+      "category": "tests",
+      "command": [
+        "python3",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/contract"
+      ],
+      "name": "contract_tests",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "",
+      "stdout_summary": "src/ml_product/synthetic_data/writers.py                38     24    37%   18-22, 26, 30-31, 37-50, 54-55\nsrc/ml_product/utils/__init__.py                         0      0   100%\nsrc/ml_product/utils/logging.py                          5      5     0%   3-12\nsrc/ml_product/utils/paths.py                           10      2    80%   15, 21\nsrc/ml_product/validation/__init__.py                    0      0   100%\nsrc/ml_product/validation/data_contracts.py              1      0   100%\nsrc/ml_product/validation/database_checks.py            25     18    28%   14-17, 21-50\nsrc/ml_product/validation/quality_checks.py              5      5     0%   3-10\nsrc/ml_product/validation/reconciliation.py              4      1    75%   18\n----------------------------------------------------------------------------------\nTOTAL                                                 7272   4800    34%\n79 passed, 1 warning in 7.31s"
+    },
+    {
+      "category": "documentation",
+      "command": [
+        "python3",
+        "scripts/validate_repository.py"
+      ],
+      "name": "repository_validation",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "",
+      "stdout_summary": "[database] ok\n[features] ok\n[models] ok\n[registry] ok\n[rshiny] ok\n[monitoring] ok\n[retraining] ok\n[release] ok\n[release_workflows] ok\n[release_shell] ok\n[release_containers] ok\n[portfolio] ok"
+    },
+    {
+      "category": "security",
+      "command": [
+        "make",
+        "lint-workflows"
+      ],
+      "name": "workflow_lint",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "",
+      "stdout_summary": "python3 scripts/validate_repository.py --release-workflows\n[release_workflows] ok"
+    },
+    {
+      "category": "security",
+      "command": [
+        "make",
+        "lint-shell"
+      ],
+      "name": "shell_lint",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "",
+      "stdout_summary": "python3 scripts/validate_repository.py --release-shell\n[release_shell] ok"
+    },
+    {
+      "category": "security",
+      "command": [
+        "make",
+        "lint-docker"
+      ],
+      "name": "dockerfile_lint",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "",
+      "stdout_summary": "python3 scripts/validate_repository.py --release-containers\n[release_containers] ok"
+    },
+    {
+      "category": "security",
+      "command": [
+        "make",
+        "security-secrets"
+      ],
+      "name": "secret_scanning",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "<system-python-path>:561: CoverageWarning: Module ml_product was never imported. (module-not-imported); see https://coverage.readthedocs.io/en/7.14.3/messages.html#warning-module-not-imported\nself.warn(f\"Module {pkg} was never imported.\", slug=\"module-not-imported\")\n<system-python-path>:956: CoverageWarning: No data was collected. (no-data-collected); see https://coverage.readthedocs.io/en/7.14.3/messages.html#warning-no-data-collected\nself._warn(\"No data was collected.\", slug=\"no-data-collected\")\n<system-python-path>:358: CovReportWarning: Failed to generate report: No data to report.\nwarnings.warn(CovReportWarning(message), stacklevel=1)",
+      "stdout_summary": "============================= test session starts ==============================\nplatform darwin -- Python 3.12.8, pytest-8.4.1, pluggy-1.6.0\nrootdir: .\nconfigfile: pyproject.toml\nplugins: json-report-1.5.0, metadata-3.1.1, cov-6.2.1, requests-mock-1.12.1, anyio-4.13.0\ncollected 1 item\ntests/contract/test_security_summary_contract.py .\nWARNING: Failed to generate report: No data to report.\n[100%]\n================================ tests coverage ================================\n_______________ coverage: platform darwin, python 3.12.8-final-0 _______________\n============================== 1 passed in 0.03s ==============================="
+    },
+    {
+      "category": "security",
+      "command": [
+        "make",
+        "security-python"
+      ],
+      "name": "python_security_scan",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "",
+      "stdout_summary": "bandit not installed locally; CI workflow runs bandit."
+    },
+    {
+      "category": "security",
+      "command": [
+        "make",
+        "security-dependencies"
+      ],
+      "name": "dependency_scan",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "",
+      "stdout_summary": "pip-audit not installed locally; CI workflow runs pip-audit."
+    },
+    {
+      "category": "security",
+      "command": [
+        "make",
+        "generate-sbom"
+      ],
+      "name": "sbom_generation",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "",
+      "stdout_summary": "python3 -m ml_product.cli build-release-manifest --config config/release.yaml\nRelease manifest built tag=0.1.0-010b4348ed5a local=ready_for_local_review."
+    },
+    {
+      "category": "containers",
+      "command": [
+        "make",
+        "validate-containers"
+      ],
+      "name": "container_contract_validation",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "",
+      "stdout_summary": "python3 -m ml_product.cli validate-containers --config config/release.yaml\nContainer validation: passed"
+    },
+    {
+      "category": "release",
+      "command": [
+        "make",
+        "release-assurance"
+      ],
+      "name": "release_assurance",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "",
+      "stdout_summary": "- retraining_boundary_valid: True\n- security_scans_within_policy: True\n- container_files_valid: True\n- external_deployment_disabled: True\n- image_publication_disabled: True\n- manual_approval_required: True\nOperational gates:\n- approved_model_exists: False\n- active_model_exists: False\n- approved_active_model_exists: False\n- deployment_target_configured: False\n- deployment_approval_granted: False"
+    },
+    {
+      "category": "lifecycle",
+      "command": [
+        "python3",
+        "-m",
+        "ml_product.cli",
+        "lifecycle-run-end-to-end",
+        "--mode",
+        "local_safe",
+        "--json"
+      ],
+      "name": "offline_lifecycle_orchestration",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "",
+      "stdout_json": {
+        "configuration_fingerprint": "bb313d4bae94a272fa1adc2b0f166ad66b347823d2c8521a964b223c298598ec",
+        "evidence_checksum": "6928a46b00c054bde3577c2c5bf6ca75cc4742b65e5173761c3f76004df76477",
+        "mode": "local_safe",
+        "mutation_flags": {
+          "allow_external_promotion": false,
+          "allow_external_registration": false,
+          "allow_local_activation": false
+        },
+        "package_fingerprint": "96f00a2ecc3570a9344eda3dded563262fc415ac4d9a58d7684e7b1bd49ce0a5",
+        "summary": {
+          "blocked_stages": 3,
+          "failed_stages": 0,
+          "known_limitations": [
+            "Offline modes do not call live PostgreSQL, Denodo or SAS Viya services.",
+            "External promotion and local activation are separate explicit operations."
+          ],
+          "passed_stages": 9,
+          "skipped_stages": 3,
+          "status": "blocked"
+        },
+        "workflow_id": "LWF-bb313d4bae94"
+      },
+      "stdout_summary": "\"external_promotion\",\n\"local_activation\",\n\"serving_validation\",\n\"monitoring_baseline\",\n\"release_readiness\"\n],\n\"blocked_stage\": \"registration_reconciliation\",\n\"failed_stage\": null\n},\n\"evidence_bundle_path\": \"reports/model_evaluation/lifecycle_workflows/LWF-bb313d4bae94.json\",\n\"evidence_checksum\": \"6928a46b00c054bde3577c2c5bf6ca75cc4742b65e5173761c3f76004df76477\"\n}"
+    },
+    {
+      "category": "lifecycle",
+      "command": [
+        "python3",
+        "-m",
+        "ml_product.cli",
+        "lifecycle-validate-workflow-evidence"
+      ],
+      "name": "lifecycle_evidence_checksum",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "",
+      "stdout_summary": "Workflow evidence valid."
+    },
+    {
+      "category": "lifecycle",
+      "command": [
+        "python3",
+        "-m",
+        "ml_product.cli",
+        "lifecycle-resume-workflow",
+        "--json"
+      ],
+      "name": "lifecycle_resume",
+      "required": true,
+      "returncode": 0,
+      "status": "passed",
+      "stderr_summary": "",
+      "stdout_json": {
+        "configuration_fingerprint": "bb313d4bae94a272fa1adc2b0f166ad66b347823d2c8521a964b223c298598ec",
+        "evidence_checksum": "fc3855cfcf82dcba7ac3a1e863e042f1734e453d98e165a762dcb96b7d16cec7",
+        "mode": "local_safe",
+        "mutation_flags": {
+          "allow_external_promotion": false,
+          "allow_external_registration": false,
+          "allow_local_activation": false
+        },
+        "package_fingerprint": "96f00a2ecc3570a9344eda3dded563262fc415ac4d9a58d7684e7b1bd49ce0a5",
+        "summary": {
+          "blocked_stages": 3,
+          "failed_stages": 0,
+          "known_limitations": [
+            "Offline modes do not call live PostgreSQL, Denodo or SAS Viya services.",
+            "External promotion and local activation are separate explicit operations."
+          ],
+          "passed_stages": 12,
+          "skipped_stages": 0,
+          "status": "blocked"
+        },
+        "workflow_id": "LWF-bb313d4bae94"
+      },
+      "stdout_summary": "\"external_promotion\",\n\"local_activation\",\n\"serving_validation\",\n\"monitoring_baseline\",\n\"release_readiness\"\n],\n\"blocked_stage\": \"registration_reconciliation\",\n\"failed_stage\": null\n},\n\"evidence_bundle_path\": \"reports/model_evaluation/lifecycle_workflows/LWF-bb313d4bae94.json\",\n\"evidence_checksum\": \"fc3855cfcf82dcba7ac3a1e863e042f1734e453d98e165a762dcb96b7d16cec7\"\n}"
+    }
+  ]
+}

@@ -251,6 +251,7 @@ This repository is a governed end-to-end R-Shiny ML product delivery platform fo
 - STAR narrative: [docs/interview_star_narrative.md](docs/interview_star_narrative.md)
 - Portfolio capability map: [docs/portfolio_capability_map.md](docs/portfolio_capability_map.md)
 - Canonical workflow: [docs/lifecycle_orchestration_demo.md](docs/lifecycle_orchestration_demo.md)
+- Repository freeze and final assurance: [docs/repository_freeze.md](docs/repository_freeze.md)
 - Known limitations: [docs/limitations.md](docs/limitations.md)
 
 ## Product Outcome
@@ -272,6 +273,12 @@ Core source lives under `src/ml_product`, R-Shiny code under `rshiny`, configura
 ## Quick Start
 
 Install Python dependencies with `python3 -m pip install -e ".[dev]"`, restore R dependencies with `make restore-r`, run focused local checks with `python3 -m pytest -q tests/contract`, and run release assurance with `make release-assurance`. For a 10-15 minute walkthrough, use [docs/interview_demo_guide.md](docs/interview_demo_guide.md) rather than rebuilding every artifact.
+
+For final clean-checkout reconstruction and offline-safe assurance, run:
+
+```bash
+make final-assurance
+```
 
 ## Local Review-Mode Runbook
 
