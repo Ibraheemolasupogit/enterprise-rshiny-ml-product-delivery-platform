@@ -35,6 +35,7 @@ from ml_product.lifecycle import (
 from ml_product.lifecycle.identity import registration_fingerprint
 from ml_product.lifecycle.linkage import LinkageStore
 from ml_product.lifecycle.metadata import comparable_metadata, reconcile_metadata
+from ml_product.lifecycle.models import PromotionRequest
 from ml_product.modelling.config import ModelTrainingConfig, ThresholdConfig
 from ml_product.modelling.training import train_models
 from ml_product.modelling.validation import validate_model_outputs
@@ -1211,6 +1212,152 @@ def lifecycle_reconcile_registration_command(
         )
     except Exception as exc:
         typer.echo(f"Lifecycle reconciliation failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    typer.echo(result.model_dump_json(indent=2))
+
+
+@app.command("lifecycle-show-champion")
+def lifecycle_show_champion_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+) -> None:
+    """Show the current provider champion without changing local activation state."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        package = build_model_package(config)
+        champion = build_lifecycle_provider(config).retrieve_current_champion(package.model_name)
+    except Exception as exc:
+        typer.echo(f"Lifecycle champion lookup failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    payload = {
+        "found": champion is not None,
+        "champion": None if champion is None else champion.model_dump(mode="json"),
+    }
+    typer.echo(json.dumps(payload, indent=2, sort_keys=True))
+
+
+@app.command("lifecycle-list-challengers")
+def lifecycle_list_challengers_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+) -> None:
+    """List registered lifecycle challengers."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        package = build_model_package(config)
+        challengers = build_lifecycle_provider(config).retrieve_registered_challengers(package)
+    except Exception as exc:
+        typer.echo(f"Lifecycle challenger listing failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    typer.echo(
+        json.dumps(
+            {"challengers": [item.model_dump(mode="json") for item in challengers]},
+            indent=2,
+            sort_keys=True,
+        )
+    )
+
+
+@app.command("lifecycle-compare-champion")
+def lifecycle_compare_champion_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+) -> None:
+    """Compare current champion and configured challenger lifecycle metadata."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        package = build_model_package(config)
+        result = build_lifecycle_provider(config).compare_champion_and_challenger(package)
+    except Exception as exc:
+        typer.echo(f"Lifecycle champion comparison failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    typer.echo(result.model_dump_json(indent=2))
+
+
+@app.command("lifecycle-assess-promotion")
+def lifecycle_assess_promotion_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+    dry_run: Annotated[bool, typer.Option("--dry-run")] = False,
+) -> None:
+    """Assess promotion eligibility without local activation."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        package = build_model_package(config)
+        result = build_lifecycle_provider(config).submit_promotion_request(
+            package,
+            dry_run=dry_run,
+        )
+    except Exception as exc:
+        typer.echo(f"Lifecycle promotion assessment failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    typer.echo(result.model_dump_json(indent=2))
+
+
+@app.command("lifecycle-submit-promotion")
+def lifecycle_submit_promotion_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+    confirm_external_promotion: Annotated[
+        bool,
+        typer.Option("--confirm-external-promotion"),
+    ] = False,
+) -> None:
+    """Submit external provider promotion without activating the local model."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        package = build_model_package(config)
+        provider = build_lifecycle_provider(config)
+        comparison = provider.compare_champion_and_challenger(package)
+        request = PromotionRequest(
+            provider=provider.provider_name,
+            model_name=package.model_name,
+            local_model_id=package.registry_id,
+            local_model_version=package.model_version,
+            external_model_id=comparison.challenger.external_model_id,
+            external_model_version_id=comparison.challenger.external_model_version_id,
+            registration_fingerprint=comparison.challenger.registration_fingerprint,
+            requested_by="CLI",
+            reason="Explicit external lifecycle promotion command.",
+        )
+        result = provider.promote_approved_model_version(
+            request,
+            confirm_external=confirm_external_promotion,
+        )
+    except Exception as exc:
+        typer.echo(f"Lifecycle promotion failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    typer.echo(result.model_dump_json(indent=2))
+
+
+@app.command("lifecycle-show-promotion")
+def lifecycle_show_promotion_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+) -> None:
+    """Show current promotion eligibility state."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        package = build_model_package(config)
+        result = build_lifecycle_provider(config).retrieve_promotion_state(package)
+    except Exception as exc:
+        typer.echo(f"Lifecycle promotion state failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    typer.echo(result.model_dump_json(indent=2))
+
+
+@app.command("lifecycle-reconcile-promotion")
+def lifecycle_reconcile_promotion_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+) -> None:
+    """Reconcile external promotion/champion state with local activation state."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        package = build_model_package(config)
+        result = build_lifecycle_provider(config).reconcile_lifecycle_state(package)
+    except Exception as exc:
+        typer.echo(f"Lifecycle promotion reconciliation failed: {exc}", err=True)
         raise typer.Exit(1) from exc
     typer.echo(result.model_dump_json(indent=2))
 

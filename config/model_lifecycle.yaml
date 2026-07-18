@@ -35,6 +35,13 @@ sas_viya:
     metadata_update: "/modelRepository/models/{model_id}/versions/{version_id}/metadata"
     model_retrieval: "/modelRepository/models/{model_id}"
     model_version_retrieval: "/modelRepository/models/{model_id}/versions/{version_id}"
+    current_champion: "/modelRepository/repositories/{repository_id}/champion"
+    challenger_listing: "/modelRepository/repositories/{repository_id}/challengers"
+    lifecycle_state: "/modelRepository/models/{model_id}/versions/{version_id}/lifecycle"
+    approval_update: "/modelRepository/models/{model_id}/versions/{version_id}/approval"
+    promotion: "/modelRepository/models/{model_id}/versions/{version_id}/promote"
+    champion_assignment: "/modelRepository/repositories/{repository_id}/champion"
+    promotion_state: "/modelRepository/models/{model_id}/versions/{version_id}/promotion"
 
 model_package:
   output_path: reports/model_evaluation/model_lifecycle_package.json
@@ -48,4 +55,5 @@ model_package:
 registration:
   linkage_path: reports/model_evaluation/lifecycle_registration_linkage.json
   evidence_directory: reports/model_evaluation/lifecycle_registrations
+  promotion_evidence_directory: reports/model_evaluation/lifecycle_promotions
   metadata_sync_policy: safe_only

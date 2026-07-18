@@ -9,6 +9,18 @@ from pydantic import BaseModel, ConfigDict, Field
 RegistrationStatus = Literal["registered", "already_registered", "reconciled", "failed"]
 MetadataSyncStatus = Literal["not_attempted", "synchronised", "mismatch", "failed"]
 ReconciliationStatus = Literal["matched", "mismatch", "missing_external", "unsupported"]
+PromotionStatus = Literal[
+    "eligible",
+    "blocked",
+    "pending_approval",
+    "approved",
+    "rejected",
+    "promoted",
+    "already_champion",
+    "reconciliation_required",
+    "failed",
+]
+LifecycleState = Literal["registered", "approval_pending", "approved", "promoted", "active"]
 
 
 class ReconciliationResult(BaseModel):
@@ -63,3 +75,125 @@ class LinkageStorePayload(BaseModel):
 
     schema_version: str = "lifecycle-linkage/v1"
     records: list[LinkageRecord] = Field(default_factory=list)
+
+
+class ChampionReference(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    provider: str
+    model_name: str
+    local_model_id: str | None = None
+    local_model_version: int | None = None
+    external_model_id: str | None = None
+    external_model_version_id: str | None = None
+    registration_fingerprint: str | None = None
+    lifecycle_state: str
+
+
+class ChallengerReference(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    provider: str
+    model_name: str
+    local_model_id: str
+    local_model_version: int
+    local_build_identifier: str
+    external_model_id: str | None = None
+    external_model_version_id: str | None = None
+    registration_fingerprint: str
+    lifecycle_state: str
+
+
+class ApprovalEvidenceReference(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    approval_status: Literal["missing", "pending", "approved", "rejected"]
+    actor: str | None = None
+    decided_at_utc: str | None = None
+    evidence_fingerprint: str | None = None
+    reason: str | None = None
+
+
+class LifecycleStatusTransition(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    provider: str
+    model_name: str
+    model_version: int
+    previous_state: str | None
+    target_state: str
+    accepted: bool
+    reason: str
+
+
+class ChampionChallengerComparison(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    provider: str
+    champion: ChampionReference | None
+    challenger: ChallengerReference
+    model_family: str
+    dataset_version: str | None
+    source_fingerprint: str | None
+    key_evaluation_metrics: dict[str, Any]
+    threshold_summary: dict[str, Any]
+    calibration_summary: dict[str, Any]
+    fairness_summary: dict[str, Any]
+    governance_status: dict[str, Any]
+    approval: ApprovalEvidenceReference
+    compatibility_status: Literal["compatible", "unknown", "incompatible"]
+    promotion_eligibility: PromotionStatus
+    blocking_reasons: list[str] = Field(default_factory=list)
+
+
+class PromotionRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    provider: str
+    model_name: str
+    local_model_id: str
+    local_model_version: int
+    external_model_id: str | None
+    external_model_version_id: str | None
+    registration_fingerprint: str
+    requested_by: str
+    reason: str
+    dry_run: bool = False
+
+
+class PromotionDecision(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    status: PromotionStatus
+    eligible: bool
+    blocking_reasons: list[str] = Field(default_factory=list)
+    approval: ApprovalEvidenceReference
+
+
+class ExternalLifecycleReconciliation(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    status: Literal["aligned", "divergent", "missing_external", "reconciliation_required"]
+    local_active_version: int | None
+    external_champion_version_id: str | None
+    details: dict[str, Any] = Field(default_factory=dict)
+
+
+class PromotionResult(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    provider: str
+    promotion_status: PromotionStatus
+    local_model_id: str
+    local_model_version: int
+    external_model_id: str | None
+    external_model_version_id: str | None
+    registration_fingerprint: str
+    champion_before: ChampionReference | None
+    champion_after: ChampionReference | None
+    approval: ApprovalEvidenceReference
+    blocking_reasons: list[str] = Field(default_factory=list)
+    evidence_path: str | None = None
+    evidence_checksum: str | None = None
+    local_activation_performed: bool = False
+    reconciliation: ExternalLifecycleReconciliation | None = None

@@ -272,6 +272,88 @@ class SasViyaClient:
             ),
         )
 
+    def get_current_champion(self, repository_id: str) -> dict[str, Any] | None:
+        payload = self.request(
+            "GET",
+            self._format_endpoint(
+                self.config.endpoints.current_champion,
+                repository_id=repository_id,
+            ),
+        )
+        return _first_item(payload)
+
+    def list_challengers(self, repository_id: str) -> list[dict[str, Any]]:
+        payload = self.request(
+            "GET",
+            self._format_endpoint(
+                self.config.endpoints.challenger_listing,
+                repository_id=repository_id,
+            ),
+        )
+        items = payload.get("items", [])
+        return [item for item in items if isinstance(item, dict)] if isinstance(items, list) else []
+
+    def get_model_version_lifecycle_state(self, model_id: str, version_id: str) -> dict[str, Any]:
+        return self.request(
+            "GET",
+            self._format_endpoint(
+                self.config.endpoints.lifecycle_state,
+                model_id=model_id,
+                version_id=version_id,
+            ),
+        )
+
+    def update_approval_metadata(
+        self,
+        model_id: str,
+        version_id: str,
+        payload: dict[str, Any],
+    ) -> dict[str, Any]:
+        return self.request(
+            "PUT",
+            self._format_endpoint(
+                self.config.endpoints.approval_update,
+                model_id=model_id,
+                version_id=version_id,
+            ),
+            json_body=payload,
+        )
+
+    def promote_model_version(self, model_id: str, version_id: str) -> dict[str, Any]:
+        return self.request(
+            "POST",
+            self._format_endpoint(
+                self.config.endpoints.promotion,
+                model_id=model_id,
+                version_id=version_id,
+            ),
+        )
+
+    def assign_champion(
+        self,
+        repository_id: str,
+        model_id: str,
+        version_id: str,
+    ) -> dict[str, Any]:
+        return self.request(
+            "PUT",
+            self._format_endpoint(
+                self.config.endpoints.champion_assignment,
+                repository_id=repository_id,
+            ),
+            json_body={"modelId": model_id, "versionId": version_id},
+        )
+
+    def retrieve_promotion_state(self, model_id: str, version_id: str) -> dict[str, Any]:
+        return self.request(
+            "GET",
+            self._format_endpoint(
+                self.config.endpoints.promotion_state,
+                model_id=model_id,
+                version_id=version_id,
+            ),
+        )
+
     def _url(self, path: str) -> str:
         if not path.startswith("/"):
             raise SasViyaConfigurationError("SAS Viya API path must start with /.")

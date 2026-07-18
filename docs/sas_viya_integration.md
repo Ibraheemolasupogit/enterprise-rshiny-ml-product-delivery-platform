@@ -100,6 +100,50 @@ The store is deterministic JSON, written atomically, and contains no credentials
 
 Reconciliation compares local package metadata, external custom properties and any linkage record. Exact matches are reported separately from missing external fields and material mismatches. Material mismatches are surfaced rather than silently overwritten. Milestone 15.2 only performs safe metadata synchronisation of the configured custom metadata fields.
 
+## Champion-Challenger Lifecycle
+
+Milestone 15.3 adds provider-neutral champion-challenger and external promotion controls. A challenger is the registered local model package plus any external SAS Viya linkage. The champion is the current lifecycle provider champion, which may be absent locally because this repository intentionally ships with no approved active model.
+
+Promotion eligibility is built from existing evidence:
+
+- candidate recommendation and registry status
+- evaluation metrics
+- threshold and calibration evidence
+- fairness summary
+- governance hard requirements
+- approval decision
+- external registration linkage
+- reconciliation status
+
+Blocked-promotion examples include missing external registration, missing or rejected governance approval, material metadata mismatch, absent evaluation evidence, failed governance hard requirements, or a package that does not match the registered external version.
+
+## Promotion Sequence
+
+Dry-run assessment:
+
+```bash
+python3 -m ml_product.cli lifecycle-show-champion
+python3 -m ml_product.cli lifecycle-list-challengers
+python3 -m ml_product.cli lifecycle-compare-champion
+python3 -m ml_product.cli lifecycle-assess-promotion --dry-run
+python3 -m ml_product.cli lifecycle-show-promotion
+python3 -m ml_product.cli lifecycle-reconcile-promotion
+```
+
+Live external promotion requires a SAS Viya config, prior external registration, matching reconciliation state, governance approval and an explicit confirmation flag:
+
+```bash
+python3 -m ml_product.cli lifecycle-submit-promotion --confirm-external-promotion
+```
+
+Repeated promotion of the current external champion returns `already_champion` and does not issue duplicate promotion requests.
+
+## Promotion Versus Activation
+
+SAS Viya promotion updates only external lifecycle/champion state. Local model activation remains a separate explicit governed registry command. External promotion never modifies `models/registry.json`, never activates the FastAPI serving model, and never changes rollback state. Promotion evidence reports whether external champion state and local activation state are aligned or divergent.
+
+Rollback boundaries remain unchanged: local rollback uses the existing registry rollback workflow, while any future SAS Viya rollback or champion reassignment must be explicit and separately evidenced.
+
 ## Commands
 
 Use the default local provider:
@@ -111,6 +155,12 @@ python3 -m ml_product.cli lifecycle-build-model-package
 python3 -m ml_product.cli lifecycle-register-model --dry-run
 python3 -m ml_product.cli lifecycle-show-registration
 python3 -m ml_product.cli lifecycle-reconcile-registration
+python3 -m ml_product.cli lifecycle-show-champion
+python3 -m ml_product.cli lifecycle-list-challengers
+python3 -m ml_product.cli lifecycle-compare-champion
+python3 -m ml_product.cli lifecycle-assess-promotion --dry-run
+python3 -m ml_product.cli lifecycle-show-promotion
+python3 -m ml_product.cli lifecycle-reconcile-promotion
 ```
 
 Write the package to a temporary path during experiments:
@@ -129,4 +179,4 @@ For live SAS Viya registration, create a separate local config that sets `provid
 
 ## Future Work
 
-Milestone 15.2 adds deterministic registration and metadata synchronisation. Future work should add external champion/challenger comparison, promotion evidence capture, approval workflow integration and access-control validation against an available Viya environment.
+Milestone 15.3 adds champion-challenger comparison, approval-aware promotion assessment and external-only promotion controls. Future work should add production access-control validation, richer SAS Viya workflow state mapping, human workflow callbacks and release-operation integration against an available Viya environment.

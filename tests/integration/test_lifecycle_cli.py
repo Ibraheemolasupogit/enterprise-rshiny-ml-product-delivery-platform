@@ -61,3 +61,19 @@ def test_lifecycle_show_and_reconcile_registration_cli() -> None:
     assert json.loads(show.stdout)["provider"] == "local"
     assert reconcile.returncode == 0, reconcile.stderr
     assert json.loads(reconcile.stdout)["status"] == "matched"
+
+
+def test_lifecycle_promotion_cli_smoke_commands() -> None:
+    commands = (
+        ("lifecycle-show-champion",),
+        ("lifecycle-list-challengers",),
+        ("lifecycle-compare-champion",),
+        ("lifecycle-assess-promotion", "--dry-run"),
+        ("lifecycle-show-promotion",),
+        ("lifecycle-reconcile-promotion",),
+    )
+
+    for command in commands:
+        result = run_cli(*command)
+        assert result.returncode == 0, result.stderr
+        assert json.loads(result.stdout)

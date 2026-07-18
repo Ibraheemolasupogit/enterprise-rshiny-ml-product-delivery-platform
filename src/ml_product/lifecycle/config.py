@@ -37,6 +37,13 @@ class SasViyaEndpointConfig(BaseModel):
     metadata_update: str = "/modelRepository/models/{model_id}/versions/{version_id}/metadata"
     model_retrieval: str = "/modelRepository/models/{model_id}"
     model_version_retrieval: str = "/modelRepository/models/{model_id}/versions/{version_id}"
+    current_champion: str = "/modelRepository/repositories/{repository_id}/champion"
+    challenger_listing: str = "/modelRepository/repositories/{repository_id}/challengers"
+    lifecycle_state: str = "/modelRepository/models/{model_id}/versions/{version_id}/lifecycle"
+    approval_update: str = "/modelRepository/models/{model_id}/versions/{version_id}/approval"
+    promotion: str = "/modelRepository/models/{model_id}/versions/{version_id}/promote"
+    champion_assignment: str = "/modelRepository/repositories/{repository_id}/champion"
+    promotion_state: str = "/modelRepository/models/{model_id}/versions/{version_id}/promotion"
 
     @field_validator("*")
     @classmethod
@@ -95,6 +102,7 @@ class ModelPackageConfig(BaseModel):
 class RegistrationConfig(BaseModel):
     linkage_path: Path = Path("reports/model_evaluation/lifecycle_registration_linkage.json")
     evidence_directory: Path = Path("reports/model_evaluation/lifecycle_registrations")
+    promotion_evidence_directory: Path = Path("reports/model_evaluation/lifecycle_promotions")
     metadata_sync_policy: Literal["safe_only"] = "safe_only"
 
 
