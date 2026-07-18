@@ -57,3 +57,7 @@ registration:
   evidence_directory: reports/model_evaluation/lifecycle_registrations
   promotion_evidence_directory: reports/model_evaluation/lifecycle_promotions
   metadata_sync_policy: safe_only
+
+workflow:
+  state_path: reports/model_evaluation/lifecycle_workflow_state.json
+  evidence_directory: reports/model_evaluation/lifecycle_workflows

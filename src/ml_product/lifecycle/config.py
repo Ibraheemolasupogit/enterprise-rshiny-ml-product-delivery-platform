@@ -25,9 +25,7 @@ class LocalLifecycleConfig(BaseModel):
 
 class SasViyaEndpointConfig(BaseModel):
     project_lookup: str = "/modelRepository/repositories?name={repository_identifier}"
-    model_lookup: str = (
-        "/modelRepository/repositories/{repository_id}/models?name={model_name}"
-    )
+    model_lookup: str = "/modelRepository/repositories/{repository_id}/models?name={model_name}"
     model_creation: str = "/modelRepository/repositories/{repository_id}/models"
     model_version_lookup: str = (
         "/modelRepository/models/{model_id}/versions?"
@@ -106,6 +104,11 @@ class RegistrationConfig(BaseModel):
     metadata_sync_policy: Literal["safe_only"] = "safe_only"
 
 
+class WorkflowConfig(BaseModel):
+    state_path: Path = Path("reports/model_evaluation/lifecycle_workflow_state.json")
+    evidence_directory: Path = Path("reports/model_evaluation/lifecycle_workflows")
+
+
 class LifecycleConfig(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -118,6 +121,7 @@ class LifecycleConfig(BaseModel):
     sas_viya: SasViyaConfig
     model_package: ModelPackageConfig
     registration: RegistrationConfig = Field(default_factory=RegistrationConfig)
+    workflow: WorkflowConfig = Field(default_factory=WorkflowConfig)
 
     @classmethod
     def from_file(cls, path: Path) -> LifecycleConfig:

@@ -30,12 +30,15 @@ from ml_product.lifecycle import (
     LifecycleConfig,
     build_lifecycle_provider,
     build_model_package,
+    run_lifecycle_workflow,
+    validate_workflow_evidence,
     write_model_package,
 )
 from ml_product.lifecycle.identity import registration_fingerprint
 from ml_product.lifecycle.linkage import LinkageStore
 from ml_product.lifecycle.metadata import comparable_metadata, reconcile_metadata
 from ml_product.lifecycle.models import PromotionRequest
+from ml_product.lifecycle.orchestration import WorkflowMode
 from ml_product.modelling.config import ModelTrainingConfig, ThresholdConfig
 from ml_product.modelling.training import train_models
 from ml_product.modelling.validation import validate_model_outputs
@@ -1360,6 +1363,125 @@ def lifecycle_reconcile_promotion_command(
         typer.echo(f"Lifecycle promotion reconciliation failed: {exc}", err=True)
         raise typer.Exit(1) from exc
     typer.echo(result.model_dump_json(indent=2))
+
+
+@app.command("lifecycle-run-end-to-end")
+def lifecycle_run_end_to_end_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+    mode: Annotated[WorkflowMode, typer.Option("--mode")] = "local_safe",
+    json_output: Annotated[bool, typer.Option("--json")] = False,
+    dry_run: Annotated[bool, typer.Option("--dry-run")] = False,
+    allow_external_registration: Annotated[
+        bool,
+        typer.Option("--allow-external-registration"),
+    ] = False,
+    allow_external_promotion: Annotated[
+        bool,
+        typer.Option("--allow-external-promotion"),
+    ] = False,
+    allow_local_activation: Annotated[bool, typer.Option("--allow-local-activation")] = False,
+    stage: Annotated[list[str] | None, typer.Option("--stage")] = None,
+) -> None:
+    """Run canonical lifecycle orchestration without implicit mutations."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        provider = build_lifecycle_provider(config)
+        run = run_lifecycle_workflow(
+            config,
+            provider,
+            mode=mode,
+            allow_external_registration=False if dry_run else allow_external_registration,
+            allow_external_promotion=False if dry_run else allow_external_promotion,
+            allow_local_activation=False if dry_run else allow_local_activation,
+            selected_stages=set(stage) if stage else None,
+        )
+    except Exception as exc:
+        typer.echo(f"Lifecycle workflow failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    if json_output:
+        typer.echo(run.model_dump_json(indent=2))
+        return
+    assert run.summary is not None
+    typer.echo(
+        f"Workflow {run.workflow_id} {run.summary.status}: "
+        f"passed={run.summary.passed_stages} blocked={run.summary.blocked_stages} "
+        f"failed={run.summary.failed_stages} skipped={run.summary.skipped_stages}"
+    )
+
+
+@app.command("lifecycle-show-workflow")
+def lifecycle_show_workflow_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+    json_output: Annotated[bool, typer.Option("--json")] = False,
+) -> None:
+    """Show the latest persisted lifecycle workflow state."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        payload = json.loads(
+            (repository_root() / config.workflow.state_path).read_text(encoding="utf-8")
+        )
+    except Exception as exc:
+        typer.echo(f"Lifecycle workflow lookup failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    if json_output:
+        typer.echo(json.dumps(payload, indent=2, sort_keys=True))
+        return
+    summary = payload.get("summary", {})
+    typer.echo(
+        f"Workflow {payload.get('workflow_id')} {summary.get('status')} "
+        f"evidence={payload.get('evidence_bundle_path')}"
+    )
+
+
+@app.command("lifecycle-resume-workflow")
+def lifecycle_resume_workflow_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+    mode: Annotated[WorkflowMode, typer.Option("--mode")] = "local_safe",
+    restart_stage: Annotated[str | None, typer.Option("--restart-stage")] = None,
+    json_output: Annotated[bool, typer.Option("--json")] = False,
+) -> None:
+    """Resume a lifecycle workflow when fingerprints still match."""
+
+    try:
+        config = LifecycleConfig.from_file(config_path)
+        provider = build_lifecycle_provider(config)
+        run = run_lifecycle_workflow(
+            config,
+            provider,
+            mode=mode,
+            resume=True,
+            restart_stage=restart_stage,
+        )
+    except Exception as exc:
+        typer.echo(f"Lifecycle workflow resume failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    if json_output:
+        typer.echo(run.model_dump_json(indent=2))
+        return
+    assert run.summary is not None
+    typer.echo(f"Workflow {run.workflow_id} resumed with status={run.summary.status}")
+
+
+@app.command("lifecycle-validate-workflow-evidence")
+def lifecycle_validate_workflow_evidence_command(
+    config_path: Annotated[Path, typer.Option("--config")] = Path("config/model_lifecycle.yaml"),
+    json_output: Annotated[bool, typer.Option("--json")] = False,
+) -> None:
+    """Validate the latest lifecycle workflow evidence bundle checksum."""
+
+    try:
+        result = validate_workflow_evidence(LifecycleConfig.from_file(config_path))
+    except Exception as exc:
+        typer.echo(f"Lifecycle workflow evidence validation failed: {exc}", err=True)
+        raise typer.Exit(1) from exc
+    if json_output:
+        typer.echo(json.dumps(result, indent=2, sort_keys=True))
+    else:
+        typer.echo("Workflow evidence valid." if result["valid"] else "Workflow evidence invalid.")
+    if not result["valid"]:
+        raise typer.Exit(1)
 
 
 @app.command("validate-serving")

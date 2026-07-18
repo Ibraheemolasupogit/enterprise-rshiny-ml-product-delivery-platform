@@ -65,6 +65,8 @@ PostgreSQL
 
 The default lifecycle provider is `local_model_lifecycle`, which delegates to the existing local registry and governance workflow. The `real_sas_viya` provider is optional and remains disabled unless explicitly configured with local environment secrets.
 
+Milestone 15.4 adds a canonical lifecycle orchestration runner above this boundary. It coordinates existing data, feature, evaluation, registration, promotion-assessment, approval, serving, monitoring and release-readiness evidence into a resumable workflow record. The runner does not replace governance controls: SAS Viya promotion remains external-only and local activation remains a separate explicit registry action.
+
 ## Target Environments
 
 Development is local only in Milestone 1. Staging and production are documented target states that require later infrastructure, approval, and evidence.

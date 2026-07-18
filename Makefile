@@ -1,4 +1,4 @@
-.PHONY: help install-python install-r restore-r lint-python lint-r format-python typecheck-python test-python test-r test-shiny test-shiny-browser run-shiny smoke-test-rshiny-api smoke-test-advanced-rshiny-api validate-rshiny validate-rshiny-advanced test-rshiny test-rshiny-advanced validate-structure validate-config docs-check generate-sample-data validate-sample-data describe-sample-data test-synthetic-data verify-synthetic-data build-database validate-database describe-database list-logical-views postgres-start postgres-ready postgres-migrate postgres-load-synthetic-data postgres-validate postgres-stop denodo-ready denodo-list-views denodo-validate-row-counts denodo-compare-postgresql denodo-sample test-denodo test-database verify-database-build build-features validate-features describe-features list-features show-split-summary check-feature-leakage verify-feature-build test-features train-models validate-models compare-models show-threshold-analysis show-calibration-report show-fairness-report show-candidate-recommendation verify-model-build test-models register-model validate-registry list-models show-governance-review submit-model-for-approval record-approval-decision activate-model validate-serving serve-model-api build-review-artifacts test-registry test-serving build-monitoring-baseline generate-monitoring-fixtures run-monitoring validate-monitoring describe-monitoring list-monitoring-alerts show-monitoring-review verify-monitoring test-monitoring lint-workflows lint-shell lint-docker security-secrets security-python security-dependencies security-container generate-sbom validate-containers build-containers smoke-test-local-deployment validate-release assess-release-readiness show-release-gates release-assurance portfolio-evidence quality quality-full clean
+.PHONY: help install-python install-r restore-r lint-python lint-r format-python typecheck-python test-python test-r test-shiny test-shiny-browser run-shiny smoke-test-rshiny-api smoke-test-advanced-rshiny-api validate-rshiny validate-rshiny-advanced test-rshiny test-rshiny-advanced validate-structure validate-config docs-check generate-sample-data validate-sample-data describe-sample-data test-synthetic-data verify-synthetic-data build-database validate-database describe-database list-logical-views postgres-start postgres-ready postgres-migrate postgres-load-synthetic-data postgres-validate postgres-stop denodo-ready denodo-list-views denodo-validate-row-counts denodo-compare-postgresql denodo-sample test-denodo test-database verify-database-build build-features validate-features describe-features list-features show-split-summary check-feature-leakage verify-feature-build test-features train-models validate-models compare-models show-threshold-analysis show-calibration-report show-fairness-report show-candidate-recommendation verify-model-build test-models register-model validate-registry list-models show-governance-review submit-model-for-approval record-approval-decision activate-model validate-serving serve-model-api build-review-artifacts lifecycle-e2e-local lifecycle-e2e-dry-run lifecycle-e2e-show lifecycle-e2e-validate test-registry test-serving build-monitoring-baseline generate-monitoring-fixtures run-monitoring validate-monitoring describe-monitoring list-monitoring-alerts show-monitoring-review verify-monitoring test-monitoring lint-workflows lint-shell lint-docker security-secrets security-python security-dependencies security-container generate-sbom validate-containers build-containers smoke-test-local-deployment validate-release assess-release-readiness show-release-gates release-assurance portfolio-evidence quality quality-full clean
 
 PYTHON ?= python3
 R_SETUP ?= minor <- strsplit(R.version[["minor"]], "[.]")[[1]][1]; lib <- file.path("renv", "library", "local", paste0("R-", R.version[["major"]], ".", minor)); dir.create(lib, recursive = TRUE, showWarnings = FALSE); .libPaths(c(normalizePath(lib), .libPaths()))
@@ -56,6 +56,10 @@ help:
 	@echo "  register-model      Register the Milestone 6 candidate locally"
 	@echo "  validate-registry   Validate local registry evidence"
 	@echo "  validate-serving    Validate local serving readiness"
+	@echo "  lifecycle-e2e-local Run offline-safe lifecycle orchestration"
+	@echo "  lifecycle-e2e-dry-run Run enterprise dry-run lifecycle orchestration"
+	@echo "  lifecycle-e2e-show  Show latest lifecycle orchestration state"
+	@echo "  lifecycle-e2e-validate Validate lifecycle orchestration evidence"
 	@echo "  build-monitoring-baseline Build Milestone 11 monitoring baseline"
 	@echo "  run-monitoring      Run representative synthetic monitoring window"
 	@echo "  validate-monitoring Validate committed monitoring evidence"
@@ -278,6 +282,18 @@ serve-model-api:
 build-review-artifacts: validate-sample-data build-database build-features train-models register-model validate-registry validate-serving build-monitoring-baseline
 	@test -f models/registered/v000001/xgboost.json || { echo "Missing registered XGBoost artefact: models/registered/v000001/xgboost.json"; exit 1; }
 	@test -f monitoring/reports/monitoring_baseline.json || { echo "Missing monitoring baseline: monitoring/reports/monitoring_baseline.json"; exit 1; }
+
+lifecycle-e2e-local:
+	$(PYTHON) -m ml_product.cli lifecycle-run-end-to-end --mode local_safe
+
+lifecycle-e2e-dry-run:
+	$(PYTHON) -m ml_product.cli lifecycle-run-end-to-end --mode enterprise_dry_run --dry-run
+
+lifecycle-e2e-show:
+	$(PYTHON) -m ml_product.cli lifecycle-show-workflow
+
+lifecycle-e2e-validate:
+	$(PYTHON) -m ml_product.cli lifecycle-validate-workflow-evidence
 
 build-monitoring-baseline:
 	$(PYTHON) -m ml_product.cli build-monitoring-baseline --config config/monitoring.yaml --threshold-config config/drift_thresholds.yaml --replace

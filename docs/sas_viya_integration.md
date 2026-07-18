@@ -144,6 +144,38 @@ SAS Viya promotion updates only external lifecycle/champion state. Local model a
 
 Rollback boundaries remain unchanged: local rollback uses the existing registry rollback workflow, while any future SAS Viya rollback or champion reassignment must be explicit and separately evidenced.
 
+## End-to-End Orchestration
+
+Milestone 15.4 adds a canonical lifecycle workflow runner for interview and review demonstrations. The runner sequences existing repository capabilities rather than replacing them:
+
+1. data readiness
+2. logical-view readiness
+3. feature build boundary
+4. feature validation
+5. model training and evaluation evidence
+6. lifecycle package construction
+7. registration or registration dry run
+8. registration and promotion reconciliation
+9. promotion assessment
+10. approval gate
+11. external promotion gate
+12. local activation gate
+13. serving validation
+14. monitoring baseline check
+15. release readiness
+
+The workflow has three modes:
+
+- `local_safe`: default offline run using the local lifecycle provider.
+- `enterprise_dry_run`: exercises enterprise sequencing without live external mutations.
+- `enterprise_live`: reserved for explicitly confirmed live provider operations.
+
+Offline and dry-run modes force external registration, external promotion and local activation mutation flags to `false`. Even in live mode, local activation remains separate from external promotion and must use the existing governed registry activation command.
+
+Workflow state is written to `reports/model_evaluation/lifecycle_workflow_state.json`. Consolidated evidence is written under `reports/model_evaluation/lifecycle_workflows/` with a deterministic checksum. Evidence contains provider ids, stage outcomes, gate reasons, promotion and activation boundaries, resumability metadata and known limitations, but no credentials.
+
+Resume is fingerprint guarded. A workflow can resume only when the lifecycle configuration and model package identity still match the previous state. Material configuration or package changes require a fresh run or an explicit restart stage.
+
 ## Commands
 
 Use the default local provider:
@@ -161,6 +193,11 @@ python3 -m ml_product.cli lifecycle-compare-champion
 python3 -m ml_product.cli lifecycle-assess-promotion --dry-run
 python3 -m ml_product.cli lifecycle-show-promotion
 python3 -m ml_product.cli lifecycle-reconcile-promotion
+python3 -m ml_product.cli lifecycle-run-end-to-end --mode local_safe
+python3 -m ml_product.cli lifecycle-run-end-to-end --mode enterprise_dry_run --dry-run
+python3 -m ml_product.cli lifecycle-show-workflow
+python3 -m ml_product.cli lifecycle-resume-workflow
+python3 -m ml_product.cli lifecycle-validate-workflow-evidence
 ```
 
 Write the package to a temporary path during experiments:
@@ -179,4 +216,4 @@ For live SAS Viya registration, create a separate local config that sets `provid
 
 ## Future Work
 
-Milestone 15.3 adds champion-challenger comparison, approval-aware promotion assessment and external-only promotion controls. Future work should add production access-control validation, richer SAS Viya workflow state mapping, human workflow callbacks and release-operation integration against an available Viya environment.
+Future work should add production access-control validation, richer SAS Viya workflow state mapping, human workflow callbacks, richer release-operation integration against an available Viya environment and optional UI presentation of the consolidated lifecycle evidence.
