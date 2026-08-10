@@ -18,7 +18,7 @@ from ml_product.registry.registry import LocalModelRegistry
 from ml_product.registry.storage import save_registry
 
 
-def test_registered_candidate_rematerialises_existing_version(
+def test_registered_candidate_rematerialises_existing_version_with_evaluation_drift(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     registry = _registry(tmp_path)
@@ -39,7 +39,10 @@ def test_registered_candidate_rematerialises_existing_version(
     calibrator_checksum = sha256_file(candidate_dir / "calibrator.joblib")
 
     def rebuild(**kwargs: object) -> ModelVersion:
-        return _version(model_sha256=model_checksum, calibrator_sha256=calibrator_checksum)
+        rebuilt = _version(model_sha256=model_checksum, calibrator_sha256=calibrator_checksum)
+        rebuilt.evaluation_summary.validation_pr_auc = 0.88
+        rebuilt.evaluation_summary.test_brier_score = 0.14
+        return rebuilt
 
     monkeypatch.setattr("ml_product.registry.registry.build_model_version", rebuild)
 

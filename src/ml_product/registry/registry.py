@@ -516,7 +516,6 @@ class LocalModelRegistry:
             "threshold",
             "feature_contract",
             "preprocessor_contract",
-            "evaluation_summary",
             "governance",
             "training_configuration_fingerprint",
             "synthetic_data_declaration",
