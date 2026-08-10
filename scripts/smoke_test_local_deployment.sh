@@ -27,6 +27,14 @@ wait_for_http() {
   return 1
 }
 
+wait_for_api() {
+  wait_for_http "${API_URL}/health/live"
+}
+
+wait_for_shiny() {
+  wait_for_http "${SHINY_URL}"
+}
+
 post_prediction() {
   curl --silent --show-error \
     --header "X-API-Key: ${MODEL_API_KEY}" \
@@ -50,8 +58,8 @@ docker compose -p "${PROJECT_NAME}" build api rshiny
 
 cleanup
 MODEL_API_KEY="${MODEL_API_KEY}" docker compose -p "${PROJECT_NAME}" up --detach api rshiny
-wait_for_http "${API_URL}/health/live"
-wait_for_http "${SHINY_URL}"
+wait_for_api
+wait_for_shiny
 
 python3 - <<'PY'
 import json
@@ -72,8 +80,8 @@ curl --silent "${SHINY_URL}" | grep -E "Enterprise R-Shiny ML Product|SCORING UN
 
 cleanup
 MODEL_API_KEY="${MODEL_API_KEY}" docker compose -p "${PROJECT_NAME}" -f docker-compose.yml -f docker-compose.review.yml up --detach api rshiny
-wait_for_http "${API_URL}/health/live"
-wait_for_http "${SHINY_URL}"
+wait_for_api
+wait_for_shiny
 
 python3 - <<'PY'
 import json
