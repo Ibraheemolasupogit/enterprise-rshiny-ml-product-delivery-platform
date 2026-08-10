@@ -168,9 +168,7 @@ class LocalLifecycleProvider:
             blocking_reasons=decision.blocking_reasons,
             local_activation_performed=False,
             reconciliation=reconcile_external_lifecycle(
-                local_active_version=None
-                if champion is None
-                else champion.local_model_version,
+                local_active_version=None if champion is None else champion.local_model_version,
                 external_champion=champion,
             ),
         )

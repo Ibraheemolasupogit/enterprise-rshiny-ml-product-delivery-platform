@@ -7,8 +7,8 @@ condition = "AND"
 regexTarget = "line"
 targetRules = ["generic-api-key"]
 paths = [
-  '''^reports/assurance/container_validation\.json$''',
-  '''^reports/assurance/release_readiness\.json$''',
+  '''(^|.*/)reports/assurance/container_validation\.json$''',
+  '''(^|.*/)reports/assurance/release_readiness\.json$''',
 ]
 regexes = [
   '''^\s*"api_dockerfile_sha256":\s*"[a-f0-9]{64}",?\s*$''',

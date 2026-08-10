@@ -94,18 +94,14 @@ def build_champion_challenger_comparison(
         source_fingerprint=_string_or_none(package.source.get("source_fingerprint")),
         key_evaluation_metrics=package.evaluation_metrics.get("registry_summary", {}),
         threshold_summary={
-            "selected_threshold": package.threshold_calibration_metadata.get(
-                "selected_threshold"
-            ),
+            "selected_threshold": package.threshold_calibration_metadata.get("selected_threshold"),
             "selection_rule": package.threshold_calibration_metadata.get("selection_rule"),
         },
         calibration_summary={
             "selected_calibration": package.threshold_calibration_metadata.get(
                 "selected_calibration"
             ),
-            "reason": package.threshold_calibration_metadata.get(
-                "calibration_selection_reason"
-            ),
+            "reason": package.threshold_calibration_metadata.get("calibration_selection_reason"),
         },
         fairness_summary=package.fairness_summary,
         governance_status=package.governance_status,

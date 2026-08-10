@@ -20,7 +20,7 @@ class FakeTransport:
         *,
         error: Exception | None = None,
     ) -> None:
-        self.response = response or HttpResponse(200, "{\"status\":\"UP\"}", {})
+        self.response = response or HttpResponse(200, '{"status":"UP"}', {})
         self.error = error
         self.calls: list[dict[str, Any]] = []
 
@@ -92,7 +92,7 @@ def test_readiness_success_uses_injected_transport(monkeypatch: pytest.MonkeyPat
 
 def test_api_failure_maps_to_clear_error(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("SAS_VIYA_ACCESS_TOKEN", "local-token")
-    transport = FakeTransport(HttpResponse(503, "{\"status\":\"DOWN\"}", {}))
+    transport = FakeTransport(HttpResponse(503, '{"status":"DOWN"}', {}))
     client = SasViyaClient(_sas_config(), transport=transport)
 
     with pytest.raises(SasViyaApiError, match="HTTP status 503"):

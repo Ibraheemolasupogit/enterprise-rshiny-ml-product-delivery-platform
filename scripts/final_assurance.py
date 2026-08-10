@@ -275,9 +275,7 @@ def _lifecycle_payload_summary(payload: dict[str, Any]) -> dict[str, Any]:
 
 def _build_report(results: list[dict[str, Any]], *, include_live: bool) -> dict[str, Any]:
     required_failed = [
-        result["name"]
-        for result in results
-        if result["required"] and result["status"] != "passed"
+        result["name"] for result in results if result["required"] and result["status"] != "passed"
     ]
     lifecycle_result = _lifecycle_result(results)
     if lifecycle_result.get("summary_status") == "failed":

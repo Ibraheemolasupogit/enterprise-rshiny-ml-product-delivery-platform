@@ -361,9 +361,7 @@ class SasViyaClient:
 
     def _format_endpoint(self, template: str, **values: str) -> str:
         expected = {
-            item[1]
-            for item in Formatter().parse(template)
-            if item[1] is not None and item[1] != ""
+            item[1] for item in Formatter().parse(template) if item[1] is not None and item[1] != ""
         }
         missing = sorted(expected - set(values))
         if missing:

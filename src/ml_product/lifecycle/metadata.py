@@ -35,12 +35,8 @@ def build_sas_viya_metadata(package: ModelLifecyclePackage) -> dict[str, Any]:
         "dataset_version": package.source.get("dataset_version"),
         "source_fingerprint": package.source.get("source_fingerprint"),
         "feature_count": package.feature_metadata.get("feature_count"),
-        "selected_threshold": package.threshold_calibration_metadata.get(
-            "selected_threshold"
-        ),
-        "selected_calibration": package.threshold_calibration_metadata.get(
-            "selected_calibration"
-        ),
+        "selected_threshold": package.threshold_calibration_metadata.get("selected_threshold"),
+        "selected_calibration": package.threshold_calibration_metadata.get("selected_calibration"),
         "registry_status": package.governance_status.get("registry_status"),
         "synthetic_data_declaration": package.synthetic_data_declaration,
         "local_registry_id": package.registry_id,

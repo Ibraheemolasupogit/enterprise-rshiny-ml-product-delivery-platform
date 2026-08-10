@@ -36,8 +36,7 @@ class DenodoClient:
         self.max_limit = max_limit
         self.allowed_views = set(CURATED_VIEWS)
         self.view_mapping = {
-            view_name: view_name.removeprefix("curated.")
-            for view_name in CURATED_VIEWS
+            view_name: view_name.removeprefix("curated.") for view_name in CURATED_VIEWS
         }
 
     @classmethod

@@ -9,6 +9,7 @@ from ml_product.registry.activation import build_activation_event
 from ml_product.registry.approval import build_approval_decision
 from ml_product.registry.audit import audit_event
 from ml_product.registry.config import GovernanceConfig, RegistryConfig
+from ml_product.registry.metadata import sha256_file
 from ml_product.registry.models import (
     ApprovalDecisionValue,
     ModelVersion,
@@ -115,6 +116,71 @@ class LocalModelRegistry:
             )
         )
         self.save(record)
+        self.write_evidence(record, version)
+        return version
+
+    def rematerialise_registered_candidate(
+        self,
+        *,
+        candidate_identifier: str,
+        model_config_path: Path,
+        candidate_dir: Path,
+    ) -> ModelVersion:
+        record = self.load()
+        version = self._version_for_candidate(record, candidate_identifier)
+        source_model = candidate_dir / "xgboost.json"
+        source_calibrator = candidate_dir / "calibrator.joblib"
+        model_checksum = self._copy_or_validate_artefact(
+            source_model,
+            self.root / version.artefacts.model_path,
+        )
+        calibrator_checksum = self._copy_or_validate_artefact(
+            source_calibrator,
+            self.root / version.artefacts.calibrator_path,
+        )
+        rebuilt = build_model_version(
+            root=self.root,
+            config=self.config,
+            governance_config=self.governance_config,
+            candidate_identifier=candidate_identifier,
+            registry_version=version.registry_version,
+            model_config_path=model_config_path,
+            candidate_dir=candidate_dir,
+            registered_model_path=version.artefacts.model_path,
+            registered_calibrator_path=version.artefacts.calibrator_path,
+            model_checksum=model_checksum,
+            calibrator_checksum=calibrator_checksum,
+        )
+        self._validate_rematerialisation_contract(version, rebuilt)
+        changed_checksums = (
+            version.artefacts.model_sha256 != model_checksum
+            or version.artefacts.calibrator_sha256 != calibrator_checksum
+        )
+        if changed_checksums:
+            previous_model_checksum = version.artefacts.model_sha256
+            previous_calibrator_checksum = version.artefacts.calibrator_sha256
+            previous_evidence_fingerprint = version.evidence_fingerprint
+            version.artefacts.model_sha256 = model_checksum
+            version.artefacts.calibrator_sha256 = calibrator_checksum
+            version.evidence_fingerprint = rebuilt.evidence_fingerprint
+            record.audit_events.append(
+                audit_event(
+                    event_type="registered_artefacts_rematerialized",
+                    model_name=version.model_name,
+                    registry_version=version.registry_version,
+                    actor="LOCAL-REGISTRY",
+                    details={
+                        "candidate_identifier": candidate_identifier,
+                        "previous_model_sha256": previous_model_checksum,
+                        "previous_calibrator_sha256": previous_calibrator_checksum,
+                        "previous_evidence_fingerprint": previous_evidence_fingerprint,
+                        "model_sha256": model_checksum,
+                        "calibrator_sha256": calibrator_checksum,
+                        "evidence_fingerprint": rebuilt.evidence_fingerprint,
+                    },
+                )
+            )
+            self.save(record)
         self.write_evidence(record, version)
         return version
 
@@ -410,6 +476,56 @@ class LocalModelRegistry:
     def _next_version(self, record: RegistryRecord) -> int:
         versions = [item.registry_version for entry in record.models for item in entry.versions]
         return max(versions, default=0) + 1
+
+    def _version_for_candidate(
+        self, record: RegistryRecord, candidate_identifier: str
+    ) -> ModelVersion:
+        for entry in record.models:
+            for item in entry.versions:
+                if item.candidate_identifier == candidate_identifier:
+                    return item
+        raise ValueError(f"Unknown registered candidate: {candidate_identifier}")
+
+    def _copy_or_validate_artefact(self, source: Path, target: Path) -> str:
+        if not source.is_file():
+            raise FileNotFoundError(source)
+        source_checksum = sha256_file(source)
+        if target.is_file():
+            target_checksum = sha256_file(target)
+            if target_checksum != source_checksum:
+                raise ValueError(f"Registered artefact checksum mismatch: {target}")
+            return target_checksum
+        copied_checksum = copy_immutable(source, target)
+        if copied_checksum != source_checksum:
+            target.unlink(missing_ok=True)
+            raise ValueError(f"Registered artefact copy checksum mismatch: {target}")
+        return copied_checksum
+
+    def _validate_rematerialisation_contract(
+        self, current: ModelVersion, rebuilt: ModelVersion
+    ) -> None:
+        current_payload = current.model_dump(mode="json")
+        rebuilt_payload = rebuilt.model_dump(mode="json")
+        for key in (
+            "model_name",
+            "registry_id",
+            "registry_version",
+            "model_family",
+            "candidate_identifier",
+            "calibration",
+            "threshold",
+            "feature_contract",
+            "preprocessor_contract",
+            "evaluation_summary",
+            "governance",
+            "training_configuration_fingerprint",
+            "synthetic_data_declaration",
+        ):
+            if current_payload[key] != rebuilt_payload[key]:
+                raise ValueError(
+                    "Registered candidate semantic contract mismatch during "
+                    f"rematerialisation: {key}"
+                )
 
     def _versions(self, record: RegistryRecord, model_name: str) -> list[ModelVersion]:
         for entry in record.models:

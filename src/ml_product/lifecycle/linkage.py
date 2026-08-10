@@ -18,9 +18,7 @@ class LinkageStore:
     def load(self) -> LinkageStorePayload:
         if not self.path.is_file():
             return LinkageStorePayload()
-        return LinkageStorePayload.model_validate(
-            json.loads(self.path.read_text(encoding="utf-8"))
-        )
+        return LinkageStorePayload.model_validate(json.loads(self.path.read_text(encoding="utf-8")))
 
     def find(self, provider: str, registration_fingerprint: str) -> LinkageRecord | None:
         for record in self.load().records:
