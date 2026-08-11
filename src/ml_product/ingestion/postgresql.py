@@ -16,6 +16,7 @@ from psycopg.rows import dict_row
 from ml_product.ingestion.config import DatabaseConfig
 from ml_product.ingestion.lineage import LINEAGE
 from ml_product.ingestion.manifest import build_identifier, load_json_any, validate_source_manifest
+from ml_product.ingestion.sql_safety import quote_identifier, quote_qualified_identifier
 from ml_product.synthetic_data.validation import DATASET_COLUMNS
 from ml_product.utils.paths import repository_root
 from ml_product.validation.reconciliation import QUALITY_TREATMENTS
@@ -156,10 +157,11 @@ def _insert_rows(
     connection: Connection[Any], table_name: str, columns: list[str], rows: list[tuple[Any, ...]]
 ) -> None:
     placeholders = ", ".join(["%s"] * len(columns))
-    column_sql = ", ".join(columns)
+    quoted_table_name = quote_qualified_identifier(table_name)
+    column_sql = ", ".join(quote_identifier(column) for column in columns)
     with connection.cursor() as cursor:
         cursor.executemany(
-            f"insert into {table_name} ({column_sql}) values ({placeholders})",
+            f"insert into {quoted_table_name} ({column_sql}) values ({placeholders})",  # nosec B608
             rows,
         )
 
@@ -457,10 +459,14 @@ def _truncate_loaded_tables(connection: Connection[Any]) -> None:
             "metadata.database_builds",
             "metadata.generation_manifest",
         ):
-            cursor.execute(f"truncate table {table}")
+            cursor.execute(f"truncate table {quote_qualified_identifier(table)}")  # nosec B608
         for dataset in DATASET_COLUMNS:
-            cursor.execute(f"truncate table raw.{dataset}")
-            cursor.execute(f"truncate table staged.{dataset}")
+            cursor.execute(  # nosec B608
+                f"truncate table {quote_qualified_identifier(f'raw.{dataset}')}"
+            )
+            cursor.execute(  # nosec B608
+                f"truncate table {quote_qualified_identifier(f'staged.{dataset}')}"
+            )
 
 
 def count_postgresql_objects(config: DatabaseConfig) -> dict[str, int]:
@@ -469,7 +475,9 @@ def count_postgresql_objects(config: DatabaseConfig) -> dict[str, int]:
     with settings.connect() as connection:
         with connection.cursor() as cursor:
             for object_name in COUNT_OBJECTS:
-                cursor.execute(f"select count(*) as count from {object_name}")
+                cursor.execute(
+                    f"select count(*) as count from {quote_qualified_identifier(object_name)}"  # nosec B608
+                )
                 counts[object_name] = int(_required_row(cursor.fetchone())["count"])
     return counts
 
@@ -526,7 +534,9 @@ def validate_postgresql_database(config: DatabaseConfig) -> dict[str, Any]:
                 if observed_columns != expected_columns:
                     errors.append(f"raw.{dataset} columns differ from source contract")
             for object_name in COUNT_OBJECTS:
-                cursor.execute(f"select count(*) as count from {object_name}")
+                cursor.execute(
+                    f"select count(*) as count from {quote_qualified_identifier(object_name)}"  # nosec B608
+                )
                 counts[object_name] = int(_required_row(cursor.fetchone())["count"])
             cursor.execute(
                 """

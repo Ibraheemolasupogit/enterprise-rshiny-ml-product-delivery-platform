@@ -4,9 +4,10 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import Literal
+from urllib.parse import urlparse
 
 import yaml
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 ProviderName = Literal["local", "sas_viya"]
 AuthenticationMode = Literal["none", "bearer_token", "client_credentials"]
@@ -73,6 +74,18 @@ class SasViyaConfig(BaseModel):
         if not value.startswith(("https://", "http://")):
             raise ValueError("SAS Viya base_url must include http:// or https://")
         return value.rstrip("/")
+
+    @model_validator(mode="after")
+    def validate_transport_security(self) -> SasViyaConfig:
+        parsed = urlparse(self.base_url)
+        local_development_host = parsed.hostname in {"localhost", "127.0.0.1", "::1"}
+        if parsed.scheme == "http" and not local_development_host:
+            raise ValueError("SAS Viya http:// base_url is allowed only for local development.")
+        if not self.verify_tls and not local_development_host:
+            raise ValueError(
+                "SAS Viya verify_tls=false is allowed only for local development hosts."
+            )
+        return self
 
     @field_validator("readiness_path")
     @classmethod

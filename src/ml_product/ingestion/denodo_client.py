@@ -7,6 +7,7 @@ from typing import Any
 
 from ml_product.ingestion.config import DatabaseConfig
 from ml_product.ingestion.lineage import LINEAGE, lineage_for_view
+from ml_product.ingestion.sql_safety import quote_identifier, quote_qualified_identifier
 from ml_product.validation.data_contracts import CURATED_VIEWS
 
 
@@ -71,9 +72,10 @@ class DenodoClient:
 
     def describe_view(self, view_name: str) -> dict[str, Any]:
         mapped = self._validate_view(view_name)
+        quoted_view = quote_qualified_identifier(mapped)
         with self._connection() as connection:
             cursor = connection.cursor()
-            cursor.execute(f"select * from {mapped} where 1 = 0")
+            cursor.execute(f"select * from {quoted_view} where 1 = 0")  # nosec B608
             columns = [column[0] for column in cursor.description]
         return {"view_name": view_name, "columns": columns, "lineage": LINEAGE[view_name]}
 
@@ -91,15 +93,19 @@ class DenodoClient:
         selected_columns = columns or list(description["columns"])
         if any(column not in allowed_columns for column in selected_columns):
             raise ValueError("Unsupported column requested")
+        quoted_view = quote_qualified_identifier(mapped)
+        column_sql = ", ".join(quote_identifier(column) for column in selected_columns)
         where = ""
         parameters: list[Any] = []
         if filters:
             for column in filters:
                 if column not in allowed_columns:
                     raise ValueError(f"Unsupported filter column: {column}")
-            where = " where " + " and ".join(f"{column} = ?" for column in filters)
+            where = " where " + " and ".join(
+                f"{quote_identifier(column)} = ?" for column in filters
+            )
             parameters = list(filters.values())
-        sql = f"select {', '.join(selected_columns)} from {mapped}{where} limit ?"
+        sql = f"select {column_sql} from {quoted_view}{where} limit ?"  # nosec B608
         with self._connection() as connection:
             cursor = connection.cursor()
             cursor.execute(sql, [*parameters, selected_limit])

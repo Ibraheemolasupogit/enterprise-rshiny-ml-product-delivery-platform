@@ -7,6 +7,7 @@ from typing import Any
 from ml_product.ingestion.config import DatabaseConfig
 from ml_product.ingestion.lineage import LINEAGE, lineage_for_view
 from ml_product.ingestion.postgresql import PostgresSettings, _required_row
+from ml_product.ingestion.sql_safety import quote_identifier, quote_qualified_identifier
 from ml_product.validation.data_contracts import CURATED_VIEWS
 
 
@@ -58,15 +59,19 @@ class PostgreSQLViewClient:
         selected_columns = columns or list(description["columns"])
         if any(column not in allowed_columns for column in selected_columns):
             raise ValueError("Unsupported column requested")
+        quoted_view = quote_qualified_identifier(view_name)
+        column_sql = ", ".join(quote_identifier(column) for column in selected_columns)
         where = ""
         parameters: list[Any] = []
         if filters:
             for column in filters:
                 if column not in allowed_columns:
                     raise ValueError(f"Unsupported filter column: {column}")
-            where = " where " + " and ".join(f"{column} = %s" for column in filters)
+            where = " where " + " and ".join(
+                f"{quote_identifier(column)} = %s" for column in filters
+            )
             parameters = list(filters.values())
-        sql = f"select {', '.join(selected_columns)} from {view_name}{where} limit %s"
+        sql = f"select {column_sql} from {quoted_view}{where} limit %s"  # nosec B608
         with self.settings.connect() as connection:
             with connection.cursor() as cursor:
                 cursor.execute(sql, [*parameters, selected_limit])

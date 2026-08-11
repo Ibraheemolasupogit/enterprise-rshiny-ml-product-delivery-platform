@@ -9,6 +9,7 @@ from ml_product.ingestion.client_factory import (
 from ml_product.ingestion.config import DatabaseConfig
 from ml_product.ingestion.denodo_client import DenodoClient, DenodoConnectionError
 from ml_product.ingestion.local_view_client import LocalDuckDBViewClient
+from ml_product.ingestion.sql_safety import quote_identifier, quote_qualified_identifier
 
 
 def test_denodo_client_reports_missing_odbc_configuration(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -44,3 +45,13 @@ def test_invalid_logical_view_backend_fails(monkeypatch: pytest.MonkeyPatch) -> 
 
     with pytest.raises(ValueError, match="LOGICAL_VIEW_BACKEND"):
         selected_logical_view_backend(config)
+
+
+def test_sql_identifier_quoting_rejects_untrusted_sql_fragments() -> None:
+    assert quote_identifier("admission_id") == '"admission_id"'
+    assert quote_qualified_identifier("curated.model_source_view") == (
+        '"curated"."model_source_view"'
+    )
+
+    with pytest.raises(ValueError, match="Unsupported SQL identifier"):
+        quote_qualified_identifier("curated.model_source_view where 1=1")

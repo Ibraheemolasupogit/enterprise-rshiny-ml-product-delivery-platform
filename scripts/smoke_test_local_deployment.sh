@@ -63,11 +63,23 @@ wait_for_shiny
 
 python3 - <<'PY'
 import json
+import urllib.error
 import urllib.request
 
-ready = json.loads(urllib.request.urlopen("http://127.0.0.1:8000/health/ready").read())
-if ready.get("ready") is not False or ready.get("reason") != "no_active_approved_model":
-    raise SystemExit(f"default readiness should fail closed, got {ready}")
+try:
+    response = urllib.request.urlopen("http://127.0.0.1:8000/health/ready")
+    status = response.status
+    ready = json.loads(response.read())
+except urllib.error.HTTPError as exc:
+    status = exc.code
+    ready = json.loads(exc.read())
+if (
+    status != 200
+    or ready.get("ready") is not False
+    or ready.get("review_mode") is not False
+    or ready.get("reason") != "no_active_approved_model"
+):
+    raise SystemExit(f"default readiness should fail closed with HTTP 200, got {status}: {ready}")
 PY
 
 status_code="$(curl --silent --output /tmp/m13-default-predict.json --write-out "%{http_code}" \
@@ -85,11 +97,23 @@ wait_for_shiny
 
 python3 - <<'PY'
 import json
+import urllib.error
 import urllib.request
 
-ready = json.loads(urllib.request.urlopen("http://127.0.0.1:8000/health/ready").read())
-if ready.get("ready") is not True or ready.get("review_mode") is not True:
-    raise SystemExit(f"review readiness should pass, got {ready}")
+try:
+    response = urllib.request.urlopen("http://127.0.0.1:8000/health/ready")
+    status = response.status
+    ready = json.loads(response.read())
+except urllib.error.HTTPError as exc:
+    status = exc.code
+    ready = json.loads(exc.read())
+if (
+    status != 200
+    or ready.get("ready") is not True
+    or ready.get("review_mode") is not True
+    or ready.get("reason") != "review_mode"
+):
+    raise SystemExit(f"review readiness should pass with HTTP 200, got {status}: {ready}")
 PY
 
 post_prediction | grep -E "unapproved_model|not_for_operational_use" >/dev/null

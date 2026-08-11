@@ -8,6 +8,7 @@ from typing import Any
 import duckdb
 
 from ml_product.ingestion.lineage import LINEAGE, lineage_for_view
+from ml_product.ingestion.sql_safety import quote_identifier, quote_qualified_identifier
 from ml_product.validation.data_contracts import CURATED_VIEWS
 
 
@@ -32,8 +33,9 @@ class LocalDuckDBViewClient:
 
     def describe_view(self, view_name: str) -> dict[str, Any]:
         self._validate_view(view_name)
+        quoted_view = quote_qualified_identifier(view_name)
         with self._connection() as connection:
-            rows = connection.execute(f"describe {view_name}").fetchall()
+            rows = connection.execute(f"describe {quoted_view}").fetchall()  # nosec B608
         return {
             "view_name": view_name,
             "columns": [row[0] for row in rows],
@@ -48,21 +50,25 @@ class LocalDuckDBViewClient:
         limit: int | None = None,
     ) -> list[dict[str, Any]]:
         self._validate_view(view_name)
+        quoted_view = quote_qualified_identifier(view_name)
         selected_limit = min(limit or self.default_limit, self.max_limit)
         description = self.describe_view(view_name)
         allowed_columns = set(description["columns"])
         selected_columns = columns or list(description["columns"])
         if any(column not in allowed_columns for column in selected_columns):
             raise ValueError("Unsupported column requested")
+        column_sql = ", ".join(quote_identifier(column) for column in selected_columns)
         where = ""
         parameters: list[Any] = []
         if filters:
             for column in filters:
                 if column not in allowed_columns:
                     raise ValueError(f"Unsupported filter column: {column}")
-            where = " where " + " and ".join(f"{column} = ?" for column in filters)
+            where = " where " + " and ".join(
+                f"{quote_identifier(column)} = ?" for column in filters
+            )
             parameters = list(filters.values())
-        sql = f"select {', '.join(selected_columns)} from {view_name}{where} limit ?"
+        sql = f"select {column_sql} from {quoted_view}{where} limit ?"  # nosec B608
         with self._connection() as connection:
             cursor = connection.execute(sql, [*parameters, selected_limit])
             names = [item[0] for item in cursor.description]

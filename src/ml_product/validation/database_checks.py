@@ -7,6 +7,7 @@ from typing import Any
 
 import duckdb
 
+from ml_product.ingestion.sql_safety import quote_qualified_identifier
 from ml_product.validation.data_contracts import CURATED_VIEWS
 
 
@@ -35,7 +36,8 @@ def validate_database(database_path: Path) -> dict[str, Any]:
         ]:
             try:
                 counts[object_name] = _fetch_count(
-                    connection, f"select count(*) from {object_name}"
+                    connection,
+                    f"select count(*) from {quote_qualified_identifier(object_name)}",  # nosec B608
                 )
             except Exception as exc:
                 errors.append(f"{object_name} validation failed: {exc}")

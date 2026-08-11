@@ -9,7 +9,9 @@ from ml_product.lifecycle.sas_viya_client import (
     SasViyaApiError,
     SasViyaAuthenticationError,
     SasViyaClient,
+    SasViyaConfigurationError,
     SasViyaConnectivityError,
+    UrllibTransport,
 )
 
 
@@ -105,3 +107,26 @@ def test_transport_timeout_maps_to_connectivity_error(monkeypatch: pytest.Monkey
 
     with pytest.raises(SasViyaConnectivityError, match="not reachable"):
         client.readiness_check()
+
+
+def test_sas_viya_config_rejects_nonlocal_http_base_url() -> None:
+    payload = _sas_config().model_dump()
+    payload["base_url"] = "http://sas-viya.example.local"
+
+    with pytest.raises(ValueError, match="local development"):
+        SasViyaConfig.model_validate(payload)
+
+
+def test_sas_viya_config_rejects_nonlocal_disabled_tls_verification() -> None:
+    payload = _sas_config().model_dump()
+    payload["verify_tls"] = False
+
+    with pytest.raises(ValueError, match="verify_tls=false"):
+        SasViyaConfig.model_validate(payload)
+
+
+def test_sas_viya_transport_rejects_non_http_url_scheme() -> None:
+    transport = UrllibTransport()
+
+    with pytest.raises(SasViyaConfigurationError, match="scheme"):
+        transport.request("GET", "file:///tmp/token", headers={}, timeout=1, verify=True)

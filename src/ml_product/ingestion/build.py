@@ -16,6 +16,7 @@ import duckdb
 from ml_product.ingestion.config import DatabaseConfig
 from ml_product.ingestion.lineage import LINEAGE
 from ml_product.ingestion.manifest import build_identifier, load_json_any, validate_source_manifest
+from ml_product.ingestion.sql_safety import quote_identifier, quote_qualified_identifier
 from ml_product.synthetic_data.validation import DATASET_COLUMNS
 from ml_product.validation.database_checks import validate_database
 from ml_product.validation.reconciliation import QUALITY_TREATMENTS
@@ -55,7 +56,9 @@ def _source_file(source_dir: Path, dataset: str, preferred_format: str) -> Path:
 
 def _create_schemas(connection: duckdb.DuckDBPyConnection) -> None:
     for schema in ("raw", "staged", "curated", "quality", "metadata"):
-        connection.execute(f"create schema if not exists {schema}")
+        connection.execute(  # nosec B608
+            f"create schema if not exists {quote_identifier(schema)}"
+        )
 
 
 def _load_raw_tables(
@@ -73,22 +76,24 @@ def _load_raw_tables(
         reader = "read_parquet" if source_path.suffix == ".parquet" else "read_csv_auto"
         source_checksum = manifest["files"][dataset].get(source_path.suffix.removeprefix("."), {})
         checksum = source_checksum.get("checksum_sha256", "")
-        select_columns = ", ".join(columns)
-        connection.execute(f"drop table if exists raw.{dataset}")
-        connection.execute(
-            f"""
-            create table raw.{dataset} as
-            select
-              {select_columns},
-              '{source_path.name}' as _source_file,
-              row_number() over () as _source_row_number,
-              '{build_id}' as _ingestion_run_id,
-              '{dataset_version}' as _dataset_version,
-              '{fingerprint}' as _configuration_fingerprint,
-              '{checksum}' as _source_checksum
-            from {reader}('{source_path.as_posix()}')
-            """
+        select_columns = ", ".join(quote_identifier(column) for column in columns)
+        raw_table = quote_qualified_identifier(f"raw.{dataset}")
+        connection.execute(f"drop table if exists {raw_table}")  # nosec B608
+        raw_table_sql = "\n".join(
+            [
+                f"create table {raw_table} as",  # nosec B608
+                "select",
+                f"  {select_columns},",
+                f"  '{source_path.name}' as _source_file,",
+                "  row_number() over () as _source_row_number,",
+                f"  '{build_id}' as _ingestion_run_id,",
+                f"  '{dataset_version}' as _dataset_version,",
+                f"  '{fingerprint}' as _configuration_fingerprint,",
+                f"  '{checksum}' as _source_checksum",
+                f"from {reader}('{source_path.as_posix()}')",  # nosec B608
+            ]
         )
+        connection.execute(raw_table_sql)
 
 
 def _create_quality_tables(
@@ -184,7 +189,9 @@ def _create_quality_tables(
 
 def _create_staged_tables(connection: duckdb.DuckDBPyConnection) -> None:
     for dataset in DATASET_COLUMNS:
-        connection.execute(f"drop table if exists staged.{dataset}")
+        connection.execute(  # nosec B608
+            f"drop table if exists {quote_qualified_identifier(f'staged.{dataset}')}"
+        )
     connection.execute(
         """
         create table staged.patients as
@@ -422,7 +429,7 @@ def _create_curated_views(
         left join curated.admission_diagnosis_summary d on d.admission_id = p.admission_id
         left join curated.admission_operational_context o on o.admission_id = p.admission_id
         left join curated.outcome_context_view oc on oc.admission_id = p.admission_id
-        """.replace("{build_id}", build_id).replace("{dataset_version}", dataset_version)
+        """.replace("{build_id}", build_id).replace("{dataset_version}", dataset_version)  # nosec B608
     )
 
 
@@ -544,7 +551,9 @@ def _counts(connection: duckdb.DuckDBPyConnection) -> dict[str, int]:
     ]
     counts: dict[str, int] = {}
     for object_name in objects:
-        row = connection.execute(f"select count(*) from {object_name}").fetchone()
+        row = connection.execute(
+            f"select count(*) from {quote_qualified_identifier(object_name)}"  # nosec B608
+        ).fetchone()
         if row is None:
             raise ValueError(f"Count query returned no rows: {object_name}")
         counts[object_name] = int(row[0])

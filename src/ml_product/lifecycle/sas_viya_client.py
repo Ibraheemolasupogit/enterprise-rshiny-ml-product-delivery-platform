@@ -11,6 +11,7 @@ import urllib.request
 from dataclasses import dataclass
 from string import Formatter
 from typing import Any, Protocol
+from urllib.parse import urlparse
 
 from ml_product.lifecycle.config import SasViyaConfig
 
@@ -79,12 +80,15 @@ class UrllibTransport:
         if json_body is not None:
             body = json.dumps(json_body, sort_keys=True).encode("utf-8")
             request_headers["Content-Type"] = "application/json"
+        _validate_url_for_transport(url, verify=verify)
         context = ssl.create_default_context()
         if not verify:
-            context = ssl._create_unverified_context()  # noqa: S323
+            context = ssl._create_unverified_context()  # nosec B323
         request = urllib.request.Request(url, data=body, headers=request_headers, method=method)
         try:
-            with urllib.request.urlopen(request, timeout=timeout, context=context) as response:
+            with urllib.request.urlopen(  # nosec B310
+                request, timeout=timeout, context=context
+            ) as response:
                 text = response.read().decode("utf-8")
                 return HttpResponse(
                     status_code=response.status,
@@ -381,3 +385,23 @@ def _first_item(payload: dict[str, Any]) -> dict[str, Any] | None:
             if isinstance(item, dict):
                 return item
     return None
+
+
+def _is_local_development_host(hostname: str | None) -> bool:
+    return hostname in {"localhost", "127.0.0.1", "::1"}
+
+
+def _validate_url_for_transport(url: str, *, verify: bool) -> None:
+    parsed = urlparse(url)
+    if parsed.scheme not in {"https", "http"}:
+        raise SasViyaConfigurationError("SAS Viya URL scheme must be http or https.")
+    if not parsed.hostname:
+        raise SasViyaConfigurationError("SAS Viya URL must include a host.")
+    if parsed.scheme == "http" and not _is_local_development_host(parsed.hostname):
+        raise SasViyaConfigurationError(
+            "SAS Viya HTTP URLs are allowed only for local development hosts."
+        )
+    if not verify and not _is_local_development_host(parsed.hostname):
+        raise SasViyaConfigurationError(
+            "Disabling SAS Viya TLS verification is allowed only for local development hosts."
+        )
