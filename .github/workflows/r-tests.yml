@@ -37,7 +37,7 @@ jobs:
           sudo apt-get install --yes --no-install-recommends chromium || \
             sudo apt-get install --yes --no-install-recommends chromium-browser
       - name: Restore renv
-        uses: r-lib/actions/setup-renv@v2 # v2 release tag; pin to commit SHA after first remote CI baseline.
+        run: Rscript --vanilla scripts/restore_renv.R
       - name: Set up Python for API smoke tests
         uses: actions/setup-python@v5 # v5 release tag; pin to commit SHA after first remote CI baseline.
         with:

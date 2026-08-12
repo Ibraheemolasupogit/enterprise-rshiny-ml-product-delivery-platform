@@ -382,7 +382,7 @@ security-python:
 	@command -v bandit >/dev/null 2>&1 && bandit -r src scripts -ll || echo "bandit not installed locally; CI workflow runs bandit."
 
 security-dependencies:
-	@command -v pip-audit >/dev/null 2>&1 && pip-audit --strict || echo "pip-audit not installed locally; CI workflow runs pip-audit."
+	@command -v pip-audit >/dev/null 2>&1 && python -m pip freeze --exclude-editable > /tmp/ml-product-pip-audit-requirements.txt && pip-audit --strict --requirement /tmp/ml-product-pip-audit-requirements.txt || echo "pip-audit not installed locally; CI workflow runs pip-audit."
 
 security-container:
 	@command -v trivy >/dev/null 2>&1 && trivy fs --severity HIGH,CRITICAL --exit-code 1 . || echo "trivy not installed locally; CI workflow runs Trivy."

@@ -48,6 +48,7 @@ rshiny/tests/shinytest2/_snaps
 *.duckdb
 *.parquet
 *.joblib
+!models/registered/**/*.joblib
 *.pkl
 *.pem
 *.key

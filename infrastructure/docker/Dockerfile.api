@@ -29,9 +29,12 @@ RUN apt-get update \
 COPY pyproject.toml README.md /app/
 COPY src /app/src
 COPY config /app/config
+COPY scripts/verify_registered_artifacts.py /app/scripts/verify_registered_artifacts.py
 COPY models/registry.json /app/models/registry.json
 COPY models/registered /app/models/registered
 COPY reports/model_evaluation /app/reports/model_evaluation
+
+RUN python /app/scripts/verify_registered_artifacts.py --root /app --version 1
 
 RUN python -m pip install --no-cache-dir .
 

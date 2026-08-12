@@ -34,7 +34,9 @@ jobs:
       - name: Python static analysis
         run: bandit -r src scripts -ll
       - name: Python dependency audit
-        run: pip-audit --strict
+        run: |
+          python -m pip freeze --exclude-editable > /tmp/pip-audit-requirements.txt
+          pip-audit --strict --requirement /tmp/pip-audit-requirements.txt
       - name: Trivy filesystem scan
         uses: aquasecurity/trivy-action@v0.36.0 # Fixed release tag; high/critical findings block.
         with:
